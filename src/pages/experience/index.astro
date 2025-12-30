@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import experienceData from '../../data/experience.json';
+---
+
+<Layout title="Experience - Marwan Ayman Shawky">
+  <Header />
+  <main class="pt-24 pb-20 px-6 bg-white dark:bg-gray-950 min-h-screen">
+    <div class="container mx-auto max-w-4xl">
+      <h1 class="text-4xl font-bold mb-6 text-gray-900 dark:text-white">Experience</h1>
+      <p class="text-gray-700 dark:text-gray-300 mb-10 max-w-2xl">
+        My professional journey in DevOps and cloud engineering.
+      </p>
+      <div class="space-y-8">
+        {experienceData.map((exp) => (
+          <section class="bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-800">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-3 flex-wrap mb-2">
+                  <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-50">{exp.title}</h2>
+                  {exp.isPromotion && (
+                    <span class="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full uppercase tracking-wide inline-flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                      </svg>
+                      Promoted
+                    </span>
+                  )}
+                </div>
+                {exp.promotedFrom && (
+                  <p class="text-green-600 dark:text-green-400 text-sm mb-2 font-medium">
+                    Promoted from {exp.promotedFrom}
+                  </p>
+                )}
+                {exp.companyUrl ? (
+                  <a 
+                    href={exp.companyUrl} 
+                    target="_blank" 
+                    class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+                  >
+                    {exp.company}
+                  </a>
+                ) : (
+                  <p class="text-gray-700 dark:text-gray-300 font-medium">{exp.company}</p>
+                )}
+                <p class="text-gray-500 dark:text-gray-400 text-sm">{exp.location}</p>
+              </div>
+              <span class="text-gray-500 dark:text-gray-400 text-sm mt-2 md:mt-0 font-medium bg-white dark:bg-gray-800 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">{exp.period}</span>
+            </div>
+            
+            <p class="text-gray-700 dark:text-gray-300 mb-5">{exp.description}</p>
+            
+            {exp.responsibilities && exp.responsibilities.length > 0 && (
+              <ul class="space-y-2 mb-5">
+                {exp.responsibilities.map((item) => (
+                  <li class="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                    <span class="text-primary-500 mt-0.5">•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+            
+            <div class="flex flex-wrap gap-2">
+              {exp.tags.map((tag) => (
+                <span class="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg text-sm border border-gray-200 dark:border-gray-700">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

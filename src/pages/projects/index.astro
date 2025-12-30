@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import projectsData from '../../data/projects.json';
+---
+
+<Layout title="Projects - Marwan Ayman Shawky">
+  <Header />
+  <main class="pt-24 pb-20 px-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div class="container mx-auto max-w-6xl">
+      <h1 class="text-4xl font-bold mb-6 text-gray-900 dark:text-white">Projects</h1>
+      <p class="text-gray-700 dark:text-gray-300 mb-10 max-w-3xl">
+        Selected Cloud & DevOps projects showcasing infrastructure automation, GitOps workflows, CI/CD pipelines, and Kubernetes deployments.
+      </p>
+
+      {/* Personal Projects */}
+      <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Personal Projects</h2>
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        {projectsData.personal.map((project) => (
+          <a
+            href={`/projects/${project.slug}`}
+            class="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-primary-500/80 dark:hover:border-primary-400/80 hover:shadow-xl hover:shadow-primary-500/10 transition-all"
+          >
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {project.title}
+              </h3>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+              {project.summary}
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tech.slice(0, 4).map((tech) => (
+                <span class="px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <span class="inline-flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 group-hover:gap-2 transition-all">
+              View project details
+              <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      {/* Academic Projects */}
+      <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Academic Projects</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        {projectsData.academic.map((project) => (
+          <a
+            href={`/projects/${project.slug}`}
+            class="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-primary-500/80 dark:hover:border-primary-400/80 hover:shadow-xl hover:shadow-primary-500/10 transition-all"
+          >
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {project.title}
+              </h3>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+              {project.summary}
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tech.slice(0, 4).map((tech) => (
+                <span class="px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <span class="inline-flex items-center text-sm font-medium text-primary-600 dark:text-primary-400 group-hover:gap-2 transition-all">
+              View project details
+              <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

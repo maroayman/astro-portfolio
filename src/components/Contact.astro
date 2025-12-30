@@ -1,0 +1,90 @@
+---
+---
+
+<section id="contact" class="py-20 px-6 bg-gray-50 dark:bg-gray-900">
+  <div class="container mx-auto max-w-4xl">
+    <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Get in Touch</h2>
+    <p class="text-gray-700 dark:text-gray-300 mb-8">
+      I'm always open to discussing new opportunities, interesting projects, or just having a conversation about DevOps and cloud technologies.
+    </p>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <div class="space-y-4 mb-6">
+          <div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm mb-1">Email</div>
+            <a href="mailto:marwanayman.shawky@gmail.com" class="text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 font-medium">
+              marwanayman.shawky@gmail.com
+            </a>
+          </div>
+          <div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm mb-1">Phone</div>
+            <a href="tel:+201122889126" class="text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 font-medium">
+              +201122889126
+            </a>
+          </div>
+          <div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm mb-1">Location</div>
+            <div class="text-gray-900 dark:text-gray-100 font-medium">Cairo, Egypt</div>
+          </div>
+        </div>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">I usually respond within a day.</p>
+      </div>
+      <div>
+        <form class="space-y-4">
+          <div>
+            <label for="name" class="block text-gray-700 dark:text-gray-200 text-sm mb-2 font-medium">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full px-4 py-3 bg-white dark:bg-gray-950 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-colors"
+              placeholder="Your name"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-gray-700 dark:text-gray-200 text-sm mb-2 font-medium">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full px-4 py-3 bg-white dark:bg-gray-950 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-colors"
+              placeholder="your.email@example.com"
+            />
+          </div>
+          <div>
+            <label for="message" class="block text-gray-700 dark:text-gray-200 text-sm mb-2 font-medium">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              maxlength="2000"
+              class="w-full px-4 py-3 bg-white dark:bg-gray-950 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary-500 dark:focus:border-primary-400 focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 transition-colors resize-none"
+              placeholder="Your message..."
+            ></textarea>
+            <div class="text-right text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <span id="char-count">0</span>/2000
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold transition-colors"
+          >
+            Complete the form
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const messageTextarea = document.getElementById('message');
+  const charCount = document.getElementById('char-count');
+
+  if (messageTextarea && charCount) {
+    messageTextarea.addEventListener('input', () => {
+      charCount.textContent = messageTextarea.value.length;
+    });
+  }
+</script>
+

@@ -1,0 +1,46 @@
+{
+  "$ref": "#/definitions/certifications",
+  "definitions": {
+    "certifications": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "issuer": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "expiryDate": {
+          "type": "string"
+        },
+        "credentialId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "issuer",
+        "date",
+        "description",
+        "order"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
