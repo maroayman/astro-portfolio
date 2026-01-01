@@ -1,4 +1,6 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+
 interface Props {
   title: string;
   description?: string;
@@ -16,8 +18,9 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ViewTransitions />
     <script is:inline>
-      (() => {
+      function applyTheme() {
         const stored = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (stored === 'dark' || (!stored && prefersDark)) {
@@ -25,11 +28,18 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
         } else {
           document.documentElement.classList.remove('dark');
         }
-        window.__toggleTheme = () => {
-          const isDark = document.documentElement.classList.toggle('dark');
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        };
-      })();
+      }
+      
+      // Apply theme on initial load
+      applyTheme();
+      
+      // Re-apply theme after View Transitions swap
+      document.addEventListener('astro:after-swap', applyTheme);
+      
+      window.__toggleTheme = () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      };
     </script>
   </head>
   <body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
@@ -46,6 +56,38 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
   
   ::selection {
     background-color: rgba(16, 185, 129, 0.3);
+  }
+  
+  /* View Transitions */
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+  
+  @keyframes fade-out {
+    to { opacity: 0; }
+  }
+  
+  @keyframes slide-from-right {
+    from { transform: translateX(30px); opacity: 0; }
+  }
+  
+  @keyframes slide-to-left {
+    to { transform: translateX(-30px); opacity: 0; }
+  }
+  
+  ::view-transition-old(root) {
+    animation: 150ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out,
+               200ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+  }
+  
+  ::view-transition-new(root) {
+    animation: 200ms cubic-bezier(0.4, 0, 0.2, 1) 100ms both fade-in,
+               300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+  }
+  
+  /* Smooth scroll behavior for hash navigation */
+  html {
+    scroll-behavior: smooth;
   }
 </style>
 
