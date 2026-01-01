@@ -19,7 +19,8 @@
             "Ansible",
             "Docker",
             "Jenkins"
-        ]
+        ],
+        "_comment_promotion": "Add 'promotion': true to show a 'Promoted' badge on this entry"
     },
     {
         "title": "DevOps Intern",

@@ -220,6 +220,8 @@
             "description": "A Java-based LMS with role-based access control for educational institutions.",
             "tech": [
                 "Java",
+                "Java Swing",
+                "SQLite",
                 "Role-Based Access Control"
             ],
             "role": "Developer",
@@ -237,6 +239,8 @@
             "summary": "Graduation project - A comprehensive e-commerce platform with YouTube integration for product recommendations",
             "description": "Graduation project - A comprehensive e-commerce platform with YouTube integration for product recommendations.",
             "tech": [
+                "Angular",
+                "ASP.NET",
                 "Bootstrap",
                 "SQL Server",
                 "YouTube API"

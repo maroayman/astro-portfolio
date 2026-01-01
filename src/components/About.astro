@@ -1,21 +1,37 @@
 ---
 ---
 
-<section id="about" class="py-20 px-6 bg-white dark:bg-gray-950">
-  <div class="container mx-auto max-w-4xl">
-    <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">About Me</h2>
-    <p class="text-gray-700 dark:text-gray-300 text-lg mb-6 leading-relaxed">
-      Junior DevOps / Cloud Engineer with hands-on experience in cloud infrastructure, containerization, and CI/CD pipelines.
-    </p>
-    <ul class="text-gray-700 dark:text-gray-300 space-y-2 mb-6">
-      <li>• Cloud Platforms: AWS, GCP, Azure, Huawei Cloud</li>
-      <li>• Containers & Orchestration: Docker, Kubernetes, Argo CD</li>
-      <li>• Infrastructure as Code: Terraform, Ansible</li>
-      <li>• CI/CD: Jenkins, GitHub Actions</li>
-      <li>• OS & Networking: Linux, REST APIs</li>
-    </ul>
-    <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-      Experience includes infrastructure automation, GitOps workflows, Kubernetes deployments, and cloud-based application delivery.
-    </p>
+<section id="about" class="py-24 px-6 bg-white dark:bg-neutral-900">
+  <div class="container mx-auto max-w-5xl">
+    <div class="grid lg:grid-cols-5 gap-12 items-start">
+      <div class="lg:col-span-2">
+        <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium mb-4">
+          About Me
+        </span>
+        <h2 class="text-4xl font-bold text-neutral-900 dark:text-white mb-4">Building the Future of Cloud Infrastructure</h2>
+      </div>
+      <div class="lg:col-span-3 space-y-6">
+        <p class="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          Junior DevOps / Cloud Engineer with hands-on experience in cloud infrastructure, containerization, and CI/CD pipelines. I love automating workflows and building scalable systems.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <div class="text-primary-500 font-bold text-2xl mb-1">4+</div>
+            <div class="text-neutral-600 dark:text-neutral-400 text-sm">Cloud Platforms</div>
+          </div>
+          <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+            <div class="text-primary-500 font-bold text-2xl mb-1">10+</div>
+            <div class="text-neutral-600 dark:text-neutral-400 text-sm">DevOps Tools</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {['AWS', 'GCP', 'Azure', 'Docker', 'Kubernetes', 'Terraform', 'Jenkins', 'Linux'].map((skill) => (
+            <span class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-lg text-sm font-medium">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
