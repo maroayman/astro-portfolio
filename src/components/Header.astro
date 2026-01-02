@@ -93,14 +93,33 @@ const navItems = [
   </nav>
 </header>
 
-<script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
+<script is:inline>
+  function setupMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+    if (mobileMenuButton && mobileMenu) {
+      // Remove any existing listeners by cloning the button
+      const newButton = mobileMenuButton.cloneNode(true);
+      mobileMenuButton.parentNode.replaceChild(newButton, mobileMenuButton);
+      
+      newButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Close menu when clicking on a link
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
   }
+
+  // Run on initial page load
+  setupMobileMenu();
+  
+  // Re-run after View Transitions navigation
+  document.addEventListener('astro:after-swap', setupMobileMenu);
 </script>
 
