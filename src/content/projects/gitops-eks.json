@@ -1,0 +1,25 @@
+{
+  "title": "3-Tier GitOps App on EKS",
+  "slug": "gitops-eks",
+  "summary": "A complete 3-tier notes application with GitOps CI/CD pipeline using GitHub Actions, Terraform, Ansible, Helm, and ArgoCD on AWS EKS",
+  "description": "A complete 3-tier notes application with GitOps CI/CD pipeline using GitHub Actions, Terraform, Ansible, Helm, and ArgoCD on AWS EKS.",
+  "tech": [
+    "GitHub Actions",
+    "Terraform",
+    "Ansible",
+    "Helm",
+    "ArgoCD",
+    "AWS EKS",
+    "Kubernetes"
+  ],
+  "role": "DevOps Engineer",
+  "period": "2025",
+  "highlights": [
+    "Complete GitOps workflow with 4 separate pipelines",
+    "Infrastructure as Code with Terraform for EKS cluster provisioning",
+    "ArgoCD for continuous deployment and GitOps monitoring",
+    "3-tier architecture: Nginx reverse proxy, Flask API, MySQL database"
+  ],
+  "link": "https://github.com/maroayman/depi-notes-app-gitops",
+  "category": "personal"
+}

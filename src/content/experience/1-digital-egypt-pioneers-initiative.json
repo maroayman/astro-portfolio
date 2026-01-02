@@ -1,0 +1,23 @@
+{
+  "title": "DevOps Trainee",
+  "company": "Digital Egypt Pioneers Initiative",
+  "companyUrl": "https://depi.gov.eg",
+  "location": "Cairo, Egypt",
+  "period": "Jun 2025 – Dec 2025",
+  "description": "Undergoing structured training in DevOps, cloud computing, and Linux administration.",
+  "responsibilities": [
+    "Designing and implementing CI/CD pipelines with Jenkins and GitHub Actions",
+    "Managing Kubernetes clusters for container orchestration",
+    "Automating infrastructure provisioning using Terraform",
+    "Configuring and maintaining Linux servers"
+  ],
+  "tags": [
+    "Linux",
+    "Kubernetes",
+    "Terraform",
+    "Ansible",
+    "Docker",
+    "Jenkins"
+  ],
+  "_comment_promotion": "Add 'promotion': true to show a 'Promoted' badge on this entry"
+}

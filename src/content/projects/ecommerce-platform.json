@@ -1,0 +1,23 @@
+{
+  "title": "E-Commerce Platform",
+  "slug": "ecommerce-platform",
+  "summary": "Graduation project - A comprehensive e-commerce platform with YouTube integration for product recommendations",
+  "description": "Graduation project - A comprehensive e-commerce platform with YouTube integration for product recommendations.",
+  "tech": [
+    "Angular",
+    "ASP.NET",
+    "Bootstrap",
+    "SQL Server",
+    "YouTube API"
+  ],
+  "role": "Developer",
+  "period": "2024",
+  "highlights": [
+    "Full shopping functionality",
+    "YouTube video recommendations for products",
+    "Responsive UI with Bootstrap",
+    "SQL Server database management"
+  ],
+  "link": "",
+  "category": "academic"
+}

@@ -10,9 +10,6 @@
         "slug": {
           "type": "string"
         },
-        "type": {
-          "type": "string"
-        },
         "summary": {
           "type": "string"
         },
@@ -40,8 +37,12 @@
         "link": {
           "type": "string"
         },
-        "order": {
-          "type": "number"
+        "category": {
+          "type": "string",
+          "enum": [
+            "personal",
+            "academic"
+          ]
         },
         "$schema": {
           "type": "string"
@@ -50,14 +51,14 @@
       "required": [
         "title",
         "slug",
-        "type",
         "summary",
         "description",
         "tech",
         "role",
         "period",
         "highlights",
-        "order"
+        "link",
+        "category"
       ],
       "additionalProperties": false
     }

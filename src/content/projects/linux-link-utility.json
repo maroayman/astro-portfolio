@@ -1,0 +1,20 @@
+{
+  "title": "Linux File Link Utility",
+  "slug": "linux-link-utility",
+  "summary": "A C-based terminal utility for creating and managing file links in Linux environments",
+  "description": "A C-based terminal utility for creating and managing file links in Linux environments.",
+  "tech": [
+    "C",
+    "Linux",
+    "Ubuntu"
+  ],
+  "role": "Developer",
+  "period": "2024",
+  "highlights": [
+    "Creation of symbolic and hard links",
+    "Linux environment compatibility (Ubuntu)",
+    "Proper error handling and user feedback"
+  ],
+  "link": "https://github.com/maroayman/Operating-System-FCIH-College-Task-",
+  "category": "academic"
+}

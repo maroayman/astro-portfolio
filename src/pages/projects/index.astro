@@ -2,7 +2,11 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import projectsData from '../../data/projects.json';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const personalProjects = allProjects.filter(p => p.data.category === 'personal');
+const academicProjects = allProjects.filter(p => p.data.category === 'academic');
 ---
 
 <Layout title="Projects - Marwan Ayman Shawky">
@@ -17,21 +21,21 @@ import projectsData from '../../data/projects.json';
       {/* Personal Projects */}
       <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Personal Projects</h2>
       <div class="grid md:grid-cols-2 gap-8 mb-12">
-        {projectsData.personal.map((project) => (
+        {personalProjects.map((project) => (
           <a
-            href={`/projects/${project.slug}`}
+            href={`/projects/${project.data.slug}`}
             class="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-primary-500/80 dark:hover:border-primary-400/80 hover:shadow-xl hover:shadow-primary-500/10 transition-all"
           >
             <div class="flex items-start justify-between mb-3">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {project.title}
+                {project.data.title}
               </h3>
             </div>
             <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-              {project.summary}
+              {project.data.summary}
             </p>
             <div class="flex flex-wrap gap-2 mb-4">
-              {project.tech.slice(0, 4).map((tech) => (
+              {project.data.tech.slice(0, 4).map((tech) => (
                 <span class="px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs">
                   {tech}
                 </span>
@@ -50,21 +54,21 @@ import projectsData from '../../data/projects.json';
       {/* Academic Projects */}
       <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Academic Projects</h2>
       <div class="grid md:grid-cols-2 gap-8">
-        {projectsData.academic.map((project) => (
+        {academicProjects.map((project) => (
           <a
-            href={`/projects/${project.slug}`}
+            href={`/projects/${project.data.slug}`}
             class="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-primary-500/80 dark:hover:border-primary-400/80 hover:shadow-xl hover:shadow-primary-500/10 transition-all"
           >
             <div class="flex items-start justify-between mb-3">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {project.title}
+                {project.data.title}
               </h3>
             </div>
             <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-              {project.summary}
+              {project.data.summary}
             </p>
             <div class="flex flex-wrap gap-2 mb-4">
-              {project.tech.slice(0, 4).map((tech) => (
+              {project.data.tech.slice(0, 4).map((tech) => (
                 <span class="px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs">
                   {tech}
                 </span>

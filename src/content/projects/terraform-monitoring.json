@@ -1,0 +1,22 @@
+{
+  "title": "Terraform EC2 Monitoring Stack",
+  "slug": "terraform-monitoring",
+  "summary": "A production-ready Terraform project that automates the deployment of secure EC2 instances on AWS with real-time monitoring",
+  "description": "A production-ready Terraform project that automates the deployment of secure EC2 instances on AWS with real-time monitoring.",
+  "tech": [
+    "Terraform",
+    "AWS EC2",
+    "Monitoring",
+    "SSH"
+  ],
+  "role": "DevOps Engineer",
+  "period": "2025",
+  "highlights": [
+    "Automated EC2 instance provisioning with Terraform",
+    "SSH key generation and secure access configuration",
+    "Real-time monitoring dashboard for instance performance",
+    "5-minute quick deployment with terraform apply"
+  ],
+  "link": "https://github.com/maroayman/depi-project-4",
+  "category": "personal"
+}

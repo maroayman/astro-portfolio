@@ -1,0 +1,20 @@
+{
+  "title": "File Encryption Tool",
+  "slug": "file-encryption",
+  "summary": "A Python-based security application implementing encryption and decryption techniques",
+  "description": "A Python-based security application implementing encryption and decryption techniques.",
+  "tech": [
+    "Python",
+    "Encryption",
+    "Security"
+  ],
+  "role": "Developer",
+  "period": "2024",
+  "highlights": [
+    "Robust encryption using hashing algorithms",
+    "Data integrity and protection",
+    "User-friendly interface for file security"
+  ],
+  "link": "",
+  "category": "academic"
+}

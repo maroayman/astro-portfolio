@@ -1,0 +1,23 @@
+{
+  "title": "Flask App with Persistent AWS Storage",
+  "slug": "flask-aws-storage",
+  "summary": "A full-stack web application for note-taking deployed on AWS infrastructure with EBS backup",
+  "description": "A full-stack web application for note-taking deployed on AWS infrastructure with EBS backup.",
+  "tech": [
+    "Flask",
+    "AWS EC2",
+    "AWS EBS",
+    "MariaDB",
+    "SQLAlchemy"
+  ],
+  "role": "DevOps Engineer",
+  "period": "2025",
+  "highlights": [
+    "Deployed on AWS EC2 with scalable infrastructure",
+    "Backup system using AWS EBS mounted volumes",
+    "MariaDB database integration through SQLAlchemy ORM",
+    "Full CRUD operations for note management"
+  ],
+  "link": "https://github.com/maroayman/depi-project-1/",
+  "category": "personal"
+}

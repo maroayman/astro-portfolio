@@ -1,0 +1,22 @@
+{
+  "title": "Ansible-Managed Go Web App",
+  "slug": "ansible-go-app",
+  "summary": "A Go-based web application for note management with Ansible automation and scheduled tasks",
+  "description": "A Go-based web application for note management with Ansible automation and scheduled tasks.",
+  "tech": [
+    "Go",
+    "Ansible",
+    "SQLite",
+    "Cron"
+  ],
+  "role": "DevOps Engineer",
+  "period": "2025",
+  "highlights": [
+    "Built with Go for high performance",
+    "SQLite database for lightweight storage",
+    "Cron jobs for scheduled tasks",
+    "Ansible automation for deployment"
+  ],
+  "link": "https://github.com/maroayman/depi-project-2/",
+  "category": "personal"
+}

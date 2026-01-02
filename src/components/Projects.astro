@@ -1,7 +1,14 @@
 ---
-import projectsData from '../data/projects.json';
+import { getCollection } from 'astro:content';
 
-const allProjects = [...projectsData.personal, ...projectsData.academic];
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => {
+  // Personal projects first, then by period (newest first)
+  if (a.data.category !== b.data.category) {
+    return a.data.category === 'personal' ? -1 : 1;
+  }
+  return b.data.period.localeCompare(a.data.period);
+});
 ---
 
 <section id="projects" class="py-24 px-6 bg-neutral-50 dark:bg-neutral-950">
@@ -17,21 +24,21 @@ const allProjects = [...projectsData.personal, ...projectsData.academic];
     </div>
     
     <div class="grid md:grid-cols-2 gap-6">
-      {allProjects.slice(0, 2).map((project) => (
+      {sortedProjects.slice(0, 2).map((project) => (
         <a
-          href={`/projects/${project.slug}`}
+          href={`/projects/${project.data.slug}`}
           class="group bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 hover:border-primary-500/50 hover:shadow-xl hover:shadow-primary-500/5 transition-all"
         >
           <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-            {project.title}
+            {project.data.title}
           </h3>
           
           <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-4 line-clamp-2">
-            {project.summary}
+            {project.data.summary}
           </p>
           
           <div class="flex flex-wrap gap-2 mb-4">
-            {project.tech.slice(0, 4).map((tech) => (
+            {project.data.tech.slice(0, 4).map((tech) => (
               <span class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded-lg text-xs font-medium">
                 {tech}
               </span>

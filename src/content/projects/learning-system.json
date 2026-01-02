@@ -1,0 +1,21 @@
+{
+  "title": "Learning Management System",
+  "slug": "learning-system",
+  "summary": "A Java-based LMS with role-based access control for educational institutions",
+  "description": "A Java-based LMS with role-based access control for educational institutions.",
+  "tech": [
+    "Java",
+    "Java Swing",
+    "SQLite",
+    "Role-Based Access Control"
+  ],
+  "role": "Developer",
+  "period": "2024",
+  "highlights": [
+    "Teachers can log in and update student grades",
+    "Students have read-only access to records",
+    "Role-based access control for security"
+  ],
+  "link": "https://github.com/maroayman/Learning-System",
+  "category": "academic"
+}

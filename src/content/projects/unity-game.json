@@ -1,0 +1,21 @@
+{
+  "title": "2D Platformer Game",
+  "slug": "unity-game",
+  "summary": "A 2D platformer game built with Unity and C#, featuring collaborative development and asset integration",
+  "description": "A 2D platformer game built with Unity and C#, featuring collaborative development and asset integration.",
+  "tech": [
+    "Unity",
+    "C#",
+    "Game Development"
+  ],
+  "role": "Developer",
+  "period": "2024",
+  "highlights": [
+    "Built with Unity game engine and C# scripting",
+    "Collaborative team development",
+    "Integrated free licensed sounds and assets",
+    "Game physics, player controls, and level design"
+  ],
+  "link": "https://github.com/maroayman/unity-game",
+  "category": "academic"
+}

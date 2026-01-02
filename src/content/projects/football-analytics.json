@@ -1,0 +1,20 @@
+{
+  "title": "Football Analytics Dashboard",
+  "slug": "football-analytics",
+  "summary": "Interactive data visualization dashboard built with Microsoft Power BI for football analytics",
+  "description": "Interactive data visualization dashboard built with Microsoft Power BI for football analytics.",
+  "tech": [
+    "Power BI",
+    "Data Visualization",
+    "Kaggle"
+  ],
+  "role": "Data Analyst",
+  "period": "2024",
+  "highlights": [
+    "Comprehensive data visualization from Kaggle dataset",
+    "Team history including goals scored and conceded",
+    "Interactive filters and drill-down capabilities"
+  ],
+  "link": "",
+  "category": "academic"
+}

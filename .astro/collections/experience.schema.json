@@ -34,8 +34,8 @@
             "type": "string"
           }
         },
-        "order": {
-          "type": "number"
+        "promotion": {
+          "type": "boolean"
         },
         "$schema": {
           "type": "string"
@@ -44,11 +44,12 @@
       "required": [
         "title",
         "company",
+        "companyUrl",
         "location",
         "period",
         "description",
-        "tags",
-        "order"
+        "responsibilities",
+        "tags"
       ],
       "additionalProperties": false
     }

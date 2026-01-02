@@ -1,0 +1,24 @@
+{
+  "title": "Dockerized Flask Production Stack",
+  "slug": "dockerized-flask",
+  "summary": "A complete end-to-end web application deployed on AWS EC2 with production-ready features and monitoring",
+  "description": "A complete end-to-end web application deployed on AWS EC2 with production-ready features and monitoring.",
+  "tech": [
+    "Docker",
+    "Flask",
+    "Nginx",
+    "MySQL",
+    "SQLAlchemy",
+    "AWS EC2"
+  ],
+  "role": "DevOps Engineer",
+  "period": "2025",
+  "highlights": [
+    "Flask-based notes app with full CRUD operations",
+    "Nginx reverse proxy for production traffic",
+    "MySQL database with SQLAlchemy ORM",
+    "Multi-stage Docker builds for optimization"
+  ],
+  "link": "https://github.com/maroayman/depi-project-3",
+  "category": "personal"
+}
