@@ -66,7 +66,18 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
     
     <ViewTransitions />
     <script is:inline>
-      function applyTheme() {
+      // Apply theme immediately to prevent flashing
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = stored === 'dark' || (!stored && prefersDark);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+      
+      // Re-apply only when navigation occurs
+      document.addEventListener('astro:after-swap', () => {
         const stored = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (stored === 'dark' || (!stored && prefersDark)) {
@@ -74,13 +85,7 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
         } else {
           document.documentElement.classList.remove('dark');
         }
-      }
-      
-      // Apply theme on initial load
-      applyTheme();
-      
-      // Re-apply theme after View Transitions swap
-      document.addEventListener('astro:after-swap', applyTheme);
+      });
       
       window.__toggleTheme = () => {
         const isDark = document.documentElement.classList.toggle('dark');
@@ -102,7 +107,7 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
     background-color: rgba(16, 185, 129, 0.3);
   }
   
-  /* View Transitions */
+  /* View Transitions - Optimized for snappy navigation */
   @keyframes fade-in {
     from { opacity: 0; }
   }
@@ -112,26 +117,43 @@ const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } =
   }
   
   @keyframes slide-from-right {
-    from { transform: translateX(30px); opacity: 0; }
+    from { transform: translateX(20px); opacity: 0; }
   }
   
   @keyframes slide-to-left {
-    to { transform: translateX(-30px); opacity: 0; }
+    to { transform: translateX(-20px); opacity: 0; }
   }
   
   ::view-transition-old(root) {
-    animation: 100ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out,
-               150ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+    animation: 60ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+               80ms cubic-bezier(0.4, 0, 1, 1) both slide-to-left;
   }
   
   ::view-transition-new(root) {
-    animation: 150ms cubic-bezier(0.4, 0, 0.2, 1) 50ms both fade-in,
-               200ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+    animation: 80ms cubic-bezier(0, 0, 0.2, 1) both fade-in,
+               120ms cubic-bezier(0, 0, 0.2, 1) both slide-from-right;
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root) {
+      animation: none;
+    }
+    
+    ::view-transition-new(root) {
+      animation: none;
+    }
+
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
   
-  /* Smooth scroll behavior for hash navigation */
+  /* Fast scroll behavior for better responsiveness */
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 </style>
 

@@ -1,20 +1,27 @@
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://maroayman.com', // Update with your actual domain
-  integrations: [react(), tailwind(), sitemap()],
+  site: 'https://maroayman.com',
+  integrations: [tailwind(), sitemap()],
   prefetch: {
-    prefetchAll: true,
-    defaultStrategy: 'viewport'
+    prefetchAll: false,
+    defaultStrategy: 'tap'
   },
   vite: {
     build: {
       cssCodeSplit: true,
-      assetsInlineLimit: 4096
+      assetsInlineLimit: 4096,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
+    },
+    ssr: {
+      noExternal: []
     }
   }
 });

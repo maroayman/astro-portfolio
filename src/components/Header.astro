@@ -7,7 +7,7 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-neutral-50/80 dark:bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-800/50">
+<header class="sticky top-0 z-50 bg-neutral-50/95 dark:bg-neutral-950/95 border-b border-neutral-200/50 dark:border-neutral-800/50">
   <nav class="container mx-auto px-6 py-4">
     <div class="flex items-center justify-between gap-4">
       <a href="/" class="text-xl font-bold text-gray-900 dark:text-gray-50 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
@@ -98,28 +98,32 @@ const navItems = [
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    if (mobileMenuButton && mobileMenu) {
-      // Remove any existing listeners by cloning the button
-      const newButton = mobileMenuButton.cloneNode(true);
-      mobileMenuButton.parentNode.replaceChild(newButton, mobileMenuButton);
-      
-      newButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
+    if (!mobileMenuButton || !mobileMenu) return;
+    
+    // Use a single event listener
+    const clickHandler = () => {
+      mobileMenu.classList.toggle('hidden');
+    };
+    
+    mobileMenuButton.onclick = clickHandler;
 
-      // Close menu when clicking on a link
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-    }
+    // Close menu when clicking on a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.onclick = () => {
+        mobileMenu.classList.add('hidden');
+      };
+    });
   }
 
   // Run on initial page load
   setupMobileMenu();
   
-  // Re-run after View Transitions navigation
+  // Re-run after View Transitions navigation and close menu automatically
+  document.addEventListener('astro:before-swap', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) mobileMenu.classList.add('hidden');
+  });
+  
   document.addEventListener('astro:after-swap', setupMobileMenu);
 </script>
 
