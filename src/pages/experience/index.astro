@@ -13,64 +13,90 @@ import experienceData from '../../data/experience.json';
       <p class="text-gray-700 dark:text-gray-300 mb-10 max-w-2xl">
         My professional journey in DevOps and cloud engineering.
       </p>
-      <div class="space-y-8">
-        {experienceData.map((exp) => (
-          <section class="bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-800">
-            <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-              <div>
-                <div class="flex items-center gap-3 flex-wrap mb-2">
-                  <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-50">{exp.title}</h2>
-                  {exp.isPromotion && (
-                    <span class="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full uppercase tracking-wide inline-flex items-center gap-1">
-                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                      </svg>
-                      Promoted
-                    </span>
-                  )}
+      <div class="space-y-4">
+        {experienceData.map((exp, index) => (
+          <details class="group bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:border-primary-500/50 transition-all" open={index === 0}>
+            <summary class="cursor-pointer px-6 py-5 flex items-center justify-between hover:bg-primary-500/5 dark:hover:bg-primary-500/10 transition-colors">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
                 </div>
-                {exp.promotedFrom && (
-                  <p class="text-green-600 dark:text-green-400 text-sm mb-2 font-medium">
-                    Promoted from {exp.promotedFrom}
-                  </p>
-                )}
-                {exp.companyUrl ? (
-                  <a 
-                    href={exp.companyUrl} 
-                    target="_blank" 
-                    class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
-                  >
-                    {exp.company}
-                  </a>
-                ) : (
-                  <p class="text-gray-700 dark:text-gray-300 font-medium">{exp.company}</p>
-                )}
-                <p class="text-gray-500 dark:text-gray-400 text-sm">{exp.location}</p>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1 flex-wrap">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-50">
+                      {exp.title}
+                    </h2>
+                    {exp.isPromotion && (
+                      <span class="px-2.5 py-0.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs rounded font-medium">
+                        Promoted
+                      </span>
+                    )}
+                  </div>
+                  <div class="flex items-center gap-2 text-sm flex-wrap">
+                    {exp.companyUrl ? (
+                      <a 
+                        href={exp.companyUrl} 
+                        target="_blank"
+                        class="text-primary-600 dark:text-primary-400 hover:underline font-medium"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {exp.company}
+                      </a>
+                    ) : (
+                      <span class="text-primary-600 dark:text-primary-400 font-medium">{exp.company}</span>
+                    )}
+                    <span class="text-gray-400">·</span>
+                    <span class="text-gray-500 dark:text-gray-400">{exp.period}</span>
+                  </div>
+                </div>
               </div>
-              <span class="text-gray-500 dark:text-gray-400 text-sm mt-2 md:mt-0 font-medium bg-white dark:bg-gray-800 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">{exp.period}</span>
+              
+              <svg class="w-5 h-5 text-gray-400 group-open:text-primary-500 group-open:rotate-180 transition-all ml-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            
+            <div class="px-6 py-6 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
+              <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm mb-5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                {exp.location}
+              </div>
+              
+              <p class="text-gray-700 dark:text-gray-300 mb-5">
+                {exp.description}
+              </p>
+              
+              {exp.responsibilities && exp.responsibilities.length > 0 && (
+                <div class="mb-6">
+                  <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Key Highlights</h3>
+                  <ul class="space-y-2">
+                    {exp.responsibilities.map((item) => (
+                      <li class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                        <span class="text-primary-500 mt-1 flex-shrink-0">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              <div>
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Skills & Technologies</h3>
+                <div class="flex flex-wrap gap-2">
+                  {exp.tags.map((tag) => (
+                    <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg text-sm border border-gray-200 dark:border-gray-700">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
-            
-            <p class="text-gray-700 dark:text-gray-300 mb-5">{exp.description}</p>
-            
-            {exp.responsibilities && exp.responsibilities.length > 0 && (
-              <ul class="space-y-2 mb-5">
-                {exp.responsibilities.map((item) => (
-                  <li class="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
-                    <span class="text-primary-500 mt-0.5">•</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-            
-            <div class="flex flex-wrap gap-2">
-              {exp.tags.map((tag) => (
-                <span class="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg text-sm border border-gray-200 dark:border-gray-700">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </section>
+          </details>
         ))}
       </div>
     </div>

@@ -12,18 +12,6 @@ const groupedCerts = certificationsData.reduce((acc, cert) => {
   acc[cert.issuer].push(cert);
   return acc;
 }, {} as Record<string, typeof certificationsData>);
-
-const issuerIcons: Record<string, string> = {
-  'AWS Training & Certification': '<path d="M18.75 12.75h1.5a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5zM12 6a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 6zM12 18a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 0112 18zM3.75 6.75h1.5a.75.75 0 100-1.5h-1.5a.75.75 0 000 1.5zM5.25 18.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 010 1.5zM3 12a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 12zM9 3.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zM12.75 12a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM9 15.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/>',
-  'The Linux Foundation': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>',
-  'Huawei': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>',
-};
-
-const issuerColors: Record<string, string> = {
-  'AWS Training & Certification': 'from-orange-500 to-yellow-500',
-  'The Linux Foundation': 'from-blue-500 to-cyan-500',
-  'Huawei': 'from-red-500 to-pink-500',
-};
 ---
 
 <Layout title="Certifications - Marwan Ayman Shawky">
@@ -66,50 +54,49 @@ const issuerColors: Record<string, string> = {
         {Object.entries(groupedCerts).map(([issuer, certs]) => (
           <div>
             <div class="flex items-center gap-3 mb-6">
-              <div class={`w-10 h-10 rounded-xl bg-gradient-to-br ${issuerColors[issuer] || 'from-primary-500 to-emerald-500'} flex items-center justify-center`}>
-                <svg class="w-5 h-5 text-white" fill={issuerIcons[issuer]?.includes('stroke') ? 'none' : 'currentColor'} stroke={issuerIcons[issuer]?.includes('stroke') ? 'currentColor' : 'none'} viewBox="0 0 24 24" set:html={issuerIcons[issuer] || '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>'} />
-              </div>
               <h2 class="text-xl font-bold text-neutral-900 dark:text-white">{issuer}</h2>
               <span class="px-2.5 py-1 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs rounded-full">
                 {certs.length} cert{certs.length > 1 ? 's' : ''}
               </span>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="space-y-3">
               {certs.map((cert) => (
-                <div class="group bg-white dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-800 hover:border-primary-500/50 hover:shadow-lg hover:shadow-primary-500/5 transition-all">
-                  <div class="flex items-start justify-between gap-4 mb-4">
-                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white leading-tight">
+                <div class="group p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-primary-500/50 hover:bg-primary-500/5 dark:hover:bg-primary-500/10 transition-all">
+                  <div class="flex items-start justify-between gap-2 mb-2">
+                    <h3 class="text-base font-semibold text-neutral-900 dark:text-white">
                       {cert.title}
                     </h3>
                     {cert.expiryDate && (
-                      <span class="px-2 py-1 bg-primary-500/10 text-primary-600 dark:text-primary-400 text-xs rounded-full whitespace-nowrap font-medium">
-                        Valid
+                      <span class="px-2.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs rounded font-medium whitespace-nowrap flex-shrink-0">
+                        Active
                       </span>
                     )}
                   </div>
                   
-                  <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-4 line-clamp-2">
+                  <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-2 line-clamp-1">
                     {cert.description}
                   </p>
                   
-                  <div class="space-y-2 text-sm">
-                    <div class="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
+                  <div class="flex flex-wrap items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
+                    <div class="flex items-center gap-1.5">
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                       </svg>
-                      <span>Issued: {cert.date}</span>
+                      <span>{cert.date}</span>
                     </div>
+                    
                     {cert.expiryDate && (
-                      <div class="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
+                      <div class="flex items-center gap-1.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span>Expires: {cert.expiryDate}</span>
+                        <span>{cert.expiryDate}</span>
                       </div>
                     )}
+                    
                     {cert.credentialId && (
-                      <div class="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
+                      <div class="flex items-center gap-1.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                         </svg>
@@ -122,7 +109,7 @@ const issuerColors: Record<string, string> = {
                     <a
                       href={cert.link}
                       target="_blank"
-                      class="inline-flex items-center gap-2 mt-4 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm group-hover:underline"
+                      class="inline-flex items-center gap-1.5 mt-3 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm group-hover:underline"
                     >
                       View Credential
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

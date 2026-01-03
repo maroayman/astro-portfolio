@@ -10,26 +10,41 @@
         </span>
         <h2 class="text-4xl font-bold text-neutral-900 dark:text-white mb-4">Building the Future of Cloud Infrastructure</h2>
       </div>
-      <div class="lg:col-span-3 space-y-6">
+      <div class="lg:col-span-3 space-y-8">
         <p class="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
           Junior DevOps / Cloud Engineer with hands-on experience in cloud infrastructure, containerization, and CI/CD pipelines. I love automating workflows and building scalable systems.
         </p>
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <div class="text-primary-500 font-bold text-2xl mb-1">4+</div>
-            <div class="text-neutral-600 dark:text-neutral-400 text-sm">Cloud Platforms</div>
+
+        <div class="space-y-4">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Highlight reel</p>
+          <div class="space-y-4">
+            {[
+              {
+                title: 'GitOps pipelines with built-in guardrails',
+                detail: 'Compose GitHub Actions + Argo CD workflows so every infrastructure change flows through pull requests with automated policy checks and rollbacks.'
+              },
+              {
+                title: 'Prometheus + Grafana guardrails',
+                detail: 'Ship turnkey monitoring bundles—scrape configs, alert rules, dashboards—so container workloads surface anomalies long before users notice.'
+              },
+              {
+                title: 'Infrastructure automation across clouds',
+                detail: 'Use Terraform, Ansible, and Helm modules to standardize AWS, Azure, or GCP stacks without locking teams into a single IaC approach.'
+              }
+            ].map((item) => (
+              <div class="flex gap-4">
+                <span class="mt-0.5 w-10 h-10 rounded-full bg-primary-500 text-white flex items-center justify-center shadow-lg shadow-primary-500/25">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="font-semibold text-neutral-900 dark:text-white">{item.title}</p>
+                  <p class="text-neutral-600 dark:text-neutral-300 text-sm">{item.detail}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <div class="text-primary-500 font-bold text-2xl mb-1">10+</div>
-            <div class="text-neutral-600 dark:text-neutral-400 text-sm">DevOps Tools</div>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          {['AWS', 'GCP', 'Azure', 'Docker', 'Kubernetes', 'Terraform', 'Jenkins', 'Linux'].map((skill) => (
-            <span class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-lg text-sm font-medium">
-              {skill}
-            </span>
-          ))}
         </div>
       </div>
     </div>

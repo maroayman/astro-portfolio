@@ -14,46 +14,105 @@ const sortedExperience = experienceData.sort((a, b) => a.id.localeCompare(b.id))
       <h2 class="text-4xl font-bold text-neutral-900 dark:text-white mb-4">Work Experience</h2>
     </div>
     
-    <div class="space-y-6">
-      {sortedExperience.slice(0, 2).map((exp, index) => (
-        <div class="group bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:border-primary-500/50 transition-all">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div>
-              <div class="flex items-center gap-3 flex-wrap mb-2">
-                <h3 class="text-xl font-bold text-neutral-900 dark:text-white">{exp.data.title}</h3>
-                {exp.data.promotion && (
-                  <span class="px-2.5 py-1 bg-gradient-to-r from-primary-500 to-emerald-500 text-white text-xs font-semibold rounded-full flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-                    </svg>
-                    Promoted
+    <div class="space-y-4">
+      {sortedExperience.slice(0, 2).map((exp) => (
+        <details class="group bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-2xl overflow-hidden hover:border-primary-500/50 transition-all">
+          <summary class="cursor-pointer px-6 py-5 flex items-center justify-between hover:bg-primary-500/5 dark:hover:bg-primary-500/10 transition-colors">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <h3 class="text-lg font-semibold text-neutral-900 dark:text-white">
+                    {exp.data.title}
+                  </h3>
+                  {exp.data.promotion && (
+                    <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs rounded font-medium">
+                      Promoted
+                    </span>
+                  )}
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="text-primary-600 dark:text-primary-400 font-medium">
+                    {exp.data.company}
                   </span>
+                  <span class="text-neutral-400">·</span>
+                  <span class="text-neutral-500 dark:text-neutral-400">
+                    {exp.data.period}
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <svg class="w-5 h-5 text-neutral-400 group-open:text-primary-500 group-open:rotate-180 transition-all ml-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          
+          <div class="px-6 py-5 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+            <div class="flex items-center gap-2 text-neutral-500 dark:text-neutral-400 text-sm mb-4">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              {exp.data.location}
+            </div>
+            
+            <p class="text-neutral-600 dark:text-neutral-300 mb-5">
+              {exp.data.description}
+            </p>
+            
+            {exp.data.responsibilities && exp.data.responsibilities.length > 0 && (
+              <div class="mb-5 highlights-container">
+                <h4 class="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Key Highlights
+                </h4>
+                <ul class="space-y-2 highlights-list">
+                  {exp.data.responsibilities.slice(0, 4).map((item) => (
+                    <li class="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      <span class="text-primary-500 mt-1">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                {exp.data.responsibilities.length > 4 && (
+                  <div class="hidden-highlights mt-2 hidden">
+                    <ul class="space-y-2">
+                      {exp.data.responsibilities.slice(4).map((item) => (
+                        <li class="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                          <span class="text-primary-500 mt-1">•</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {exp.data.responsibilities.length > 4 && (
+                  <button type="button" class="show-more-btn mt-3 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-1 transition-colors">
+                    <span class="btn-text">Show {exp.data.responsibilities.length - 4} more</span>
+                    <svg class="w-4 h-4 btn-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                  </button>
                 )}
               </div>
-              {exp.data.companyUrl ? (
-                <a href={exp.data.companyUrl} target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">
-                  {exp.data.company}
-                </a>
-              ) : (
-                <p class="text-neutral-700 dark:text-neutral-300 font-medium">{exp.data.company}</p>
-              )}
-              <p class="text-neutral-500 dark:text-neutral-400 text-sm mt-1">{exp.data.location}</p>
+            )}
+            
+            <div class="flex flex-wrap gap-2">
+              {exp.data.tags.map((tag) => (
+                <span class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded-lg text-sm border border-neutral-200 dark:border-neutral-700">
+                  {tag}
+                </span>
+              ))}
             </div>
-            <span class="px-4 py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 text-sm rounded-full font-medium whitespace-nowrap">
-              {exp.data.period}
-            </span>
           </div>
-          
-          <p class="text-neutral-600 dark:text-neutral-300 mb-4">{exp.data.description}</p>
-          
-          <div class="flex flex-wrap gap-2">
-            {exp.data.tags.map((tag) => (
-              <span class="px-3 py-1 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 rounded-lg text-sm border border-neutral-200 dark:border-neutral-700">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+        </details>
       ))}
     </div>
     
@@ -67,3 +126,21 @@ const sortedExperience = experienceData.sort((a, b) => a.id.localeCompare(b.id))
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('#experience .show-more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const container = btn.closest('.highlights-container');
+      const hiddenHighlights = container?.querySelector('.hidden-highlights');
+      const btnText = btn.querySelector('.btn-text');
+      const btnIcon = btn.querySelector('.btn-icon');
+      
+      if (hiddenHighlights) {
+        hiddenHighlights.classList.toggle('hidden');
+        const isExpanded = !hiddenHighlights.classList.contains('hidden');
+        if (btnText) btnText.textContent = isExpanded ? 'Show less' : btnText.textContent;
+        if (btnIcon) btnIcon.style.transform = isExpanded ? 'rotate(180deg)' : '';
+      }
+    });
+  });
+</script>
