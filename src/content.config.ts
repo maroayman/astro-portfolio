@@ -1,0 +1,17 @@
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+// Blog posts live in src/content/blog/*.md — plain Markdown with the
+// frontmatter below. Covers and inline images live in public/images/.
+const blog = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		date: z.coerce.date(),
+		cover: z.string().optional(),
+		tags: z.array(z.string()).default([]),
+	}),
+});
+
+export const collections = { blog };

@@ -2,30 +2,140 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Skills from '../components/Skills.astro';
-import Experience from '../components/Experience.astro';
-import Education from '../components/Education.astro';
-import Volunteering from '../components/Volunteering.astro';
-import Projects from '../components/Projects.astro';
-import Certifications from '../components/Certifications.astro';
-import Contact from '../components/Contact.astro';
+import Ticker from '../components/Ticker.astro';
+import Section from '../components/Section.astro';
+import SkillTable from '../components/SkillTable.astro';
+import Timeline from '../components/Timeline.astro';
+import ProjectRows from '../components/ProjectRows.astro';
+import PostRow from '../components/PostRow.astro';
+import CertList from '../components/CertList.astro';
+import Cta from '../components/Cta.astro';
 import Footer from '../components/Footer.astro';
+import { profile } from '../data/portfolio';
+import { getPosts } from '../utils/blog';
+
+const latestPosts = (await getPosts()).slice(0, 3);
+
+const stack = [
+	'Kubernetes',
+	'Terraform',
+	'AWS',
+	'GitHub Actions',
+	'Argo CD',
+	'Go',
+	'Prometheus',
+	'Grafana',
+	'Helm',
+	'Vault',
+	'Python',
+	'Observability',
+];
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: profile.name,
+	jobTitle: profile.role,
+	description: profile.intro,
+	email: `mailto:${profile.email}`,
+	url: Astro.site?.href,
+	sameAs: Object.values(profile.links),
+	knowsAbout: ['Kubernetes', 'Terraform', 'AWS', 'GCP', 'CI/CD', 'GitOps', 'Ansible', 'Docker'],
+};
 ---
 
-<Layout title="Marwan Ayman Shawky - Cloud & DevOps Engineer">
-  <Header />
-  <main>
-    <Hero />
-    <About />
-    <Skills />
-    <Experience />
-    <Education />
-    <Volunteering />
-    <Projects />
-    <Certifications />
-    <Contact />
-  </main>
-  <Footer />
+<Layout>
+	<Header />
+	<main id="main">
+		<Hero />
+		<Ticker items={stack} />
+
+		<Section
+			id="skills"
+			index="01"
+			label="Capabilities"
+			title="The stack I run on"
+			sub="Grouped by what I actually use them for — not by how good they look on a slide."
+		>
+			<SkillTable limit={4} />
+			<p class="more">
+				<a class="btn" href="/skills">
+					Full stack →
+				</a>
+			</p>
+		</Section>
+
+		<Section
+			id="experience"
+			index="02"
+			label="Track record"
+			title="Experience"
+			sub="Three roles so far — on-prem Kubernetes, structured training, and cloud automation."
+		>
+			<Timeline limit={2} />
+			<p class="more">
+				<a class="btn" href="/experience">
+					Full history →
+				</a>
+			</p>
+		</Section>
+
+		<Section
+			id="work"
+			index="03"
+			label="Selected work"
+			title="Projects & open source"
+			sub="Each of these started as a production problem that needed solving by hand, once, and then every week."
+		>
+			<ProjectRows limit={3} />
+			<p class="more">
+				<a class="btn" href="/projects">
+					All builds →
+				</a>
+			</p>
+		</Section>
+
+		<Section
+			index="04"
+			label="Credentials"
+			title="Certifications"
+			sub="Formal proof I can operate under pressure, on paper at least."
+		>
+			<CertList />
+		</Section>
+
+		<Section
+			index="05"
+			label="Writing"
+			title="Latest posts"
+			sub="Guides and notes from the homelab — newest first."
+		>
+			<ul class="posts">
+				{latestPosts.map((post, i) => (
+					<PostRow post={post} index={i} />
+				))}
+			</ul>
+			<p class="more">
+				<a class="btn" href="/blog">
+					All posts →
+				</a>
+			</p>
+		</Section>
+
+		<Section>
+			<Cta />
+		</Section>
+	</main>
+	<Footer />
 </Layout>
 
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+<style>
+	.more {
+		margin-top: 28px;
+	}
+
+	.posts {
+		border-top: 2px solid var(--ink);
+	}
+</style>

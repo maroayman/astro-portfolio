@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="sans-serif" role="img" aria-label="Kubernetes LoadBalancer Service traffic flow">
+  <text x="400" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">LoadBalancer Service</text>
+
+  <rect x="30" y="120" width="130" height="60" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="95" y="145" text-anchor="middle" font-size="14" fill="#111827">Client</text>
+  <text x="95" y="165" text-anchor="middle" font-size="12" fill="#6b7280">public traffic</text>
+
+  <line x1="165" y1="150" x2="235" y2="150" stroke="#111827" stroke-width="2" marker-end="url(#arrow2)"/>
+  <defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#111827" stroke-width="1.5"/></marker></defs>
+
+  <rect x="240" y="110" width="170" height="80" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="325" y="136" text-anchor="middle" font-size="14" fill="#111827">Cloud LB</text>
+  <text x="325" y="156" text-anchor="middle" font-size="12" fill="#6b7280">provisioned by</text>
+  <text x="325" y="172" text-anchor="middle" font-size="12" fill="#6b7280">cloud controller</text>
+
+  <line x1="415" y1="150" x2="465" y2="150" stroke="#111827" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <rect x="470" y="60" width="300" height="220" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="620" y="82" text-anchor="middle" font-size="13" fill="#6b7280">Cluster</text>
+  <rect x="486" y="95" width="268" height="48" fill="#bfdbfe"/>
+  <text x="620" y="116" text-anchor="middle" font-size="14" fill="#111827">Service (LoadBalancer)</text>
+  <text x="620" y="134" text-anchor="middle" font-size="12" fill="#6b7280">external IP → pods</text>
+  <rect x="486" y="155" width="126" height="105" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="549" y="185" text-anchor="middle" font-size="14" fill="#111827">Pod A</text>
+  <text x="549" y="205" text-anchor="middle" font-size="12" fill="#6b7280">app:80</text>
+  <rect x="628" y="155" width="126" height="105" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="691" y="185" text-anchor="middle" font-size="14" fill="#111827">Pod B</text>
+  <text x="691" y="205" text-anchor="middle" font-size="12" fill="#6b7280">app:80</text>
+
+  <text x="400" y="310" text-anchor="middle" font-size="12" fill="#6b7280">Redrawn for this guide (original third-party hotlink rotted)</text>
+</svg>

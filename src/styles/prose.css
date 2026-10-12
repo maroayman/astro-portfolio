@@ -1,0 +1,219 @@
+/* Prose styles for rendered blog Markdown.
+   Imported ONLY by the post page, so this weight ships on post pages alone. */
+
+.prose {
+	max-width: 68ch;
+	margin-top: 36px;
+	color: var(--text);
+	font-size: 16.5px;
+	line-height: 1.75;
+}
+
+.prose > * + * {
+	margin-top: 1.4em;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+	text-transform: none;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+}
+
+.prose h2 {
+	margin-top: 2.2em;
+	padding-top: 0.7em;
+	border-top: 2px solid var(--ink);
+	font-size: clamp(24px, 3.4vw, 32px);
+}
+
+.prose h3 {
+	margin-top: 1.8em;
+	font-size: clamp(19px, 2.4vw, 24px);
+}
+
+.prose h4 {
+	margin-top: 1.5em;
+	font-size: 17px;
+}
+
+.prose p,
+.prose li {
+	text-wrap: pretty;
+}
+
+.prose strong {
+	color: var(--text);
+}
+
+.prose a {
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-thickness: 1.5px;
+	text-underline-offset: 3px;
+}
+
+.prose a:hover {
+	background: var(--accent-soft);
+}
+
+.prose ul,
+.prose ol {
+	padding-left: 1.5em;
+}
+
+.prose ul {
+	list-style: square;
+}
+
+.prose ol {
+	list-style: decimal;
+}
+
+.prose li + li {
+	margin-top: 0.5em;
+}
+
+.prose li::marker {
+	color: var(--accent);
+	font-weight: 700;
+}
+
+.prose blockquote {
+	margin-left: 0;
+	margin-right: 0;
+	padding: 4px 0 4px 20px;
+	border-left: 5px solid var(--accent);
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+.prose code:not(pre code) {
+	padding: 2px 7px;
+	border: 1.5px solid var(--ink);
+	background: var(--bg-sunken);
+	font-family: var(--font-mono);
+	font-size: 0.85em;
+	white-space: nowrap;
+}
+
+.prose pre {
+	position: relative;
+	padding: 20px;
+	padding-top: 56px;
+	border: 2px solid var(--ink);
+	background: var(--bg-sunken);
+	box-shadow: 5px 5px 0 var(--ink);
+	overflow-x: auto;
+}
+
+.code-copy {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	padding: 6px 13px;
+	border: 2px solid var(--ink);
+	border-radius: 0;
+	background: var(--bg-elevated);
+	color: var(--text);
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	box-shadow: 3px 3px 0 var(--ink);
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.code-copy:hover {
+	background: var(--ink);
+	color: var(--bg);
+}
+
+.code-copy:active {
+	transform: translate(2px, 2px);
+	box-shadow: 0 0 0 var(--ink);
+}
+
+.prose pre code {
+	font-family: var(--font-mono);
+	font-size: 13px;
+	line-height: 1.7;
+}
+
+.prose img {
+	/* Never upscale beyond natural size — small images stay crisp. */
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	margin-inline: auto;
+	border: 2px solid var(--ink);
+	box-shadow: var(--shadow-hard);
+}
+
+.prose table {
+	/* No-JS fallback: block + scroll works everywhere, grid lines just
+	   double up. When JS wraps tables (see table-wrap.ts) the .tni rules
+	   below take over with proper collapsed borders. */
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: 14.5px;
+}
+
+.prose th,
+.prose td {
+	padding: 10px 14px;
+	border: 1.5px solid var(--ink);
+	text-align: left;
+	vertical-align: top;
+}
+
+.prose th {
+	background: var(--ink);
+	color: var(--bg);
+	font-family: var(--font-mono);
+	font-size: 11.5px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+/* Enhanced tables: wrapped in a scrolling frame, real collapsed grid. */
+.table-wrap {
+	overflow-x: auto;
+	border: 2px solid var(--ink);
+	box-shadow: 5px 5px 0 var(--ink);
+}
+
+.prose.tni table {
+	display: table;
+	overflow: visible;
+	border-collapse: collapse;
+	border-style: hidden;
+}
+
+.prose.tni tbody tr:nth-child(even) {
+	background: var(--bg-sunken);
+}
+
+.prose.tni td:first-child {
+	font-family: var(--font-mono);
+	font-size: 13px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.prose hr {
+	border: none;
+	border-top: 2px solid var(--ink);
+}
+
+.prose :is(h2, h3, h4) code:not(pre code) {
+	font-size: 0.8em;
+}

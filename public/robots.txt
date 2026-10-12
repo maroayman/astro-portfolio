@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://maroayman.com/sitemap-index.xml
+Sitemap: https://maroayman.vercel.app/sitemap-index.xml

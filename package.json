@@ -1,21 +1,31 @@
 {
-  "name": "astro-portfolio",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/tailwind": "^5.1.0",
-    "@fontsource/inter": "^5.2.8",
-    "astro": "^5.16.6",
-    "tailwindcss": "^3.4.1"
-  },
-  "devDependencies": {
-  }
+	"name": "starry-saturn",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"dev:tailnet": "bash scripts/dev-tailnet.sh",
+		"build": "astro build",
+		"preview": "astro preview",
+		"check": "astro check",
+		"check:fix": "astro check --fix",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"verify": "astro check && prettier --check .",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/rss": "^4.0.19",
+		"@astrojs/sitemap": "^3.7.4",
+		"astro": "^7.3.8"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.10",
+		"prettier": "^3.9.10",
+		"prettier-plugin-astro": "^1.1.1",
+		"typescript": "^6.0.3"
+	}
 }

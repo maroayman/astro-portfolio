@@ -1,159 +1,108 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/inter/800.css';
+import '../styles/fonts.css';
+import '../styles/global.css';
+import { profile } from '../data/portfolio';
+
+/** Faces needed for the first paint — preloaded, everything else loads on demand. */
+const PRELOAD_FONTS = ['/fonts/inter-800.woff2', '/fonts/inter-400.woff2'];
 
 interface Props {
-  title: string;
-  description?: string;
+	title?: string;
+	description?: string;
 }
 
-const { title, description = "Marwan Ayman Shawky - Cloud & DevOps Engineer" } = Astro.props;
+const base = 'Marwan Ayman Shawky — Cloud & DevOps Engineer';
+const {
+	title = base,
+	description = 'Portfolio of Marwan Ayman Shawky, a Cloud & DevOps Engineer working with Kubernetes, Terraform, CI/CD, and GitOps on AWS and on-premises.',
+} = Astro.props;
+
+const fullTitle = title === base ? title : `${title} — ${base}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#10b981" />
-    <meta name="generator" content={Astro.generator} />
-    
-    <!-- Resource Hints -->
-    <link rel="preconnect" href="https://formsubmit.co" />
-    <link rel="dns-prefetch" href="https://formsubmit.co" />
-    
-    <!-- SEO Meta Tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={Astro.url} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href={Astro.url.href} />
-    
-    <title>{title}</title>
-    
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Marwan Ayman Shawky",
-      "jobTitle": "Cloud & DevOps Engineer",
-      "url": "https://maroayman.com",
-      "sameAs": [
-        "https://github.com/maroayman",
-        "https://gitlab.com/maroayman",
-        "https://linkedin.com/in/maroayman",
-        "https://hashnode.com/@maroayman"
-      ],
-      "email": "marwanayman.shawky@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Cairo",
-        "addressCountry": "Egypt"
-      }
-    })} />
-    
-    <ViewTransitions />
-    <script is:inline>
-      // Apply theme immediately to prevent flashing
-      (function() {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const isDark = stored === 'dark' || (!stored && prefersDark);
-        if (isDark) {
-          document.documentElement.classList.add('dark');
-        }
-      })();
-      
-      // Re-apply only when navigation occurs
-      document.addEventListener('astro:after-swap', () => {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      });
-      
-      window.__toggleTheme = () => {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      };
-    </script>
-  </head>
-  <body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
-    <slot />
-  </body>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="author" content={profile.name} />
+		{
+			/*
+				Preload only what paints first paint: Inter 800 (giant display
+				headlines) and Inter 400 (body). The remaining faces load lazily.
+			*/
+			PRELOAD_FONTS.map((href) => (
+				<link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+			))
+		}
+		<meta name="description" content={description} />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#0f0d0a" media="(prefers-color-scheme: dark)" />
+		<meta name="theme-color" content="#faf6ef" media="(prefers-color-scheme: light)" />
+		<link rel="canonical" href={canonical} />
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title={`${profile.name} — Blog`}
+			href="/rss.xml"
+		/>
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:site_name" content={profile.name} />
+		<meta name="twitter:card" content="summary" />
+		<title>{fullTitle}</title>
+		<script is:inline>
+			// Runs before paint so the page never flashes the wrong theme,
+			// and flags that scripting is available (reveal animations are
+			// scoped to .js so content stays visible without it).
+			document.documentElement.classList.add('js');
+			(() => {
+				let stored = null;
+				try {
+					stored = localStorage.getItem('theme');
+				} catch {
+					/* private mode / storage blocked — fall back to the OS setting */
+				}
+				const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+				document.documentElement.dataset.theme = stored ?? (prefersLight ? 'light' : 'dark');
+			})();
+		</script>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">
+			Skip to content
+		</a>
+		<div class="blueprint" aria-hidden="true"></div>
+		<div class="grain" aria-hidden="true"></div>
+		<div id="top"></div>
+		<slot />
+		<script>
+			import '../scripts/reveal';
+		</script>
+	</body>
 </html>
 
-<style is:global>
-  body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
-  
-  ::selection {
-    background-color: rgba(16, 185, 129, 0.3);
-  }
-  
-  /* View Transitions - Optimized for snappy navigation */
-  @keyframes fade-in {
-    from { opacity: 0; }
-  }
-  
-  @keyframes fade-out {
-    to { opacity: 0; }
-  }
-  
-  @keyframes slide-from-right {
-    from { transform: translateX(20px); opacity: 0; }
-  }
-  
-  @keyframes slide-to-left {
-    to { transform: translateX(-20px); opacity: 0; }
-  }
-  
-  ::view-transition-old(root) {
-    animation: 60ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
-               80ms cubic-bezier(0.4, 0, 1, 1) both slide-to-left;
-  }
-  
-  ::view-transition-new(root) {
-    animation: 80ms cubic-bezier(0, 0, 0.2, 1) both fade-in,
-               120ms cubic-bezier(0, 0, 0.2, 1) both slide-from-right;
-  }
-
-  /* Respect user's motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    ::view-transition-old(root) {
-      animation: none;
-    }
-    
-    ::view-transition-new(root) {
-      animation: none;
-    }
-
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-  
-  /* Fast scroll behavior for better responsiveness */
-  html {
-    scroll-behavior: auto;
-  }
+<style>
+	.skip-link {
+		position: absolute;
+		left: 16px;
+		top: -60px;
+		z-index: 100;
+		padding: 10px 16px;
+		background: var(--accent);
+		color: var(--accent-contrast);
+		border-radius: var(--r);
+		font-family: var(--font-mono);
+		font-size: 13px;
+		transition: top 0.2s ease;
+	}
+	.skip-link:focus {
+		top: 16px;
+	}
 </style>
-

@@ -1,0 +1,222 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Section from '../../components/Section.astro';
+import Cta from '../../components/Cta.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/prose.css';
+import { getPosts, formatDate, readingTime, tagSlug, postSlug, coverDims } from '../../utils/blog';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	return posts.map((post, i) => ({
+		params: { slug: postSlug(post) },
+		props: {
+			post,
+			newer: i > 0 ? posts[i - 1] : null,
+			older: i < posts.length - 1 ? posts[i + 1] : null,
+		},
+	}));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+const mins = readingTime(post.body ?? '');
+const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+	<Header />
+	<main id="main">
+		<article class="shell post">
+			<Breadcrumb
+				trail={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: 'Post' }]}
+			/>
+
+			<p class="post__meta">
+				{formatDate(post.data.date)} · {mins} min read
+			</p>
+			<h1 class="post__title">{post.data.title}</h1>
+			<p class="post__desc">{post.data.description}</p>
+
+			{post.data.tags.length > 0 && (
+				<ul class="tag-list post__tags" aria-label="Tags">
+					{post.data.tags.map((tag) => (
+						<li>
+							<a class="tag tag--link" href={`/blog#tags=${tagSlug(tag)}`}>
+								{tag}
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+
+			{post.data.cover && (
+				<figure class="post__cover">
+					<img
+						src={post.data.cover}
+						alt=""
+						width={dims?.width}
+						height={dims?.height}
+						loading="eager"
+						fetchpriority="high"
+					/>
+				</figure>
+			)}
+
+			<div class="prose">
+				<Content />
+			</div>
+
+			<nav class="post__nav" aria-label="More posts">
+				{older ? (
+					<a class="post__link post__link--older" href={`/blog/${postSlug(older)}/`}>
+						<span>← Older</span>
+						<strong>{older.data.title}</strong>
+					</a>
+				) : (
+					<span />
+				)}
+				{newer ? (
+					<a class="post__link post__link--newer" href={`/blog/${postSlug(newer)}/`}>
+						<span>Newer →</span>
+						<strong>{newer.data.title}</strong>
+					</a>
+				) : (
+					<span />
+				)}
+			</nav>
+		</article>
+
+		<Section>
+			<Cta>
+				<span slot="title">Found this useful?</span>
+				<span slot="sub">I write these so future-me stops re-googling. Questions welcome.</span>
+			</Cta>
+		</Section>
+	</main>
+	<Footer />
+</Layout>
+
+<script>
+	import '../../scripts/code-copy';
+	import '../../scripts/table-wrap';
+</script>
+
+<style>
+	.post {
+		max-width: 860px;
+		padding-top: clamp(40px, 6vw, 72px);
+	}
+
+	.post__meta {
+		margin-top: 26px;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+
+	.post__title {
+		margin-top: 16px;
+		font-size: clamp(34px, 5.5vw, 64px);
+		text-transform: none;
+		letter-spacing: -0.035em;
+		line-height: 1.02;
+	}
+
+	.post__desc {
+		margin-top: 18px;
+		color: var(--text-muted);
+		font-size: clamp(16px, 2vw, 20px);
+		font-weight: 500;
+	}
+
+	.post__tags {
+		margin-top: 22px;
+	}
+
+	.tag--link {
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.tag--link:hover {
+		background: var(--ink);
+		border-color: var(--ink);
+		color: var(--bg);
+	}
+
+	.post__cover {
+		margin: 32px 0 0;
+	}
+
+	.post__cover img {
+		display: block;
+		width: auto;
+		max-width: 100%;
+		height: auto;
+		margin-inline: auto;
+		border: 2px solid var(--ink);
+		box-shadow: var(--shadow-hard);
+	}
+
+	.post__nav {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 14px;
+		margin-top: 48px;
+		padding-top: 28px;
+		border-top: 2px solid var(--ink);
+	}
+
+	.post__link {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		padding: 18px;
+		border: 2px solid var(--ink);
+		background: var(--bg-elevated);
+	}
+
+	.post__link:hover {
+		background: var(--ink);
+		color: var(--bg);
+	}
+
+	.post__link span {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-faint);
+	}
+
+	.post__link:hover span {
+		color: var(--bg);
+		opacity: 0.7;
+	}
+
+	.post__link strong {
+		font-size: 15px;
+		line-height: 1.35;
+	}
+
+	.post__link--newer {
+		text-align: right;
+	}
+
+	@media (max-width: 640px) {
+		.post__nav {
+			grid-template-columns: 1fr;
+		}
+
+		.post__link--newer {
+			text-align: left;
+		}
+	}
+</style>

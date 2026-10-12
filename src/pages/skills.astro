@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Ticker from '../components/Ticker.astro';
+import Section from '../components/Section.astro';
+import SkillTable from '../components/SkillTable.astro';
+import CertList from '../components/CertList.astro';
+import Cta from '../components/Cta.astro';
+import Footer from '../components/Footer.astro';
+
+const marquee = [
+	'Containers',
+	'Orchestration',
+	'IaC',
+	'CI/CD',
+	'Observability',
+	'Security',
+	'Networking',
+	'Platform',
+];
+---
+
+<Layout
+	title="Stack"
+	description="Tools and technologies Marwan Ayman Shawky uses as a Cloud & DevOps Engineer: Kubernetes, Terraform, AWS, GCP, CI/CD, and GitOps."
+>
+	<Header />
+	<main id="main">
+		<PageHeader
+			index="01"
+			label="Capabilities"
+			title="Stack & tooling"
+			sub="Grouped by what I actually use them for — not by how good they look on a slide. Most of it runs in production right now."
+		>
+			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Stack' }]} />
+		</PageHeader>
+
+		<Ticker items={marquee} />
+
+		<Section
+			divided={false}
+			title="Everything in the toolbox"
+			sub="If it's listed here, I've run it in production and debugged it when it broke."
+		>
+			<SkillTable />
+		</Section>
+
+		<Section
+			index="02"
+			label="Credentials"
+			title="Certifications"
+			sub="Formal proof I can operate under pressure, on paper at least."
+		>
+			<CertList />
+		</Section>
+
+		<Section>
+			<Cta>
+				<span slot="title">Want the whole picture?</span>
+				<span slot="sub">
+					Every tool here is one I've debugged at 3am. Ask me about any of them.
+				</span>
+			</Cta>
+		</Section>
+	</main>
+	<Footer />
+</Layout>

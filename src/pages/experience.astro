@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Section from '../components/Section.astro';
+import Timeline from '../components/Timeline.astro';
+import Cta from '../components/Cta.astro';
+import Footer from '../components/Footer.astro';
+import { education } from '../data/portfolio';
+
+const principles = [
+	{
+		title: 'Automate the second time',
+		detail:
+			'If I did it manually once and will do it again next week, it becomes a script. The third time becomes a pipeline.',
+	},
+	{
+		title: 'Make failure visible',
+		detail:
+			'Dashboards nobody looks at are theatre. Alerts nobody trusts get muted, and then everything is an incident.',
+	},
+	{
+		title: 'Boring is the goal',
+		detail:
+			'Novel infrastructure is expensive infrastructure. Pick the proven tool and spend the saved time on the actual product.',
+	},
+];
+---
+
+<Layout
+	title="Track"
+	description="Career history of Marwan Ayman Shawky, a Cloud & DevOps Engineer working with Kubernetes, Terraform, CI/CD, and GitOps."
+>
+	<Header />
+	<main id="main">
+		<PageHeader
+			index="02"
+			label="Track record"
+			title="Experience"
+			sub="Three roles so far — on-prem Kubernetes, structured training, and cloud automation."
+		>
+			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Track' }]} />
+		</PageHeader>
+
+		<Section divided={false}>
+			<Timeline />
+		</Section>
+
+		<Section index="03" label="Education" title="School" sub="The degree behind the deploys.">
+			<div class="edu reveal">
+				<span class="edu__index" aria-hidden="true">
+					/01
+				</span>
+				<div>
+					<h2 class="edu__degree">{education.degree}</h2>
+					<p class="edu__school">
+						{education.school} — {education.location}
+					</p>
+				</div>
+				<p class="edu__period">{education.period}</p>
+			</div>
+		</Section>
+
+		<Section
+			index="04"
+			label="Principles"
+			title="How I work"
+			sub="The short version, in case the job description didn't make it obvious."
+		>
+			<ul class="principles">
+				{principles.map((item, i) => (
+					<li class="principle reveal" style={`--reveal-delay:${i * 60}ms`}>
+						<span class="principle__index" aria-hidden="true">
+							{String(i + 1).padStart(2, '0')}
+						</span>
+						<div>
+							<h3 class="principle__title">{item.title}</h3>
+							<p class="principle__detail">{item.detail}</p>
+						</div>
+					</li>
+				))}
+			</ul>
+		</Section>
+
+		<Section>
+			<Cta>
+				<span slot="title">Interested in the full story?</span>
+				<span slot="sub">
+					Happy to walk through any of these in detail — including the outages that taught me the
+					lesson.
+				</span>
+			</Cta>
+		</Section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.edu {
+		display: grid;
+		grid-template-columns: 70px minmax(0, 1fr) auto;
+		gap: clamp(14px, 2.5vw, 28px);
+		align-items: start;
+		padding: clamp(24px, 3vw, 34px) 0;
+		border-top: 2px solid var(--ink);
+		border-bottom: 2px solid var(--ink);
+	}
+
+	.edu__index {
+		font-size: 15px;
+		font-weight: 800;
+		color: var(--accent);
+	}
+
+	.edu__degree {
+		font-size: clamp(22px, 3vw, 32px);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		text-transform: uppercase;
+	}
+
+	.edu__school {
+		margin-top: 8px;
+		color: var(--text-muted);
+		font-weight: 500;
+	}
+
+	.edu__period {
+		font-family: var(--font-mono);
+		font-size: 13px;
+		color: var(--bg);
+		background: var(--accent);
+		width: fit-content;
+		padding: 6px 12px;
+		white-space: nowrap;
+	}
+
+	.principles {
+		display: grid;
+		border-top: 2px solid var(--ink);
+	}
+
+	.principle {
+		display: grid;
+		grid-template-columns: 70px minmax(0, 1fr);
+		gap: clamp(14px, 2.5vw, 28px);
+		align-items: start;
+		padding: clamp(24px, 3vw, 34px) 0;
+		border-bottom: 2px solid var(--ink);
+	}
+
+	.principle__index {
+		font-size: 15px;
+		font-weight: 800;
+		color: var(--accent);
+	}
+
+	.principle__title {
+		font-size: clamp(22px, 3vw, 32px);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		text-transform: uppercase;
+	}
+
+	.principle__detail {
+		margin-top: 10px;
+		max-width: 62ch;
+		color: var(--text-muted);
+		font-weight: 500;
+	}
+
+	@media (max-width: 480px) {
+		.principle {
+			grid-template-columns: 34px minmax(0, 1fr);
+		}
+	}
+</style>
