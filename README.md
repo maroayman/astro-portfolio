@@ -75,12 +75,17 @@ all posts).
 ## 🖼️ Images (GHCR, not git)
 
 Blog images live in `public/images/` on disk but are **git-ignored** — same ORAS +
-GHCR method as the Deno site, so the repo stays lean:
+GHCR method as the Deno site, sharing one package so the repo stays lean:
 
-- Artifact: `ghcr.io/maroayman/astro-portfolio-images` (public, anonymous pull)
+- Artifact: `ghcr.io/maroayman/images` (public, anonymous pull — shared with
+  the Deno site; artifact paths are `src/public/images/...`, remapped to
+  `public/images/...` on restore)
 - Pin: `scripts/images.pin` holds the exact `…@sha256:…` ref builds restore
-- `pnpm images:push [-- --pin]` — push current `public/images` (use `--pin` after
-  adding/removing images so builds pick up the new digest)
+  (same digest as the Deno repo — keep both pins in sync after any push)
+- `pnpm images:push [-- --pin]` — overlay current `public/images` onto the
+  shared artifact without touching Deno-only art (use `--pin` after
+  adding/removing images so builds pick up the new digest, then update the
+  Deno repo's pin too)
 - `pnpm images:pull` — force re-pull (plain `pnpm dev` / `pnpm build` pull
   automatically, skipping when images already exist)
 - Vercel builds pull via `buildCommand` in `vercel.json`, bootstrapping its own

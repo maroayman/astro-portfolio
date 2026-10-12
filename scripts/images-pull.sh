@@ -1,5 +1,10 @@
 #!/bin/sh
-# Restore blog images from GHCR (digest-pinned, anonymous) into public/images.
+# Restore blog images from the shared GHCR artifact (digest-pinned, anonymous)
+# into public/images. Same package as the Deno site — one push serves both.
+#
+# Layout remap: artifact titles are `src/public/images/...` (Deno tree),
+# restored here as `public/images/...` (Astro tree).
+#
 # Skips silently when images are already present unless --force is given,
 # so local `pnpm dev` stays instant while Vercel/CI always pull fresh.
 #
@@ -29,7 +34,7 @@ case "$REF" in
   ghcr.io/*"@sha256:"[0-9a-f]*[0-9a-f])
     ;;
   *)
-    echo "error: scripts/images.pin is missing or malformed (run: bash scripts/images-push.sh --pin)" >&2
+    echo "error: scripts/images.pin is missing or malformed" >&2
     exit 1
     ;;
 esac
@@ -52,7 +57,7 @@ fi
 rm -rf ./_images-tmp
 oras pull "$REF" -o ./_images-tmp
 mkdir -p public/images
-cp -r ./_images-tmp/images/. public/images/
+cp -r ./_images-tmp/src/public/images/. public/images/
 rm -rf ./_images-tmp
 IMAGE_COUNT=$(find public/images -type f | wc -l)
 if [ "$IMAGE_COUNT" -eq 0 ]; then
