@@ -16,6 +16,7 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"verify": "astro check && prettier --check .",
+		"images": "bash scripts/images.sh",
 		"images:pull": "bash scripts/images-pull.sh --force",
 		"images:push": "bash scripts/images-push.sh",
 		"astro": "astro"

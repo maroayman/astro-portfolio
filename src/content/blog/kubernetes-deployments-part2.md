@@ -13,7 +13,7 @@ title: 'Kubernetes Deployments Part 2: Update Strategies &
   Production Practices'
 ---
 
-In [Part 1](/blog/016-kubernetes-deployments-part1), we covered Deployment
+In [Part 1](/blog/kubernetes-deployments-part1), we covered Deployment
 fundamentals, scaling, and self-healing.
 
 In Part 2, we go deeper into:
@@ -23,8 +23,6 @@ In Part 2, we go deeper into:
 - Blue/Green Deployments
 - Canary Deployments
 - Production Best Practices
-
----
 
 ## Rolling Updates
 
@@ -37,8 +35,6 @@ Instead of deleting all old Pods at once, Kubernetes:
 3. Maintains availability during the process
 
 ![Rolling Update Visualization](/images/017-kubernetes-deployments-part2/image01.webp)
-
----
 
 ## Rolling Update Configuration
 
@@ -81,8 +77,6 @@ Maximum extra Pods created above desired replicas.
 You can read more about maxSurge and maxUnavailable use cases in the
 [official docs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment).
 
----
-
 ### Updating an Image Version
 
 ```bash
@@ -94,8 +88,6 @@ Watch the rollout:
 ```bash
 kubectl rollout status deployment/web-deployment
 ```
-
----
 
 ## Rollbacks
 
@@ -114,8 +106,6 @@ kubectl rollout undo deployment/web-deployment
 ```
 
 This restores the previous ReplicaSet.
-
----
 
 ## Blue/Green Deployment
 
@@ -138,8 +128,6 @@ Instead of updating Pods gradually, you deploy a separate environment.
 
 This provides zero-downtime and safe testing.
 
----
-
 ## Canary Deployment
 
 Canary releases send traffic to a small subset of users first.
@@ -157,8 +145,6 @@ Canary requires:
 - Traffic splitting (Ingress / Service Mesh)
 
 Used when you want gradual risk reduction.
-
----
 
 ## Production Best Practices
 
@@ -183,8 +169,6 @@ readinessProbe:
 - Liveness → restart unhealthy container
 - Readiness → control traffic routing
 
----
-
 ### Define Resource Limits
 
 ```yaml
@@ -199,8 +183,6 @@ resources:
 
 Prevents noisy neighbor problems.
 
----
-
 ### Use Proper Labels & Versioning
 
 Example:
@@ -213,8 +195,6 @@ labels:
 
 Essential for Blue/Green & Canary strategies.
 
----
-
 ## What You Learned in Part 2
 
 - How Rolling Updates maintain availability
@@ -222,8 +202,6 @@ Essential for Blue/Green & Canary strategies.
 - When to use Blue/Green
 - When to use Canary
 - Production-ready configuration tips
-
----
 
 In Part 3, we will explore advanced Deployment topics: - Deployment failure
 scenarios - HPA integration - Pod disruption budgets - Real production debugging

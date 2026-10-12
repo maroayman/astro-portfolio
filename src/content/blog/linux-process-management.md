@@ -335,10 +335,8 @@ over what’s running on your system. Monitoring tools like `ps`, `htop`, and
 escalate. Master these, and you’ll move from simply running commands to truly
 orchestrating your system like a conductor leading an orchestra.
 
----
-
 ## Up Next: Automation with Cron
 
 Ready to automate? Learn how to schedule tasks:
 
-→ [Linux Cron & Automation](/blog/009-linux-cron-automation)
+→ [Linux Cron & Automation](/blog/linux-cron-automation)

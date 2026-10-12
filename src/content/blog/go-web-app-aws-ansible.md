@@ -15,8 +15,6 @@ Ansible and cron. You'll learn how to automate infrastructure, deploy cleanly
 with roles, and ensure your data is safely backed up using an attached EBS
 volume.
 
----
-
 ## What You'll Learn
 
 - How to deploy a Go web app using Ansible on AWS EC2
@@ -27,8 +25,6 @@ volume.
 
 - Mounting and using an EBS volume for SQLite backups
 
----
-
 ## Project Goals
 
 - Launch a web app written in Go
@@ -38,8 +34,6 @@ volume.
 - Automate app deployment with Ansible
 
 - Store daily database backups on an EBS volume mounted to the instance
-
----
 
 ## Infrastructure Overview
 
@@ -61,8 +55,6 @@ volume.
 
   - Hosts a mounted volume for backups (`/mnt/backup`)
 
----
-
 ## Directory Structure
 
 ```bash
@@ -79,8 +71,6 @@ note-app/
 ├── README.md              # Project readme
 ```
 
----
-
 ## Role Tasks (main.yml)
 
 ```yaml
@@ -91,7 +81,7 @@ note-app/
 
 - name: Ensure app directory exists
   file:
-    path: '}'
+    path: /home/ec2-user/note-app
     state: directory
     owner: ec2-user
     group: ec2-user
@@ -100,7 +90,7 @@ note-app/
 - name: Upload Go app source
   copy:
     src: ./app/
-    dest: '}/'
+    dest: /home/ec2-user/note-app/
     owner: ec2-user
     group: ec2-user
     mode: '0644'
@@ -108,22 +98,22 @@ note-app/
 - name: Initialize Go module
   command: go mod init noteapp
   args:
-    chdir: '}'
+    chdir: /home/ec2-user/note-app
 
 - name: Download dependencies
   command: go mod tidy
   args:
-    chdir: '}'
+    chdir: /home/ec2-user/note-app
 
 - name: Compile Go app
   command: go build -o noteapp main.go
   args:
-    chdir: '}'
+    chdir: /home/ec2-user/note-app
 
 - name: Run app in background using nohup
   shell: nohup ./noteapp > app.log 2>&1 &
   args:
-    chdir: '}'
+    chdir: /home/ec2-user/note-app
 
 - name: Ensure backup folder exists
   file:
@@ -136,12 +126,10 @@ note-app/
 - name: Add daily SQLite backup cron job
   cron:
     name: 'Daily SQLite Backup'
-    job: "cp }/notes.db /mnt/backup/notes_$(date +\\%F).db"
+    job: "cp /home/ec2-user/note-app/notes.db /mnt/backup/notes_$(date +\\%F).db"
     minute: '0'
     hour: '1'
 ```
-
----
 
 ## Mounting the EBS Volume on Node
 
@@ -165,8 +153,6 @@ Then run:
 sudo mount -a
 ```
 
----
-
 ## Deploying the App with Ansible
 
 ### Run from controller
@@ -184,8 +170,6 @@ ansible-playbook -i inventory.ini deploy-noteapp.yml
 - SQLite DB is saved in the app directory
 
 - Cron job for backup is scheduled daily at 1:00 AM
-
----
 
 ## Verifying the Deployment
 
@@ -212,8 +196,6 @@ http://<public-ip>       # or private IP if using a VPC and tunnel
 
 - Make sure controller and node are both in same vpc and security group
 
----
-
 ## Testing the Backup
 
 ### Checking the cron job
@@ -236,8 +218,6 @@ Expected :
 notes_2025-08-05.db
 ```
 
----
-
 ## Troubleshooting
 
 - **Go not found?** → Ensure Go is installed and in `$PATH`.
@@ -259,8 +239,6 @@ infrastructure:
 
 - Scalable and reproducible setup
 
----
-
 ## Resources
 
 - [Go Programming Language](https://golang.org/)
@@ -272,8 +250,6 @@ infrastructure:
 - [SQLite](https://www.sqlite.org/index.html)
 
 - [Cronie](https://fedoraproject.org/wiki/Features/Cronie)
-
----
 
 ## GitHub Repository
 

@@ -249,8 +249,6 @@ With these labs, you’ll progress from simple **echo scripts** to building
 **real-world automation tools**. Shell scripting is a skill that grows with you:
 the more you practice, the more powerful your Linux workflows become.
 
----
-
 ## Practice Pack Script
 
 Here’s the [`linux-shell-labs.sh`](http://linux-shell-labs.sh) file (all 9 labs

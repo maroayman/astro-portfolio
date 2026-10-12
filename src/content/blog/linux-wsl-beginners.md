@@ -21,8 +21,6 @@ complete operating system known as a **Linux distribution (distro)**, which
 bundles the kernel with system utilities, libraries, and often a desktop
 environment.
 
----
-
 ### Why Learn Linux?
 
 #### Server and Cloud Dominance
@@ -44,8 +42,6 @@ Linux is open-source, meaning its code is freely available to inspect and
 modify. This encourages community-driven innovation, strong security practices,
 and deep **customization**, letting users tailor systems to their exact needs.
 
----
-
 ### Popular Linux Distributions
 
 - **Red Hat Enterprise Linux (RHEL)** – Enterprise-grade stability, security,
@@ -59,8 +55,6 @@ and deep **customization**, letting users tailor systems to their exact needs.
 - **Linux Mint** – Desktop-focused, Windows-friendly UX based on Ubuntu.
 - **Kali Linux** – Debian-based distro for penetration testing and digital
   forensics, maintained by Offensive Security.
-
----
 
 ## Part 2: Practicing Linux on Windows with WSL
 
@@ -78,8 +72,6 @@ WSL is lightweight and deeply integrated with Windows:
 **WSL 2** is the recommended version, using a real Linux kernel inside a
 lightweight VM for full system call compatibility.
 
----
-
 ### Step-by-Step Installation (Windows 11)
 
 #### Step 1: Check Your Windows Version
@@ -90,9 +82,7 @@ Ensure you’re running **Windows 11**:
 2. Type `winver`
 3. Press Enter
 
----
-
-### Choosing a Distribution
+### Step 2: Choosing a Distribution
 
 #### Official Microsoft Store Options
 
@@ -103,9 +93,7 @@ Ensure you’re running **Windows 11**:
 - **Oracle Linux** – Enterprise-focused, RHEL-compatible
 - **AlmaLinux** – Community-driven RHEL clone
 
----
-
-### Installing Distributions
+### Step 3: Installing Distributions
 
 #### Method 1: Microsoft Store
 
@@ -113,7 +101,7 @@ Ensure you’re running **Windows 11**:
 2. Search for the distro name (e.g., Ubuntu)
 3. Click **Install**
 
-![](/images/003-linux-wsl-beginners/image01.webp)**
+![](/images/003-linux-wsl-beginners/image01.webp)
 
 #### Method 2: Command Line
 
@@ -124,14 +112,7 @@ wsl --install -d <DistroName>
 
 ![](/images/003-linux-wsl-beginners/image02.webp)
 
-```bash
-wsl --list --online
-wsl --install -d <DistroName>
-```
-
----
-
-### Manual Installation: CentOS Stream
+### Step 4 (Optional): Manual Installation — CentOS Stream
 
 CentOS Stream is not available directly from the Microsoft Store and must be
 installed manually.
@@ -158,9 +139,7 @@ wsl --import CentOS-Stream C:\WSL\CentOS-Stream C:\path\CentOS-Stream.tar.xz --v
 - Add user to the `wheel` group
 - Configure `/etc/wsl.conf` to set the default user
 
----
-
-### Switching Between WSL Distributions
+### Step 5: Switching Between WSL Distributions
 
 #### Method 1: Command Line
 
@@ -184,8 +163,6 @@ wsl --set-default kali-linux
 
 ![](/images/003-linux-wsl-beginners/image03.webp)
 
----
-
 ## Part 3: Integrating with VS Code and Windows
 
 ### Working with VS Code
@@ -207,8 +184,6 @@ VS Code will open connected directly to your Linux filesystem.
 ![](/images/003-linux-wsl-beginners/image04.webp)
 
 ![](/images/003-linux-wsl-beginners/image05.webp)
-
----
 
 ## Part 4: What’s Next?
 
@@ -233,8 +208,6 @@ VS Code will open connected directly to your Linux filesystem.
 - Configure **Nginx** or **Apache**
 - Build a **Flask/Django** app
 - Manage code with **Git**
-
----
 
 Your WSL environment is a powerful learning sandbox. Experiment, break things,
 fix them—and enjoy the Linux journey 🚀

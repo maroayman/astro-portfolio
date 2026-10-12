@@ -33,8 +33,6 @@ In this post, I'll go through:
 - The advantages and weaknesses I've noticed
 - What I've learned from the switch
 
----
-
 ## Why CachyOS?
 
 CachyOS is an Arch-based Linux distribution that focuses on providing a fast and
@@ -54,8 +52,6 @@ commands and workflows.
 Switching to an Arch-based system forces you to question some of those habits.
 
 And that's exactly what I wanted.
-
----
 
 ## Package Management: Ubuntu, CentOS vs Arch
 
@@ -103,8 +99,6 @@ system, you begin noticing how different the ecosystems are.
 It also made me realize how much of my previous Linux knowledge was specifically
 **Ubuntu knowledge**, rather than general Linux knowledge.
 
----
-
 ## Pacman
 
 Pacman is the standard package manager for Arch Linux and Arch-based
@@ -135,8 +129,6 @@ Instead of simply memorizing commands, I'm trying to understand what
 repositories are being used, how dependencies are handled, and what actually
 happens when packages are installed or updated.
 
----
-
 ## The AUR
 
 Another major part of the Arch ecosystem is the **Arch User Repository (AUR)**.
@@ -166,8 +158,6 @@ For me, that's actually part of the learning experience.
 Instead of treating the package manager as a black box, I'm becoming more
 interested in understanding what's happening underneath it.
 
----
-
 ## Fish Shell
 
 Another thing I decided to experiment with after switching was **Fish shell**.
@@ -190,8 +180,6 @@ of it automatically.
 
 It sounds like a small feature, but when you're working in the terminal every
 day, these small improvements add up.
-
----
 
 ## Fish vs Bash
 
@@ -221,8 +209,6 @@ Instead, I'm currently treating them differently.
 
 That gives me the nicer interactive experience of Fish while still keeping
 compatibility with the huge amount of Bash-based tooling that already exists.
-
----
 
 ## What I Like About CachyOS
 
@@ -270,8 +256,6 @@ gives me a better opportunity to practice things like:
 Instead of practicing everything inside WSL2, I'm now dealing with the actual
 operating system.
 
----
-
 ## What I Don't Like
 
 Of course, CachyOS isn't perfect.
@@ -308,8 +292,6 @@ This is both a weakness and an advantage.
 When something goes wrong, fixing it can take more effort.
 
 But that process also forces you to understand your system better.
-
----
 
 ## What I Learned
 
@@ -349,8 +331,6 @@ That small change has made Linux feel less like a tool I'm accessing and more
 like the environment I'm actually working in.
 
 And that was the main reason I made the switch.
-
----
 
 ## Final Thoughts
 

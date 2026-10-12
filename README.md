@@ -82,11 +82,12 @@ GHCR method as the Deno site, sharing one package so the repo stays lean:
   `public/images/...` on restore)
 - Pin: `scripts/images.pin` holds the exact `…@sha256:…` ref builds restore
   (same digest as the Deno repo — keep both pins in sync after any push)
-- `pnpm images:push [-- --pin]` — overlay current `public/images` onto the
-  shared artifact without touching Deno-only art (use `--pin` after
-  adding/removing images so builds pick up the new digest, then update the
-  Deno repo's pin too)
-- `pnpm images:pull` — force re-pull (plain `pnpm dev` / `pnpm build` pull
+- `pnpm images push --pin` — overlay current `public/images` onto the
+  shared artifact without touching Deno-only art (`push --dry-run` previews,
+  plain `push` without `--pin` uploads but keeps the old digest; use `--pin`
+  after adding/removing images so builds pick up the new digest, then update
+  the Deno repo's pin too)
+- `pnpm images pull` — force re-pull (plain `pnpm dev` / `pnpm build` pull
   automatically, skipping when images already exist)
 - Vercel builds pull via `buildCommand` in `vercel.json`, bootstrapping its own
   `oras` binary — no tokens needed since the package is public

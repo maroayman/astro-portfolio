@@ -7,7 +7,7 @@ tags:
   - Security
 ---
 
-In the [previous article](/blog/004-linux-filesystem-overview) we explored the
+In the [previous article](/blog/linux-filesystem-overview) we explored the
 **Linux filesystem hierarchy** and got familiar with its structure.\
 Now, let’s unlock a powerful concept: **who can access what** in Linux.
 

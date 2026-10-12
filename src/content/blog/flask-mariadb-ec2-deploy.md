@@ -262,8 +262,6 @@ The output should be like this
 
 `-rw-r--r-- 1 root root 12K Jul 16 10:25 notesdb_backup.sql`
 
----
-
 ## GitHub Repository
 
 [View on GitHub: maroayman/depi-project-1](https://github.com/maroayman/depi-project-1)

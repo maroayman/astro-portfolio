@@ -139,9 +139,7 @@ can use **timers**.
 6. Compare the execution of a cron job vs. a systemd timer — which one provides
    better logging?
 
----
-
 Now that you can schedule and automate tasks, the next step is understanding
 storage. In the next article, we dive into:
-[**Linux Disk Management**](/blog/010-linux-disk-management) — exploring
+[**Linux Disk Management**](/blog/linux-disk-management) — exploring
 partitions, filesystems, mounting, and how to monitor disk health.

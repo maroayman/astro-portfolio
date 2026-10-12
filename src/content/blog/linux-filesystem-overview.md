@@ -15,8 +15,6 @@ structure, navigating Linux becomes simple and logical. In this guide, we’ll
 explore what lives where, why it’s structured this way, and how you can find
 what you need quickly.
 
----
-
 ## The Filesystem Tree
 
 **Linux** uses a **single-root directory structure**. Everything starts at `/`
@@ -24,8 +22,6 @@ what you need quickly.
 root.
 
 ![Filesystem – Source: FutureLearn](/images/004-linux-filesystem-overview/image01.webp)
-
----
 
 ## Key Directories and Their Purpose
 
@@ -44,12 +40,10 @@ root.
 | `/usr`    | User-installed software, docs, libraries   | Most programs and system-wide files live here.                            |
 | `/var`    | Logs, spool files, caches                  | Essential for debugging, monitoring, and queues.                          |
 
----
-
 ## Challenge: Navigate and Explore Your Linux Filesystem
 
 If you haven’t set up Linux in WSL2 yet, start with
-[**Part 1: Installing Linux on WSL2**](/blog/003-linux-wsl-beginners) so you can
+[**Part 1: Installing Linux on WSL2**](/blog/linux-wsl-beginners) so you can
 follow along.
 
 Once you’re ready, open your terminal and try these steps:
@@ -94,8 +88,6 @@ pwd
 - `pwd` (“print working directory”) shows your current location
 - Move around using `cd` and observe how `pwd` changes
 
----
-
 ## Reflection
 
 - Which directory looks most important for **system configuration**?
@@ -105,8 +97,6 @@ pwd
 > The goal here is to get comfortable moving around and start recognizing
 > patterns. Keep exploring step by step — Linux mastery is closer than you
 > think!
-
----
 
 ## Up Next: Understanding Permissions
 
