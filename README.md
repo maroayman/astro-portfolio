@@ -72,6 +72,20 @@ the sitemap for zero benefit. Filtering happens in place via
 `src/scripts/tag-filter.ts` (also progressive enhancement — no-JS readers see
 all posts).
 
+## 🖼️ Images (GHCR, not git)
+
+Blog images live in `public/images/` on disk but are **git-ignored** — same ORAS +
+GHCR method as the Deno site, so the repo stays lean:
+
+- Artifact: `ghcr.io/maroayman/astro-portfolio-images` (public, anonymous pull)
+- Pin: `scripts/images.pin` holds the exact `…@sha256:…` ref builds restore
+- `pnpm images:push [-- --pin]` — push current `public/images` (use `--pin` after
+  adding/removing images so builds pick up the new digest)
+- `pnpm images:pull` — force re-pull (plain `pnpm dev` / `pnpm build` pull
+  automatically, skipping when images already exist)
+- Vercel builds pull via `buildCommand` in `vercel.json`, bootstrapping its own
+  `oras` binary — no tokens needed since the package is public
+
 Images referenced as `/images/...` live in `public/images/`. Shared helpers
 (sorting, tag slugs, reading time) are in `src/utils/blog.ts`, and Markdown
 typography in `src/styles/prose.css` ships on post pages only. Code blocks get

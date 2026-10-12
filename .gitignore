@@ -7,6 +7,9 @@ dist/
 # dependencies
 node_modules/
 
+# blog images (GHCR via scripts/images-pull.sh, pinned in scripts/images.pin)
+public/images/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

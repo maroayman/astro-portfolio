@@ -8,13 +8,16 @@
 	"scripts": {
 		"dev": "astro dev",
 		"dev:tailnet": "bash scripts/dev-tailnet.sh",
-		"build": "astro build",
+		"predev": "bash scripts/images-pull.sh",
+		"build": "bash scripts/images-pull.sh && astro build",
 		"preview": "astro preview",
 		"check": "astro check",
 		"check:fix": "astro check --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"verify": "astro check && prettier --check .",
+		"images:pull": "bash scripts/images-pull.sh --force",
+		"images:push": "bash scripts/images-push.sh",
 		"astro": "astro"
 	},
 	"dependencies": {
