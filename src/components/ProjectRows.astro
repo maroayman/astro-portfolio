@@ -47,11 +47,11 @@ const items = typeof limit === 'number' ? projects.slice(0, limit) : projects;
 <style>
 	.list {
 		display: grid;
-		border-top: 1px solid var(--line-strong);
+		border-top: 2px solid var(--ink);
 	}
 
 	.list > li {
-		border-bottom: 1px solid var(--line-strong);
+		border-bottom: 2px solid var(--ink);
 	}
 
 	.row {
@@ -97,8 +97,8 @@ const items = typeof limit === 'number' ? projects.slice(0, limit) : projects;
 	}
 
 	.row__index {
-		font-size: 13px;
-		font-weight: 600;
+		font-size: 15px;
+		font-weight: 800;
 		color: var(--accent);
 	}
 
@@ -106,7 +106,7 @@ const items = typeof limit === 'number' ? projects.slice(0, limit) : projects;
 		display: flex;
 		align-items: baseline;
 		gap: 12px;
-		font-size: clamp(20px, 3vw, 32px);
+		font-size: clamp(26px, 4vw, 46px);
 	}
 
 	.row__arrow {
@@ -122,13 +122,15 @@ const items = typeof limit === 'number' ? projects.slice(0, limit) : projects;
 	}
 
 	.row__metric {
-		padding: 6px 12px;
-		border: 1px solid var(--line-strong);
-		border-radius: var(--r);
-		background: var(--bg-elevated);
-		color: var(--text-muted);
+		padding: 8px 14px;
+		border: 2px solid var(--ink);
+		background: var(--accent-soft);
+		color: var(--text);
 		font-family: var(--font-mono);
 		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 		white-space: nowrap;
 	}
 

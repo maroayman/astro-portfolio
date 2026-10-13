@@ -1,7 +1,11 @@
 ---
-import TilesLayout from '../layouts/TilesLayout.astro';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import Section from '../components/Section.astro';
 import Cta from '../components/Cta.astro';
+import Footer from '../components/Footer.astro';
 import { profile, icons, availabilityState } from '../data/portfolio';
 
 const looking = [
@@ -20,7 +24,8 @@ const looking = [
 	{
 		title: 'Freelance gigs',
 		detail: 'Available for freelance infrastructure work — find me on the usual platforms.',
-		link: null,
+		link: 'https://www.upwork.com/freelancers/~0142a1533e4a586cfb',
+		linkLabel: 'Upwork ↗',
 	},
 ];
 
@@ -29,91 +34,143 @@ const expectations = [
 	'Cairo based, remote-friendly — timezone-flexible with Europe and the GCC.',
 	'Prefer talking? Call or message — the number is below the email box.',
 ];
-
-const channels = [
-	{ text: `mail — ${profile.email}`, href: `mailto:${profile.email}` },
-	{ text: `tel — ${profile.phone}`, href: profile.phoneHref },
-	{ text: 'gh — github.com/maroayman', href: profile.links.github, external: true },
-	{ text: 'in — linkedin.com/in/maroayman', href: profile.links.linkedin, external: true },
-	{ text: 'gl — gitlab.com/maroayman', href: profile.links.gitlab, external: true },
-	{ text: 'tree — linktr.ee/maroayman', href: profile.links.linktree, external: true },
-];
 ---
 
-<TilesLayout
-	windowId="contact"
+<Layout
 	title="Contact"
 	description="Get in touch with Marwan Ayman Shawky, Cloud & DevOps Engineer in Cairo, Egypt. Available for DevOps roles, cloud work, and freelance gigs."
-	file="contact.md"
-	docTitle="Let's talk infrastructure."
-	intro="Whether it's a platform role, a migration you're dreading, or just a strong opinion about YAML — my inbox is open."
-	entries={channels}
-	tags={['mail', 'tel', 'github', 'linkedin', 'gitlab', 'linktree']}
-	tagsUnit="links"
 >
-	<Section divided={false}>
-		<Cta>
-			<span slot="title">Get in touch</span>
-			<span slot="sub">
-				{availabilityState.label} · {profile.location}
-			</span>
-		</Cta>
-	</Section>
+	<Header />
+	<main id="main">
+		<PageHeader
+			index="04"
+			label="Open channel"
+			title="Let's talk infrastructure."
+			sub="Whether it's a platform role, a migration you're dreading, or just a strong opinion about YAML — my inbox is open."
+		>
+			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
+		</PageHeader>
 
-	<Section
-		index="05"
-		label="Fit check"
-		title="What I'm looking for"
-		sub="A short list, so you can tell quickly whether this is worth an email."
-	>
-		<ul class="roles">
-			{looking.map((item, i) => (
-				<li class="role reveal" style={`--reveal-delay:${i * 70}ms`}>
-					<span class="role__index" aria-hidden="true">
-						{String(i + 1).padStart(2, '0')}
-					</span>
-					<div>
-						<h2 class="role__title">{item.title}</h2>
-						<p class="role__detail">{item.detail}</p>
-					</div>
-					<svg
-						class="role__icon"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						aria-hidden="true"
-					>
-						<path d={icons.cube} />
-					</svg>
-				</li>
-			))}
-		</ul>
-	</Section>
+		<Section divided={false}>
+			<Cta>
+				<span slot="title">Get in touch</span>
+				<span slot="sub">
+					{availabilityState.label} · {profile.location}
+				</span>
+			</Cta>
+			<p class="direct reveal">
+				<span class="direct__label">Direct line_</span>
+				<a class="direct__number" href={profile.phoneHref}>
+					{profile.phone}
+				</a>
+			</p>
+		</Section>
 
-	<Section
-		index="06"
-		label="Good to know"
-		title="Before you write"
-		sub="A little expectations-setting, so neither of us wastes a coffee."
-	>
-		<ul class="notes">
-			{expectations.map((note, i) => (
-				<li class="note reveal" style={`--reveal-delay:${i * 60}ms`}>
-					<span class="note__dot" aria-hidden="true" />
-					{note}
-				</li>
-			))}
-		</ul>
-	</Section>
-</TilesLayout>
+		<Section
+			index="05"
+			label="Fit check"
+			title="What I'm looking for"
+			sub="A short list, so you can tell quickly whether this is worth an email."
+		>
+			<ul class="roles">
+				{looking.map((item, i) => (
+					<li class="role reveal" style={`--reveal-delay:${i * 70}ms`}>
+						<span class="role__index" aria-hidden="true">
+							{String(i + 1).padStart(2, '0')}
+						</span>
+						<div>
+							<h2 class="role__title">{item.title}</h2>
+							<p class="role__detail">{item.detail}</p>
+							{item.link && (
+								<p class="role__link">
+									<a href={item.link} target="_blank" rel="noopener noreferrer">
+										{item.linkLabel}
+									</a>
+								</p>
+							)}
+						</div>
+						<svg
+							class="role__icon"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<path d={icons.cube} />
+						</svg>
+					</li>
+				))}
+			</ul>
+		</Section>
+
+		<Section
+			index="06"
+			label="Good to know"
+			title="Before you write"
+			sub="A little expectations-setting, so neither of us wastes a coffee."
+		>
+			<ul class="notes">
+				{expectations.map((note, i) => (
+					<li class="note reveal" style={`--reveal-delay:${i * 60}ms`}>
+						<span class="note__dot" aria-hidden="true" />
+						{note}
+					</li>
+				))}
+			</ul>
+		</Section>
+	</main>
+	<Footer />
+</Layout>
 
 <style>
+	.direct {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 8px 20px;
+		margin-top: 22px;
+		padding: 20px 0;
+		border-top: 2px solid var(--ink);
+		border-bottom: 2px solid var(--ink);
+	}
+
+	.direct__label {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--text-faint);
+	}
+
+	.direct__number {
+		font-size: clamp(26px, 4vw, 40px);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+	}
+
+	.direct__number:hover {
+		color: var(--accent);
+	}
+
+	.role__link {
+		margin-top: 10px;
+		font-family: var(--font-mono);
+		font-size: 13px;
+	}
+
+	.role__link a {
+		color: var(--accent);
+		text-decoration: underline;
+		text-decoration-thickness: 1.5px;
+		text-underline-offset: 3px;
+	}
+
 	.roles {
 		display: grid;
-		border-top: 1px solid var(--line-strong);
+		border-top: 2px solid var(--ink);
 	}
 
 	.role {
@@ -122,24 +179,27 @@ const channels = [
 		gap: clamp(14px, 2.5vw, 28px);
 		align-items: start;
 		padding: clamp(22px, 3vw, 32px) 0;
-		border-bottom: 1px solid var(--line-strong);
+		border-bottom: 2px solid var(--ink);
 	}
 
 	.role__index {
 		color: var(--accent);
-		font-size: 13px;
-		font-weight: 600;
+		font-size: 15px;
+		font-weight: 800;
 	}
 
 	.role__title {
-		font-size: clamp(20px, 2.6vw, 28px);
-		font-weight: 600;
+		font-size: clamp(22px, 3vw, 32px);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		text-transform: uppercase;
 	}
 
 	.role__detail {
 		margin-top: 8px;
 		max-width: 58ch;
 		color: var(--text-muted);
+		font-weight: 500;
 	}
 
 	.role__icon {
@@ -150,7 +210,7 @@ const channels = [
 
 	.notes {
 		display: grid;
-		border-top: 1px solid var(--line-strong);
+		border-top: 2px solid var(--ink);
 		max-width: 76ch;
 	}
 
@@ -159,8 +219,9 @@ const channels = [
 		align-items: flex-start;
 		gap: 14px;
 		padding: 16px 0;
-		border-bottom: 1px solid var(--line-strong);
+		border-bottom: 2px solid var(--ink);
 		color: var(--text-muted);
+		font-weight: 500;
 	}
 
 	.note__dot {

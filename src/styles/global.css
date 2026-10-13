@@ -1,12 +1,12 @@
 /* ===============================================================
-   Tiles — tmux-style terminal theme
-   Red Hat Mono everywhere, thin pane rules, one loud orange.
-   Theme is driven by [data-theme] on <html>.
+   Freight — brutalist-Swiss portfolio theme
+   No cards, no gradients-as-crutch. Ink rules, giant grotesk type,
+   one loud orange. Theme is driven by [data-theme] on <html>.
    =============================================================== */
 
 :root {
-	--font-sans: 'Red Hat Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-	--font-mono: 'Red Hat Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+	--font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
 	--max-width: 1200px;
 	--gutter: 24px;
@@ -27,6 +27,7 @@
 	--accent-ink: #ffffff;
 	--accent-soft: rgb(178 58 0 / 9%);
 
+	--shadow-hard: 6px 6px 0 var(--ink);
 	--selection: #b23a0033;
 }
 
@@ -45,6 +46,7 @@
 	--accent-ink: #160b03;
 	--accent-soft: rgb(255 107 44 / 12%);
 
+	--shadow-hard: 6px 6px 0 var(--ink);
 	--selection: #ff6b2c44;
 }
 
@@ -83,9 +85,10 @@ h2,
 h3,
 h4 {
 	margin: 0;
-	font-weight: 600;
-	line-height: 1.08;
-	letter-spacing: -0.02em;
+	font-weight: 800;
+	line-height: 0.94;
+	letter-spacing: -0.045em;
+	text-transform: uppercase;
 	text-wrap: balance;
 }
 
@@ -146,7 +149,9 @@ button {
 }
 
 .shell,
-main {
+.site-header,
+main,
+.site-footer {
 	position: relative;
 	z-index: 2;
 }
@@ -159,99 +164,93 @@ main {
 }
 
 .section {
-	padding-block: clamp(48px, 7vw, 88px);
+	padding-block: clamp(56px, 8vw, 110px);
+	border-top: 2px solid var(--ink);
 }
 
-/* Section heading: [index] label + title, like a pane title. */
+/* Section heading: giant index numeral + rule + huge title */
 
 .section__head {
-	margin-bottom: clamp(28px, 4vw, 44px);
+	margin-bottom: clamp(32px, 5vw, 56px);
 }
 
 .section__label {
 	display: flex;
 	align-items: baseline;
-	gap: 10px;
-	margin-bottom: 14px;
+	gap: 16px;
+	margin-bottom: 20px;
 	font-family: var(--font-mono);
 	font-size: 12px;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
 	color: var(--text-faint);
 }
 
-.section__label b::before {
-	content: '[';
-}
-
-.section__label b::after {
-	content: ']';
-}
-
 .section__label b {
-	font-weight: 600;
+	font-family: var(--font-sans);
+	font-size: clamp(40px, 6vw, 64px);
+	font-weight: 800;
+	letter-spacing: -0.05em;
+	line-height: 1;
 	color: var(--accent);
 }
 
 .section__title {
-	font-size: clamp(26px, 4.5vw, 48px);
-	max-width: 16ch;
+	font-size: clamp(38px, 7vw, 88px);
+	max-width: 12ch;
 }
 
 .section__sub {
-	margin-top: 12px;
-	max-width: 60ch;
+	margin-top: 16px;
+	max-width: 56ch;
 	color: var(--text-muted);
-	font-size: clamp(13px, 1.5vw, 15px);
+	font-size: clamp(15px, 1.6vw, 18px);
+	font-weight: 500;
 }
 
-/* Buttons: thin terminal frames, invert on hover. */
+/* Buttons: ink-bordered, hard shadow, slam on hover */
 
 .btn {
 	display: inline-flex;
 	align-items: center;
 	gap: 10px;
-	padding: 12px 22px;
-	border: 1px solid var(--line-strong);
+	padding: 14px 26px;
+	border: 2px solid var(--ink);
 	border-radius: var(--r);
 	background: var(--bg-elevated);
 	color: var(--text);
-	font-family: var(--font-mono);
-	font-size: 13px;
-	font-weight: 600;
+	font-size: 14px;
+	font-weight: 800;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	box-shadow: 4px 4px 0 var(--ink);
 	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
 		background-color 0.15s ease,
-		color 0.15s ease,
-		border-color 0.15s ease;
+		color 0.15s ease;
 }
 
 .btn:hover {
-	background: var(--ink);
-	border-color: var(--ink);
-	color: var(--bg);
+	transform: translate(-2px, -2px);
+	box-shadow: 6px 6px 0 var(--ink);
+}
+
+.btn:active {
+	transform: translate(2px, 2px);
+	box-shadow: 0 0 0 var(--ink);
 }
 
 .btn--primary {
 	background: var(--ink);
-	border-color: var(--ink);
 	color: var(--bg);
-}
-
-.btn--primary:hover {
-	background: var(--accent);
-	border-color: var(--accent);
-	color: var(--accent-ink);
 }
 
 .btn--signal {
 	background: var(--accent);
 	border-color: var(--accent);
 	color: var(--accent-ink);
-}
-
-.btn--signal:hover {
-	background: var(--ink);
-	border-color: var(--ink);
-	color: var(--bg);
+	box-shadow: 4px 4px 0 var(--ink);
 }
 
 .btn svg {
@@ -264,13 +263,14 @@ main {
 
 .tag {
 	display: inline-block;
-	padding: 2px 9px;
-	border: 1px solid var(--line-strong);
+	padding: 5px 10px;
+	border: 1.5px solid var(--ink);
 	border-radius: var(--r);
 	background: var(--bg-elevated);
-	color: var(--text-muted);
+	color: var(--text);
 	font-family: var(--font-mono);
-	font-size: 12px;
+	font-size: 11px;
+	font-weight: 500;
 	white-space: nowrap;
 }
 

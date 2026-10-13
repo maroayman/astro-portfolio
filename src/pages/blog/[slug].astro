@@ -1,7 +1,10 @@
 ---
-import TilesLayout from '../../layouts/TilesLayout.astro';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import Section from '../../components/Section.astro';
 import Cta from '../../components/Cta.astro';
+import Footer from '../../components/Footer.astro';
 import '../../styles/prose.css';
 import { getPosts, formatDate, readingTime, tagSlug, postSlug, coverDims } from '../../utils/blog';
 import { render } from 'astro:content';
@@ -22,126 +25,85 @@ const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
 const mins = readingTime(post.body ?? '');
 const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
-
-const navEntries = [
-	...(newer ? [{ text: `Newer: ${newer.data.title}`, href: `/blog/${postSlug(newer)}/` }] : []),
-	...(older ? [{ text: `Older: ${older.data.title}`, href: `/blog/${postSlug(older)}/` }] : []),
-];
 ---
 
-<TilesLayout
-	windowId="blog"
-	title={post.data.title}
-	description={post.data.description}
-	file={`${postSlug(post)}.md`}
-	docTitle={post.data.title}
-	intro={`${formatDate(post.data.date)} · ${mins} min read — ${post.data.description}`}
-	entries={navEntries}
-	tags={post.data.tags}
-	tagsUnit="tags"
->
-	<article class="shell post">
-		<p class="post__meta">
-			{formatDate(post.data.date)} · {mins} min read
-		</p>
-		<h1 class="post__title">{post.data.title}</h1>
-		<p class="post__desc">{post.data.description}</p>
+<Layout title={post.data.title} description={post.data.description}>
+	<Header />
+	<main id="main">
+		<article class="shell post">
+			<Breadcrumb
+				trail={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: 'Post' }]}
+			/>
 
-		{post.data.tags.length > 0 && (
-			<ul class="tag-list post__tags" aria-label="Tags">
-				{post.data.tags.map((tag) => (
-					<li>
-						<a class="tag tag--link" href={`/blog#tags=${tagSlug(tag)}`}>
-							{tag}
-						</a>
-					</li>
-				))}
-			</ul>
-		)}
+			<p class="post__meta">
+				{formatDate(post.data.date)} · {mins} min read
+			</p>
+			<h1 class="post__title">{post.data.title}</h1>
+			<p class="post__desc">{post.data.description}</p>
 
-		{post.data.cover && (
-			<figure class="post__cover">
-				<img
-					src={post.data.cover}
-					alt=""
-					width={dims?.width}
-					height={dims?.height}
-					loading="eager"
-					fetchpriority="high"
-				/>
-			</figure>
-		)}
-
-		<div class="prose">
-			<Content />
-		</div>
-
-		<nav class="post__nav" aria-label="More posts">
-			{older ? (
-				<a class="post__link post__link--older" href={`/blog/${postSlug(older)}/`}>
-					<span>← Older</span>
-					<strong>{older.data.title}</strong>
-				</a>
-			) : (
-				<span />
+			{post.data.tags.length > 0 && (
+				<ul class="tag-list post__tags" aria-label="Tags">
+					{post.data.tags.map((tag) => (
+						<li>
+							<a class="tag tag--link" href={`/blog#tags=${tagSlug(tag)}`}>
+								{tag}
+							</a>
+						</li>
+					))}
+				</ul>
 			)}
-			{newer ? (
-				<a class="post__link post__link--newer" href={`/blog/${postSlug(newer)}/`}>
-					<span>Newer →</span>
-					<strong>{newer.data.title}</strong>
-				</a>
-			) : (
-				<span />
-			)}
-		</nav>
-	</article>
 
-	<Section>
-		<Cta>
-			<span slot="title">Found this useful?</span>
-			<span slot="sub">I write these so future-me stops re-googling. Questions welcome.</span>
-		</Cta>
-	</Section>
-	<div
-		class="lightbox"
-		id="lightbox"
-		role="dialog"
-		aria-modal="true"
-		aria-label="Image viewer"
-		aria-hidden="true"
-		hidden
-	>
-		<button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">
-			×
-		</button>
-		<button
-			class="lightbox-nav lightbox-prev"
-			id="lightboxPrev"
-			type="button"
-			aria-label="Previous image"
-		>
-			←
-		</button>
-		<button
-			class="lightbox-nav lightbox-next"
-			id="lightboxNext"
-			type="button"
-			aria-label="Next image"
-		>
-			→
-		</button>
-		<div class="lightbox-content">
-			<img class="lightbox-image" id="lightboxImage" alt="" />
-			<p class="lightbox-caption" id="lightboxCaption" aria-live="polite"></p>
-		</div>
-	</div>
-</TilesLayout>
+			{post.data.cover && (
+				<figure class="post__cover">
+					<img
+						src={post.data.cover}
+						alt=""
+						width={dims?.width}
+						height={dims?.height}
+						loading="eager"
+						fetchpriority="high"
+					/>
+				</figure>
+			)}
+
+			<div class="prose">
+				<Content />
+			</div>
+
+			<nav class="post__nav" aria-label="More posts">
+				{older ? (
+					<a class="post__link post__link--older" href={`/blog/${postSlug(older)}/`}>
+						<span>← Older</span>
+						<strong>{older.data.title}</strong>
+					</a>
+				) : (
+					<span />
+				)}
+				{newer ? (
+					<a class="post__link post__link--newer" href={`/blog/${postSlug(newer)}/`}>
+						<span>Newer →</span>
+						<strong>{newer.data.title}</strong>
+					</a>
+				) : (
+					<span />
+				)}
+			</nav>
+		</article>
+
+		<Section>
+			<Cta>
+				<span slot="title">Found this useful?</span>
+				<span slot="sub">I write these so future-me stops re-googling. Questions welcome.</span>
+			</Cta>
+		</Section>
+	</main>
+	<Footer />
+</Layout>
 
 <script>
 	import '../../scripts/code-copy';
 	import '../../scripts/table-wrap';
 	import '../../scripts/tabs';
-	import '../../scripts/lightbox';
 </script>
 
 <style>
@@ -154,20 +116,24 @@ const navEntries = [
 		margin-top: 26px;
 		font-family: var(--font-mono);
 		font-size: 12px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
 		color: var(--accent);
 	}
 
 	.post__title {
-		margin-top: 14px;
-		font-size: clamp(28px, 4.5vw, 48px);
-		font-weight: 600;
-		line-height: 1.15;
+		margin-top: 16px;
+		font-size: clamp(34px, 5.5vw, 64px);
+		text-transform: none;
+		letter-spacing: -0.035em;
+		line-height: 1.02;
 	}
 
 	.post__desc {
-		margin-top: 14px;
+		margin-top: 18px;
 		color: var(--text-muted);
-		font-size: clamp(14px, 1.8vw, 17px);
+		font-size: clamp(16px, 2vw, 20px);
+		font-weight: 500;
 	}
 
 	.post__tags {
@@ -196,39 +162,39 @@ const navEntries = [
 		max-width: 100%;
 		height: auto;
 		margin-inline: auto;
-		border: 1px solid var(--line-strong);
-		border-radius: var(--r);
+		border: 2px solid var(--ink);
+		box-shadow: var(--shadow-hard);
 	}
 
 	.post__nav {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 12px;
+		gap: 14px;
 		margin-top: 48px;
-		padding-top: 24px;
-		border-top: 1px solid var(--line-strong);
+		padding-top: 28px;
+		border-top: 2px solid var(--ink);
 	}
 
 	.post__link {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		padding: 16px;
-		border: 1px solid var(--line-strong);
-		border-radius: var(--r);
+		padding: 18px;
+		border: 2px solid var(--ink);
 		background: var(--bg-elevated);
 	}
 
 	.post__link:hover {
 		background: var(--ink);
-		border-color: var(--ink);
 		color: var(--bg);
 	}
 
 	.post__link span {
 		font-family: var(--font-mono);
-		font-size: 12px;
-		color: var(--accent);
+		font-size: 11px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-faint);
 	}
 
 	.post__link:hover span {
@@ -237,9 +203,8 @@ const navEntries = [
 	}
 
 	.post__link strong {
-		font-size: 14px;
-		font-weight: 600;
-		line-height: 1.4;
+		font-size: 15px;
+		line-height: 1.35;
 	}
 
 	.post__link--newer {

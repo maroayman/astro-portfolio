@@ -1,0 +1,144 @@
+---
+import { profile, icons } from '../data/portfolio';
+
+const year = new Date().getFullYear();
+
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/skills', label: 'Stack' },
+	{ href: '/experience', label: 'Track' },
+	{ href: '/projects', label: 'Builds' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/contact', label: 'Contact' },
+];
+---
+
+<footer class="site-footer">
+	<div class="shell">
+		<p class="foot__giant" aria-hidden="true">
+			Marwan
+			<br />
+			Ayman<span>.</span>
+		</p>
+
+		<div class="foot__row">
+			<p class="foot__role">{profile.role}</p>
+			<nav class="foot__nav" aria-label="Footer">
+				{links.map((link) => (
+					<a class="foot__link" href={link.href}>
+						{link.label}
+					</a>
+				))}
+			</nav>
+			<div class="foot__meta">
+				<p>© {year}</p>
+				<a class="foot__top" href="#top">
+					Top
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d={icons.up}></path>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 2px solid var(--ink);
+		padding-block: clamp(40px, 6vw, 72px) 32px;
+		overflow: hidden;
+	}
+
+	.foot__giant {
+		font-size: clamp(64px, 14vw, 200px);
+		font-weight: 800;
+		line-height: 0.88;
+		letter-spacing: -0.05em;
+		text-transform: uppercase;
+	}
+
+	.foot__giant span {
+		color: var(--accent);
+	}
+
+	.foot__row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 18px 28px;
+		margin-top: 32px;
+		padding-top: 22px;
+		border-top: 2px solid var(--ink);
+	}
+
+	.foot__role {
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--text-muted);
+		margin-right: auto;
+	}
+
+	.foot__nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
+	.foot__link {
+		padding: 6px 12px;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+
+	.foot__link:hover {
+		background: var(--ink);
+		color: var(--bg);
+	}
+
+	.foot__meta {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		color: var(--text-faint);
+	}
+
+	.foot__top {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 8px 14px;
+		border: 2px solid var(--ink);
+		color: var(--text);
+		font-weight: 500;
+		box-shadow: 3px 3px 0 var(--ink);
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.foot__top:hover {
+		transform: translate(-1px, -1px);
+		box-shadow: 4px 4px 0 var(--ink);
+	}
+
+	.foot__top svg {
+		width: 13px;
+		height: 13px;
+	}
+</style>

@@ -24,18 +24,18 @@
 .prose h2 {
 	margin-top: 2.2em;
 	padding-top: 0.7em;
-	border-top: 1px solid var(--line-strong);
-	font-size: clamp(22px, 3vw, 28px);
+	border-top: 2px solid var(--ink);
+	font-size: clamp(24px, 3.4vw, 32px);
 }
 
 .prose h3 {
 	margin-top: 1.8em;
-	font-size: clamp(18px, 2.2vw, 22px);
+	font-size: clamp(19px, 2.4vw, 24px);
 }
 
 .prose h4 {
 	margin-top: 1.5em;
-	font-size: 16px;
+	font-size: 17px;
 }
 
 .prose p,
@@ -58,52 +58,6 @@
 	background: var(--accent-soft);
 }
 
-/* GitHub repo links — plain Markdown needs no changes: any github.com
-   link inside a post picks up a terminal frame automatically. */
-.prose a[href*='github.com'] {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-	max-width: 100%;
-	padding: 10px 16px;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
-	background: var(--bg-elevated);
-	color: var(--text);
-	font-family: var(--font-mono);
-	font-size: 13px;
-	font-weight: 600;
-	text-decoration: none;
-	text-underline-offset: 0;
-	overflow-wrap: anywhere;
-	transition:
-		background-color 0.15s ease,
-		color 0.15s ease,
-		border-color 0.15s ease;
-}
-
-.prose a[href*='github.com']::before {
-	content: '';
-	width: 18px;
-	height: 18px;
-	flex-shrink: 0;
-	background: currentColor;
-	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
-	mask-size: contain;
-	mask-repeat: no-repeat;
-	mask-position: center;
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
-	-webkit-mask-size: contain;
-	-webkit-mask-repeat: no-repeat;
-	-webkit-mask-position: center;
-}
-
-.prose a[href*='github.com']:hover {
-	background: var(--ink);
-	border-color: var(--ink);
-	color: var(--bg);
-}
-
 .prose ul,
 .prose ol {
 	padding-left: 1.5em;
@@ -123,21 +77,21 @@
 
 .prose li::marker {
 	color: var(--accent);
-	font-weight: 600;
+	font-weight: 700;
 }
 
 .prose blockquote {
 	margin-left: 0;
 	margin-right: 0;
 	padding: 4px 0 4px 20px;
-	border-left: 2px solid var(--accent);
+	border-left: 5px solid var(--accent);
 	color: var(--text-muted);
+	font-weight: 500;
 }
 
 .prose code:not(pre code) {
 	padding: 2px 7px;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
+	border: 1.5px solid var(--ink);
 	background: var(--bg-sunken);
 	font-family: var(--font-mono);
 	font-size: 0.85em;
@@ -148,9 +102,9 @@
 	position: relative;
 	padding: 20px;
 	padding-top: 56px;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
+	border: 2px solid var(--ink);
 	background: var(--bg-sunken);
+	box-shadow: 5px 5px 0 var(--ink);
 	overflow-x: auto;
 }
 
@@ -159,24 +113,30 @@
 	top: 12px;
 	right: 12px;
 	padding: 6px 13px;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
+	border: 2px solid var(--ink);
+	border-radius: 0;
 	background: var(--bg-elevated);
 	color: var(--text);
 	font-family: var(--font-mono);
 	font-size: 11px;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
+	box-shadow: 3px 3px 0 var(--ink);
 	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
 		background-color 0.15s ease,
-		color 0.15s ease,
-		border-color 0.15s ease;
+		color 0.15s ease;
 }
 
 .code-copy:hover {
 	background: var(--ink);
-	border-color: var(--ink);
 	color: var(--bg);
+}
+
+.code-copy:active {
+	transform: translate(2px, 2px);
+	box-shadow: 0 0 0 var(--ink);
 }
 
 .prose pre code {
@@ -191,132 +151,8 @@
 	max-width: 100%;
 	height: auto;
 	margin-inline: auto;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
-}
-
-.prose img.is-zoomable,
-.post__cover img.is-zoomable {
-	cursor: zoom-in;
-}
-
-/* Image lightbox — click any post image to enlarge it in a dialog
-   with prev/next navigation. The dialog markup lives on the post page;
-   without JS the images stay plain and nothing renders. */
-.lightbox[hidden] {
-	display: none;
-}
-
-.lightbox {
-	position: fixed;
-	inset: 0;
-	z-index: 200;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 24px;
-	background: rgb(5 4 3 / 86%);
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.2s ease;
-}
-
-.lightbox.active {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.lightbox-content {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 14px;
-	max-width: min(92vw, 1100px);
-}
-
-.lightbox-image {
-	display: block;
-	max-width: min(90vw, 1100px);
-	max-height: 78vh;
-	object-fit: contain;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
-	background: var(--bg-elevated);
-	transform: scale(0.97);
-	transition: transform 0.2s ease;
-}
-
-.lightbox.active .lightbox-image {
-	transform: scale(1);
-}
-
-.lightbox-caption {
-	margin: 0;
-	max-width: 72ch;
-	color: #fff;
-	font-family: var(--font-mono);
-	font-size: 13px;
-	text-align: center;
-	text-wrap: pretty;
-}
-
-.lightbox-caption:empty {
-	display: none;
-}
-
-.lightbox-close,
-.lightbox-nav {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
-	background: var(--bg-elevated);
-	color: var(--text);
-	transition:
-		background-color 0.15s ease,
-		color 0.15s ease,
-		border-color 0.15s ease;
-}
-
-.lightbox-close:hover,
-.lightbox-nav:hover {
-	background: var(--ink);
-	color: var(--bg);
-}
-
-.lightbox-close {
-	position: fixed;
-	top: 18px;
-	right: 18px;
-	padding: 8px 14px;
-	font-size: 20px;
-	line-height: 1;
-}
-
-.lightbox-nav {
-	position: fixed;
-	top: 50%;
-	transform: translateY(-50%);
-	padding: 10px 14px;
-	font-family: var(--font-mono);
-	font-size: 18px;
-	line-height: 1;
-}
-
-.lightbox-prev {
-	left: 18px;
-}
-
-.lightbox-next {
-	right: 18px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.lightbox,
-	.lightbox-image {
-		transition: none;
-	}
+	border: 2px solid var(--ink);
+	box-shadow: var(--shadow-hard);
 }
 
 .prose table {
@@ -334,7 +170,7 @@
 .prose th,
 .prose td {
 	padding: 10px 14px;
-	border: 1px solid var(--line-strong);
+	border: 1.5px solid var(--ink);
 	text-align: left;
 	vertical-align: top;
 }
@@ -351,8 +187,8 @@
 /* Enhanced tables: wrapped in a scrolling frame, real collapsed grid. */
 .table-wrap {
 	overflow-x: auto;
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
+	border: 2px solid var(--ink);
+	box-shadow: 5px 5px 0 var(--ink);
 }
 
 .prose.tni table {
@@ -369,28 +205,27 @@
 .prose.tni td:first-child {
 	font-family: var(--font-mono);
 	font-size: 13px;
-	font-weight: 600;
+	font-weight: 700;
 	white-space: nowrap;
 }
 
 .prose hr {
 	border: none;
-	border-top: 1px solid var(--line-strong);
+	border-top: 2px solid var(--ink);
 }
 
 /* Tabbed code examples (progressive enhancement: without JS the
    panels simply stack, with JS only the active panel shows). */
 .tabs {
-	border: 1px solid var(--line-strong);
-	border-radius: var(--r);
+	border: 2px solid var(--ink);
 	background: var(--bg-elevated);
-	overflow: hidden;
+	box-shadow: 5px 5px 0 var(--ink);
 }
 
 .tabs__list {
 	display: flex;
 	flex-wrap: wrap;
-	border-bottom: 1px solid var(--line-strong);
+	border-bottom: 2px solid var(--ink);
 	background: var(--bg-elevated);
 }
 
@@ -398,11 +233,13 @@
 	flex: 1 1 auto;
 	padding: 10px 16px;
 	border: none;
-	border-right: 1px solid var(--line-strong);
+	border-right: 2px solid var(--ink);
 	background: transparent;
 	color: var(--text-muted);
 	font-family: var(--font-mono);
 	font-size: 12px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
 	cursor: pointer;
 }
 
