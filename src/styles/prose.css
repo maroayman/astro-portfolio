@@ -58,6 +58,63 @@
 	background: var(--accent-soft);
 }
 
+/* GitHub repo links — the old "View on GitHub: user/repo" lines render
+   as brutalist buttons with a GitHub mark, matching the Deno site's
+   special treatment. Plain Markdown needs no changes: any github.com
+   link inside a post picks this up automatically. */
+.prose a[href*='github.com'] {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	max-width: 100%;
+	padding: 12px 18px;
+	border: 2px solid var(--ink);
+	border-radius: var(--r);
+	background: var(--bg-elevated);
+	color: var(--text);
+	font-family: var(--font-mono);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-underline-offset: 0;
+	overflow-wrap: anywhere;
+	box-shadow: 4px 4px 0 var(--ink);
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.prose a[href*='github.com']::before {
+	content: '';
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	background: currentColor;
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+	-webkit-mask-size: contain;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+}
+
+.prose a[href*='github.com']:hover {
+	background: var(--ink);
+	color: var(--bg);
+	transform: translate(-2px, -2px);
+	box-shadow: 6px 6px 0 var(--ink);
+}
+
+.prose a[href*='github.com']:active {
+	transform: translate(2px, 2px);
+	box-shadow: 0 0 0 var(--ink);
+}
+
 .prose ul,
 .prose ol {
 	padding-left: 1.5em;
@@ -153,6 +210,132 @@
 	margin-inline: auto;
 	border: 2px solid var(--ink);
 	box-shadow: var(--shadow-hard);
+}
+
+.prose img.is-zoomable,
+.post__cover img.is-zoomable {
+	cursor: zoom-in;
+}
+
+/* Image lightbox — click any post image to enlarge it in a dialog
+   with prev/next navigation. The dialog markup lives on the post page;
+   without JS the images stay plain and nothing renders. */
+.lightbox[hidden] {
+	display: none;
+}
+
+.lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 200;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background: rgb(5 4 3 / 86%);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+}
+
+.lightbox.active {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.lightbox-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 14px;
+	max-width: min(92vw, 1100px);
+}
+
+.lightbox-image {
+	display: block;
+	max-width: min(90vw, 1100px);
+	max-height: 78vh;
+	object-fit: contain;
+	border: 2px solid var(--ink);
+	background: var(--bg-elevated);
+	box-shadow: var(--shadow-hard);
+	transform: scale(0.97);
+	transition: transform 0.2s ease;
+}
+
+.lightbox.active .lightbox-image {
+	transform: scale(1);
+}
+
+.lightbox-caption {
+	margin: 0;
+	max-width: 72ch;
+	color: #fff;
+	font-family: var(--font-mono);
+	font-size: 13px;
+	text-align: center;
+	text-wrap: pretty;
+}
+
+.lightbox-caption:empty {
+	display: none;
+}
+
+.lightbox-close,
+.lightbox-nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid var(--ink);
+	border-radius: var(--r);
+	background: var(--bg-elevated);
+	color: var(--text);
+	box-shadow: 4px 4px 0 rgb(0 0 0 / 55%);
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+	background: var(--ink);
+	color: var(--bg);
+}
+
+.lightbox-close {
+	position: fixed;
+	top: 18px;
+	right: 18px;
+	padding: 8px 14px;
+	font-size: 20px;
+	line-height: 1;
+}
+
+.lightbox-nav {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 10px 14px;
+	font-family: var(--font-mono);
+	font-size: 18px;
+	line-height: 1;
+}
+
+.lightbox-prev {
+	left: 18px;
+}
+
+.lightbox-next {
+	right: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lightbox,
+	.lightbox-image {
+		transition: none;
+	}
 }
 
 .prose table {

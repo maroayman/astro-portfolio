@@ -97,6 +97,39 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 			</Cta>
 		</Section>
 	</main>
+	<div
+		class="lightbox"
+		id="lightbox"
+		role="dialog"
+		aria-modal="true"
+		aria-label="Image viewer"
+		aria-hidden="true"
+		hidden
+	>
+		<button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">
+			×
+		</button>
+		<button
+			class="lightbox-nav lightbox-prev"
+			id="lightboxPrev"
+			type="button"
+			aria-label="Previous image"
+		>
+			←
+		</button>
+		<button
+			class="lightbox-nav lightbox-next"
+			id="lightboxNext"
+			type="button"
+			aria-label="Next image"
+		>
+			→
+		</button>
+		<div class="lightbox-content">
+			<img class="lightbox-image" id="lightboxImage" alt="" />
+			<p class="lightbox-caption" id="lightboxCaption" aria-live="polite"></p>
+		</div>
+	</div>
 	<Footer />
 </Layout>
 
@@ -104,6 +137,7 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 	import '../../scripts/code-copy';
 	import '../../scripts/table-wrap';
 	import '../../scripts/tabs';
+	import '../../scripts/lightbox';
 </script>
 
 <style>
