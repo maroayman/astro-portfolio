@@ -1,7 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import TilesLayout from '../layouts/TilesLayout.astro';
 import { icons } from '../data/portfolio';
 
 const links = [
@@ -9,14 +7,28 @@ const links = [
 	{ href: '/projects', label: 'Builds' },
 	{ href: '/contact', label: 'Contact' },
 ];
+
+const sitemap = [
+	{ text: 'home — /', href: '/' },
+	{ text: 'skills — /skills', href: '/skills' },
+	{ text: 'experience — /experience', href: '/experience' },
+	{ text: 'projects — /projects', href: '/projects' },
+	{ text: 'blog — /blog', href: '/blog' },
+	{ text: 'contact — /contact', href: '/contact' },
+];
 ---
 
-<Layout
+<TilesLayout
 	title="Page not found"
 	description="The page you were looking for does not exist or has moved."
+	file="404.md"
+	docTitle="This pod isn't scheduled."
+	intro="The page you were looking for doesn't exist, never did, or was garbage collected."
+	entries={sitemap}
+	tags={['home', 'skills', 'experience', 'projects', 'blog', 'contact']}
+	tagsUnit="pages"
 >
-	<Header />
-	<main id="main" class="shell notfound">
+	<div class="shell notfound">
 		<p class="notfound__code" aria-hidden="true">
 			Error 404
 		</p>
@@ -44,9 +56,8 @@ const links = [
 				</li>
 			))}
 		</ul>
-	</main>
-	<Footer />
-</Layout>
+	</div>
+</TilesLayout>
 
 <style>
 	.notfound {

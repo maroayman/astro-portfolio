@@ -1,13 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
+import TilesLayout from '../layouts/TilesLayout.astro';
 import Section from '../components/Section.astro';
 import Timeline from '../components/Timeline.astro';
 import Cta from '../components/Cta.astro';
-import Footer from '../components/Footer.astro';
-import { education } from '../data/portfolio';
+import { education, experience } from '../data/portfolio';
+
+const uniq = (items: string[]) => [...new Set(items)];
 
 const principles = [
 	{
@@ -28,73 +26,68 @@ const principles = [
 ];
 ---
 
-<Layout
+<TilesLayout
+	windowId="experience"
 	title="Track"
 	description="Career history of Marwan Ayman Shawky, a Cloud & DevOps Engineer working with Kubernetes, Terraform, CI/CD, and GitOps."
+	file="experience.md"
+	docTitle="Experience"
+	intro="Three roles so far — on-prem Kubernetes, structured training, and cloud automation."
+	entries={experience.map((job) => ({
+		text: `${job.title} @ ${job.company} — ${job.period}`,
+	}))}
+	tags={uniq(experience.flatMap((job) => job.stack))}
 >
-	<Header />
-	<main id="main">
-		<PageHeader
-			index="02"
-			label="Track record"
-			title="Experience"
-			sub="Three roles so far — on-prem Kubernetes, structured training, and cloud automation."
-		>
-			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Track' }]} />
-		</PageHeader>
+	<Section divided={false}>
+		<Timeline />
+	</Section>
 
-		<Section divided={false}>
-			<Timeline />
-		</Section>
-
-		<Section index="03" label="Education" title="School" sub="The degree behind the deploys.">
-			<div class="edu reveal">
-				<span class="edu__index" aria-hidden="true">
-					/01
-				</span>
-				<div>
-					<h2 class="edu__degree">{education.degree}</h2>
-					<p class="edu__school">
-						{education.school} — {education.location}
-					</p>
-				</div>
-				<p class="edu__period">{education.period}</p>
+	<Section index="03" label="Education" title="School" sub="The degree behind the deploys.">
+		<div class="edu reveal">
+			<span class="edu__index" aria-hidden="true">
+				/01
+			</span>
+			<div>
+				<h2 class="edu__degree">{education.degree}</h2>
+				<p class="edu__school">
+					{education.school} — {education.location}
+				</p>
 			</div>
-		</Section>
+			<p class="edu__period">{education.period}</p>
+		</div>
+	</Section>
 
-		<Section
-			index="04"
-			label="Principles"
-			title="How I work"
-			sub="The short version, in case the job description didn't make it obvious."
-		>
-			<ul class="principles">
-				{principles.map((item, i) => (
-					<li class="principle reveal" style={`--reveal-delay:${i * 60}ms`}>
-						<span class="principle__index" aria-hidden="true">
-							{String(i + 1).padStart(2, '0')}
-						</span>
-						<div>
-							<h3 class="principle__title">{item.title}</h3>
-							<p class="principle__detail">{item.detail}</p>
-						</div>
-					</li>
-				))}
-			</ul>
-		</Section>
+	<Section
+		index="04"
+		label="Principles"
+		title="How I work"
+		sub="The short version, in case the job description didn't make it obvious."
+	>
+		<ul class="principles">
+			{principles.map((item, i) => (
+				<li class="principle reveal" style={`--reveal-delay:${i * 60}ms`}>
+					<span class="principle__index" aria-hidden="true">
+						{String(i + 1).padStart(2, '0')}
+					</span>
+					<div>
+						<h3 class="principle__title">{item.title}</h3>
+						<p class="principle__detail">{item.detail}</p>
+					</div>
+				</li>
+			))}
+		</ul>
+	</Section>
 
-		<Section>
-			<Cta>
-				<span slot="title">Interested in the full story?</span>
-				<span slot="sub">
-					Happy to walk through any of these in detail — including the outages that taught me the
-					lesson.
-				</span>
-			</Cta>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
+	<Section>
+		<Cta>
+			<span slot="title">Interested in the full story?</span>
+			<span slot="sub">
+				Happy to walk through any of these in detail — including the outages that taught me the
+				lesson.
+			</span>
+		</Cta>
+	</Section>
+</TilesLayout>
 
 <style>
 	.edu {
@@ -103,21 +96,19 @@ const principles = [
 		gap: clamp(14px, 2.5vw, 28px);
 		align-items: start;
 		padding: clamp(24px, 3vw, 34px) 0;
-		border-top: 2px solid var(--ink);
-		border-bottom: 2px solid var(--ink);
+		border-top: 1px solid var(--line-strong);
+		border-bottom: 1px solid var(--line-strong);
 	}
 
 	.edu__index {
-		font-size: 15px;
-		font-weight: 800;
+		font-size: 13px;
+		font-weight: 600;
 		color: var(--accent);
 	}
 
 	.edu__degree {
-		font-size: clamp(22px, 3vw, 32px);
-		font-weight: 800;
-		letter-spacing: -0.04em;
-		text-transform: uppercase;
+		font-size: clamp(20px, 2.6vw, 28px);
+		font-weight: 600;
 	}
 
 	.edu__school {
@@ -138,7 +129,7 @@ const principles = [
 
 	.principles {
 		display: grid;
-		border-top: 2px solid var(--ink);
+		border-top: 1px solid var(--line-strong);
 	}
 
 	.principle {
@@ -147,27 +138,24 @@ const principles = [
 		gap: clamp(14px, 2.5vw, 28px);
 		align-items: start;
 		padding: clamp(24px, 3vw, 34px) 0;
-		border-bottom: 2px solid var(--ink);
+		border-bottom: 1px solid var(--line-strong);
 	}
 
 	.principle__index {
-		font-size: 15px;
-		font-weight: 800;
+		font-size: 13px;
+		font-weight: 600;
 		color: var(--accent);
 	}
 
 	.principle__title {
-		font-size: clamp(22px, 3vw, 32px);
-		font-weight: 800;
-		letter-spacing: -0.04em;
-		text-transform: uppercase;
+		font-size: clamp(20px, 2.6vw, 28px);
+		font-weight: 600;
 	}
 
 	.principle__detail {
 		margin-top: 10px;
 		max-width: 62ch;
 		color: var(--text-muted);
-		font-weight: 500;
 	}
 
 	@media (max-width: 480px) {

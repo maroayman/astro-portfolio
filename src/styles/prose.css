@@ -24,18 +24,18 @@
 .prose h2 {
 	margin-top: 2.2em;
 	padding-top: 0.7em;
-	border-top: 2px solid var(--ink);
-	font-size: clamp(24px, 3.4vw, 32px);
+	border-top: 1px solid var(--line-strong);
+	font-size: clamp(22px, 3vw, 28px);
 }
 
 .prose h3 {
 	margin-top: 1.8em;
-	font-size: clamp(19px, 2.4vw, 24px);
+	font-size: clamp(18px, 2.2vw, 22px);
 }
 
 .prose h4 {
 	margin-top: 1.5em;
-	font-size: 17px;
+	font-size: 16px;
 }
 
 .prose p,
@@ -58,33 +58,28 @@
 	background: var(--accent-soft);
 }
 
-/* GitHub repo links — the old "View on GitHub: user/repo" lines render
-   as brutalist buttons with a GitHub mark, matching the Deno site's
-   special treatment. Plain Markdown needs no changes: any github.com
-   link inside a post picks this up automatically. */
+/* GitHub repo links — plain Markdown needs no changes: any github.com
+   link inside a post picks up a terminal frame automatically. */
 .prose a[href*='github.com'] {
 	display: inline-flex;
 	align-items: center;
 	gap: 10px;
 	max-width: 100%;
-	padding: 12px 18px;
-	border: 2px solid var(--ink);
+	padding: 10px 16px;
+	border: 1px solid var(--line-strong);
 	border-radius: var(--r);
 	background: var(--bg-elevated);
 	color: var(--text);
 	font-family: var(--font-mono);
 	font-size: 13px;
-	font-weight: 700;
-	letter-spacing: 0.02em;
+	font-weight: 600;
 	text-decoration: none;
 	text-underline-offset: 0;
 	overflow-wrap: anywhere;
-	box-shadow: 4px 4px 0 var(--ink);
 	transition:
-		transform 0.15s ease,
-		box-shadow 0.15s ease,
 		background-color 0.15s ease,
-		color 0.15s ease;
+		color 0.15s ease,
+		border-color 0.15s ease;
 }
 
 .prose a[href*='github.com']::before {
@@ -105,14 +100,8 @@
 
 .prose a[href*='github.com']:hover {
 	background: var(--ink);
+	border-color: var(--ink);
 	color: var(--bg);
-	transform: translate(-2px, -2px);
-	box-shadow: 6px 6px 0 var(--ink);
-}
-
-.prose a[href*='github.com']:active {
-	transform: translate(2px, 2px);
-	box-shadow: 0 0 0 var(--ink);
 }
 
 .prose ul,
@@ -134,21 +123,21 @@
 
 .prose li::marker {
 	color: var(--accent);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .prose blockquote {
 	margin-left: 0;
 	margin-right: 0;
 	padding: 4px 0 4px 20px;
-	border-left: 5px solid var(--accent);
+	border-left: 2px solid var(--accent);
 	color: var(--text-muted);
-	font-weight: 500;
 }
 
 .prose code:not(pre code) {
 	padding: 2px 7px;
-	border: 1.5px solid var(--ink);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 	background: var(--bg-sunken);
 	font-family: var(--font-mono);
 	font-size: 0.85em;
@@ -159,9 +148,9 @@
 	position: relative;
 	padding: 20px;
 	padding-top: 56px;
-	border: 2px solid var(--ink);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 	background: var(--bg-sunken);
-	box-shadow: 5px 5px 0 var(--ink);
 	overflow-x: auto;
 }
 
@@ -170,30 +159,24 @@
 	top: 12px;
 	right: 12px;
 	padding: 6px 13px;
-	border: 2px solid var(--ink);
-	border-radius: 0;
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 	background: var(--bg-elevated);
 	color: var(--text);
 	font-family: var(--font-mono);
 	font-size: 11px;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	box-shadow: 3px 3px 0 var(--ink);
 	transition:
-		transform 0.15s ease,
-		box-shadow 0.15s ease,
 		background-color 0.15s ease,
-		color 0.15s ease;
+		color 0.15s ease,
+		border-color 0.15s ease;
 }
 
 .code-copy:hover {
 	background: var(--ink);
+	border-color: var(--ink);
 	color: var(--bg);
-}
-
-.code-copy:active {
-	transform: translate(2px, 2px);
-	box-shadow: 0 0 0 var(--ink);
 }
 
 .prose pre code {
@@ -208,8 +191,8 @@
 	max-width: 100%;
 	height: auto;
 	margin-inline: auto;
-	border: 2px solid var(--ink);
-	box-shadow: var(--shadow-hard);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 }
 
 .prose img.is-zoomable,
@@ -256,9 +239,9 @@
 	max-width: min(90vw, 1100px);
 	max-height: 78vh;
 	object-fit: contain;
-	border: 2px solid var(--ink);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 	background: var(--bg-elevated);
-	box-shadow: var(--shadow-hard);
 	transform: scale(0.97);
 	transition: transform 0.2s ease;
 }
@@ -286,16 +269,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 2px solid var(--ink);
+	border: 1px solid var(--line-strong);
 	border-radius: var(--r);
 	background: var(--bg-elevated);
 	color: var(--text);
-	box-shadow: 4px 4px 0 rgb(0 0 0 / 55%);
 	transition:
-		transform 0.15s ease,
-		box-shadow 0.15s ease,
 		background-color 0.15s ease,
-		color 0.15s ease;
+		color 0.15s ease,
+		border-color 0.15s ease;
 }
 
 .lightbox-close:hover,
@@ -353,7 +334,7 @@
 .prose th,
 .prose td {
 	padding: 10px 14px;
-	border: 1.5px solid var(--ink);
+	border: 1px solid var(--line-strong);
 	text-align: left;
 	vertical-align: top;
 }
@@ -370,8 +351,8 @@
 /* Enhanced tables: wrapped in a scrolling frame, real collapsed grid. */
 .table-wrap {
 	overflow-x: auto;
-	border: 2px solid var(--ink);
-	box-shadow: 5px 5px 0 var(--ink);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 }
 
 .prose.tni table {
@@ -388,27 +369,28 @@
 .prose.tni td:first-child {
 	font-family: var(--font-mono);
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 600;
 	white-space: nowrap;
 }
 
 .prose hr {
 	border: none;
-	border-top: 2px solid var(--ink);
+	border-top: 1px solid var(--line-strong);
 }
 
 /* Tabbed code examples (progressive enhancement: without JS the
    panels simply stack, with JS only the active panel shows). */
 .tabs {
-	border: 2px solid var(--ink);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--r);
 	background: var(--bg-elevated);
-	box-shadow: 5px 5px 0 var(--ink);
+	overflow: hidden;
 }
 
 .tabs__list {
 	display: flex;
 	flex-wrap: wrap;
-	border-bottom: 2px solid var(--ink);
+	border-bottom: 1px solid var(--line-strong);
 	background: var(--bg-elevated);
 }
 
@@ -416,13 +398,11 @@
 	flex: 1 1 auto;
 	padding: 10px 16px;
 	border: none;
-	border-right: 2px solid var(--ink);
+	border-right: 1px solid var(--line-strong);
 	background: transparent;
 	color: var(--text-muted);
 	font-family: var(--font-mono);
 	font-size: 12px;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
 	cursor: pointer;
 }
 

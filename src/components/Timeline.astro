@@ -50,7 +50,7 @@ const items = typeof limit === 'number' ? experience.slice(0, limit) : experienc
 	.track {
 		position: relative;
 		display: grid;
-		border-top: 2px solid var(--ink);
+		border-top: 1px solid var(--line-strong);
 	}
 
 	/* the rail rule everything hangs off */
@@ -60,8 +60,8 @@ const items = typeof limit === 'number' ? experience.slice(0, limit) : experienc
 		top: 0;
 		bottom: 0;
 		left: 31px;
-		width: 2px;
-		background: var(--ink);
+		width: 1px;
+		background: var(--line-strong);
 	}
 
 	.entry {
@@ -69,7 +69,7 @@ const items = typeof limit === 'number' ? experience.slice(0, limit) : experienc
 		grid-template-columns: 64px minmax(0, 1fr);
 		gap: clamp(16px, 3vw, 40px);
 		padding: clamp(28px, 4vw, 44px) 0;
-		border-bottom: 2px solid var(--ink);
+		border-bottom: 1px solid var(--line-strong);
 	}
 
 	.entry__rail {
@@ -80,20 +80,19 @@ const items = typeof limit === 'number' ? experience.slice(0, limit) : experienc
 	}
 
 	.entry__node {
-		width: 18px;
-		height: 18px;
-		margin-left: 21px;
+		width: 14px;
+		height: 14px;
+		margin-left: 24px;
 		margin-top: 8px;
 		flex-shrink: 0;
-		background: var(--accent);
-		border: 2px solid var(--ink);
+		background: var(--bg);
+		border: 1px solid var(--accent);
 		position: relative;
 		z-index: 1;
-		transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1);
 	}
 
-	.entry:hover .entry__node {
-		transform: rotate(45deg);
+	.entry:first-child .entry__node {
+		background: var(--accent);
 	}
 
 	.entry__index {
@@ -105,7 +104,7 @@ const items = typeof limit === 'number' ? experience.slice(0, limit) : experienc
 	.entry__period {
 		font-family: var(--font-mono);
 		font-size: 12px;
-		font-weight: 700;
+		font-weight: 600;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		color: var(--accent);
@@ -113,7 +112,7 @@ const items = typeof limit === 'number' ? experience.slice(0, limit) : experienc
 
 	.entry__title {
 		margin-top: 12px;
-		font-size: clamp(26px, 4vw, 44px);
+		font-size: clamp(22px, 3.5vw, 34px);
 	}
 
 	.entry__company {

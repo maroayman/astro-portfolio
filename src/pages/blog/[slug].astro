@@ -1,10 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
+import TilesLayout from '../../layouts/TilesLayout.astro';
 import Section from '../../components/Section.astro';
 import Cta from '../../components/Cta.astro';
-import Footer from '../../components/Footer.astro';
 import '../../styles/prose.css';
 import { getPosts, formatDate, readingTime, tagSlug, postSlug, coverDims } from '../../utils/blog';
 import { render } from 'astro:content';
@@ -25,78 +22,86 @@ const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
 const mins = readingTime(post.body ?? '');
 const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
+
+const navEntries = [
+	...(newer ? [{ text: `Newer: ${newer.data.title}`, href: `/blog/${postSlug(newer)}/` }] : []),
+	...(older ? [{ text: `Older: ${older.data.title}`, href: `/blog/${postSlug(older)}/` }] : []),
+];
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
-	<Header />
-	<main id="main">
-		<article class="shell post">
-			<Breadcrumb
-				trail={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: 'Post' }]}
-			/>
+<TilesLayout
+	windowId="blog"
+	title={post.data.title}
+	description={post.data.description}
+	file={`${postSlug(post)}.md`}
+	docTitle={post.data.title}
+	intro={`${formatDate(post.data.date)} · ${mins} min read — ${post.data.description}`}
+	entries={navEntries}
+	tags={post.data.tags}
+	tagsUnit="tags"
+>
+	<article class="shell post">
+		<p class="post__meta">
+			{formatDate(post.data.date)} · {mins} min read
+		</p>
+		<h1 class="post__title">{post.data.title}</h1>
+		<p class="post__desc">{post.data.description}</p>
 
-			<p class="post__meta">
-				{formatDate(post.data.date)} · {mins} min read
-			</p>
-			<h1 class="post__title">{post.data.title}</h1>
-			<p class="post__desc">{post.data.description}</p>
+		{post.data.tags.length > 0 && (
+			<ul class="tag-list post__tags" aria-label="Tags">
+				{post.data.tags.map((tag) => (
+					<li>
+						<a class="tag tag--link" href={`/blog#tags=${tagSlug(tag)}`}>
+							{tag}
+						</a>
+					</li>
+				))}
+			</ul>
+		)}
 
-			{post.data.tags.length > 0 && (
-				<ul class="tag-list post__tags" aria-label="Tags">
-					{post.data.tags.map((tag) => (
-						<li>
-							<a class="tag tag--link" href={`/blog#tags=${tagSlug(tag)}`}>
-								{tag}
-							</a>
-						</li>
-					))}
-				</ul>
+		{post.data.cover && (
+			<figure class="post__cover">
+				<img
+					src={post.data.cover}
+					alt=""
+					width={dims?.width}
+					height={dims?.height}
+					loading="eager"
+					fetchpriority="high"
+				/>
+			</figure>
+		)}
+
+		<div class="prose">
+			<Content />
+		</div>
+
+		<nav class="post__nav" aria-label="More posts">
+			{older ? (
+				<a class="post__link post__link--older" href={`/blog/${postSlug(older)}/`}>
+					<span>← Older</span>
+					<strong>{older.data.title}</strong>
+				</a>
+			) : (
+				<span />
 			)}
-
-			{post.data.cover && (
-				<figure class="post__cover">
-					<img
-						src={post.data.cover}
-						alt=""
-						width={dims?.width}
-						height={dims?.height}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</figure>
+			{newer ? (
+				<a class="post__link post__link--newer" href={`/blog/${postSlug(newer)}/`}>
+					<span>Newer →</span>
+					<strong>{newer.data.title}</strong>
+				</a>
+			) : (
+				<span />
 			)}
+		</nav>
+	</article>
 
-			<div class="prose">
-				<Content />
-			</div>
-
-			<nav class="post__nav" aria-label="More posts">
-				{older ? (
-					<a class="post__link post__link--older" href={`/blog/${postSlug(older)}/`}>
-						<span>← Older</span>
-						<strong>{older.data.title}</strong>
-					</a>
-				) : (
-					<span />
-				)}
-				{newer ? (
-					<a class="post__link post__link--newer" href={`/blog/${postSlug(newer)}/`}>
-						<span>Newer →</span>
-						<strong>{newer.data.title}</strong>
-					</a>
-				) : (
-					<span />
-				)}
-			</nav>
-		</article>
-
-		<Section>
-			<Cta>
-				<span slot="title">Found this useful?</span>
-				<span slot="sub">I write these so future-me stops re-googling. Questions welcome.</span>
-			</Cta>
-		</Section>
-	</main>
+	<Section>
+		<Cta>
+			<span slot="title">Found this useful?</span>
+			<span slot="sub">I write these so future-me stops re-googling. Questions welcome.</span>
+		</Cta>
+	</Section>
 	<div
 		class="lightbox"
 		id="lightbox"
@@ -130,8 +135,7 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 			<p class="lightbox-caption" id="lightboxCaption" aria-live="polite"></p>
 		</div>
 	</div>
-	<Footer />
-</Layout>
+</TilesLayout>
 
 <script>
 	import '../../scripts/code-copy';
@@ -150,24 +154,20 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 		margin-top: 26px;
 		font-family: var(--font-mono);
 		font-size: 12px;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
 		color: var(--accent);
 	}
 
 	.post__title {
-		margin-top: 16px;
-		font-size: clamp(34px, 5.5vw, 64px);
-		text-transform: none;
-		letter-spacing: -0.035em;
-		line-height: 1.02;
+		margin-top: 14px;
+		font-size: clamp(28px, 4.5vw, 48px);
+		font-weight: 600;
+		line-height: 1.15;
 	}
 
 	.post__desc {
-		margin-top: 18px;
+		margin-top: 14px;
 		color: var(--text-muted);
-		font-size: clamp(16px, 2vw, 20px);
-		font-weight: 500;
+		font-size: clamp(14px, 1.8vw, 17px);
 	}
 
 	.post__tags {
@@ -196,39 +196,39 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 		max-width: 100%;
 		height: auto;
 		margin-inline: auto;
-		border: 2px solid var(--ink);
-		box-shadow: var(--shadow-hard);
+		border: 1px solid var(--line-strong);
+		border-radius: var(--r);
 	}
 
 	.post__nav {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 14px;
+		gap: 12px;
 		margin-top: 48px;
-		padding-top: 28px;
-		border-top: 2px solid var(--ink);
+		padding-top: 24px;
+		border-top: 1px solid var(--line-strong);
 	}
 
 	.post__link {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		padding: 18px;
-		border: 2px solid var(--ink);
+		padding: 16px;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--r);
 		background: var(--bg-elevated);
 	}
 
 	.post__link:hover {
 		background: var(--ink);
+		border-color: var(--ink);
 		color: var(--bg);
 	}
 
 	.post__link span {
 		font-family: var(--font-mono);
-		font-size: 11px;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--text-faint);
+		font-size: 12px;
+		color: var(--accent);
 	}
 
 	.post__link:hover span {
@@ -237,8 +237,9 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 	}
 
 	.post__link strong {
-		font-size: 15px;
-		line-height: 1.35;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.4;
 	}
 
 	.post__link--newer {

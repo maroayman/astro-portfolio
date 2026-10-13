@@ -1,13 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
+import TilesLayout from '../layouts/TilesLayout.astro';
 import Ticker from '../components/Ticker.astro';
 import Section from '../components/Section.astro';
 import ProjectRows from '../components/ProjectRows.astro';
 import Cta from '../components/Cta.astro';
-import Footer from '../components/Footer.astro';
+import { projects } from '../data/portfolio';
+
+const uniq = (items: string[]) => [...new Set(items)];
 
 const marquee = [
 	'Open source',
@@ -20,40 +19,37 @@ const marquee = [
 ];
 ---
 
-<Layout
+<TilesLayout
+	windowId="projects"
 	title="Builds"
 	description="Selected DevOps and infrastructure projects by Marwan Ayman Shawky — GitOps on EKS, Terraform on AWS, Docker stacks, and automation."
+	file="projects.md"
+	docTitle="Projects & open source"
+	intro="GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev projects that got me here."
+	entries={projects.map((project) => ({
+		text: `${project.name} — ${project.tags.slice(0, 2).join(' · ')}`,
+		href: project.link,
+		external: Boolean(project.link),
+	}))}
+	tags={uniq(projects.flatMap((project) => project.tags))}
 >
-	<Header />
-	<main id="main">
-		<PageHeader
-			index="03"
-			label="Selected work"
-			title="Projects & open source"
-			sub="GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev projects that got me here."
-		>
-			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Builds' }]} />
-		</PageHeader>
+	<Ticker items={marquee} />
 
-		<Ticker items={marquee} />
+	<Section
+		divided={false}
+		title="Everything shipped"
+		sub="Twelve of them — DevOps builds first, then the earlier dev work that got me here."
+	>
+		<ProjectRows />
+	</Section>
 
-		<Section
-			divided={false}
-			title="Everything shipped"
-			sub="Twelve of them — DevOps builds first, then the earlier dev work that got me here."
-		>
-			<ProjectRows />
-		</Section>
-
-		<Section>
-			<Cta>
-				<span slot="title">Want the code?</span>
-				<span slot="sub">
-					Most of this lives on GitHub. Tell me what you're building and I'll point you at the
-					relevant repo.
-				</span>
-			</Cta>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
+	<Section>
+		<Cta>
+			<span slot="title">Want the code?</span>
+			<span slot="sub">
+				Most of this lives on GitHub. Tell me what you're building and I'll point you at the
+				relevant repo.
+			</span>
+		</Cta>
+	</Section>
+</TilesLayout>

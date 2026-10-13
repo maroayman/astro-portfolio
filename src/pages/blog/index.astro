@@ -1,88 +1,76 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
+import TilesLayout from '../../layouts/TilesLayout.astro';
 import Section from '../../components/Section.astro';
 import PostRow from '../../components/PostRow.astro';
-import Footer from '../../components/Footer.astro';
-import { getPosts, getTags } from '../../utils/blog';
+import { getPosts, getTags, postSlug, formatDate } from '../../utils/blog';
 
 const posts = await getPosts();
 const tags = await getTags();
 ---
 
-<Layout
+<TilesLayout
+	windowId="blog"
 	title="Blog"
 	description="Notes by Marwan Ayman Shawky on Linux, Docker, Kubernetes, AWS, and DevOps — guides from real homelab and production work."
+	file="blog.md"
+	docTitle="Blog"
+	intro={`${posts.length} guides and notes — mostly written so future-me stops re-googling the same thing.`}
+	entries={posts.map((post) => ({
+		text: `${post.data.title} — ${formatDate(post.data.date)}`,
+		href: `/blog/${postSlug(post)}/`,
+	}))}
+	tags={tags.map((t) => t.tag)}
+	tagsUnit="tags"
 >
-	<Header />
-	<main id="main">
-		<PageHeader
-			index="05"
-			label="Writing"
-			title="Blog"
-			sub={`${posts.length} guides and notes — mostly written so future-me stops re-googling the same thing.`}
-		>
-			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Blog' }]} />
-		</PageHeader>
-
-		<Section divided={false}>
-			<div class="search" role="search">
-				<label class="search__label" for="blog-search">
-					Search_
-				</label>
-				<input
-					id="blog-search"
-					class="search__input"
-					type="search"
-					data-search-input
-					placeholder="Filter by title, tag, or keyword…"
-					autocomplete="off"
-				/>
-			</div>
-			<ul class="tags" aria-label="Filter posts by tag">
-				{tags.map((t) => (
-					<li>
-						<button
-							class="tag tag--chip"
-							type="button"
-							data-tag-filter={t.slug}
-							aria-pressed="false"
-						>
-							{t.tag} <b>{t.count}</b>
-						</button>
-					</li>
-				))}
+	<Section divided={false}>
+		<div class="search" role="search">
+			<label class="search__label" for="blog-search">
+				Search_
+			</label>
+			<input
+				id="blog-search"
+				class="search__input"
+				type="search"
+				data-search-input
+				placeholder="Filter by title, tag, or keyword…"
+				autocomplete="off"
+			/>
+		</div>
+		<ul class="tags" aria-label="Filter posts by tag">
+			{tags.map((t) => (
 				<li>
-					<a class="tag tag--link tag--rss" href="/rss.xml">
-						RSS ↗
-					</a>
+					<button class="tag tag--chip" type="button" data-tag-filter={t.slug} aria-pressed="false">
+						{t.tag} <b>{t.count}</b>
+					</button>
 				</li>
-			</ul>
-			<p class="filter-meta">
-				<span data-filter-count aria-live="polite">
-					{posts.length} posts
-				</span>
-				<button class="filter-clear" type="button" data-filter-clear hidden>
-					Clear ×
-				</button>
-			</p>
-			<noscript>
-				<p class="filter-note">Tag filtering needs JavaScript — showing all posts.</p>
-			</noscript>
-		</Section>
+			))}
+			<li>
+				<a class="tag tag--link tag--rss" href="/rss.xml">
+					RSS ↗
+				</a>
+			</li>
+		</ul>
+		<p class="filter-meta">
+			<span data-filter-count aria-live="polite">
+				{posts.length} posts
+			</span>
+			<button class="filter-clear" type="button" data-filter-clear hidden>
+				Clear ×
+			</button>
+		</p>
+		<noscript>
+			<p class="filter-note">Tag filtering needs JavaScript — showing all posts.</p>
+		</noscript>
+	</Section>
 
-		<Section divided={false} title="All posts" sub="Newest first.">
-			<ul class="list">
-				{posts.map((post, i) => (
-					<PostRow post={post} index={i} />
-				))}
-			</ul>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
+	<Section divided={false} title="All posts" sub="Newest first.">
+		<ul class="list">
+			{posts.map((post, i) => (
+				<PostRow post={post} index={i} />
+			))}
+		</ul>
+	</Section>
+</TilesLayout>
 
 <script>
 	import '../../scripts/tag-filter';
@@ -105,27 +93,22 @@ const tags = await getTags();
 
 	.search__input {
 		width: 100%;
-		padding: 14px 16px;
-		border: 2px solid var(--ink);
+		padding: 12px 14px;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--r);
 		background: var(--bg-elevated);
 		color: var(--text);
 		font: inherit;
-		font-size: 16px;
-		font-weight: 600;
-		box-shadow: 4px 4px 0 var(--ink);
+		font-size: 15px;
 	}
 
 	.search__input::placeholder {
 		color: var(--text-faint);
-		font-weight: 400;
 	}
 
-	/* No halo outline here — focus is signaled the brutalist way:
-	   the hard shadow turns orange and the field lifts. */
 	.search__input:focus {
 		outline: none;
-		transform: translate(-2px, -2px);
-		box-shadow: 6px 6px 0 var(--accent);
+		border-color: var(--accent);
 	}
 
 	.tags {
@@ -198,10 +181,10 @@ const tags = await getTags();
 		background: var(--accent);
 		border-color: var(--accent);
 		color: var(--accent-ink);
-		font-weight: 700;
+		font-weight: 600;
 	}
 
 	.list {
-		border-top: 2px solid var(--ink);
+		border-top: 1px solid var(--line-strong);
 	}
 </style>

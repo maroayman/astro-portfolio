@@ -1,0 +1,442 @@
+---
+import Layout from './Layout.astro';
+import { profile, availabilityState } from '../data/portfolio';
+
+export interface TilesEntry {
+	text: string;
+	href?: string;
+	external?: boolean;
+}
+
+interface Props {
+	title?: string;
+	description?: string;
+	/** Active window id. Omit when the page is not a window (e.g. 404). */
+	windowId?: string;
+	/** Pane 2 filename, e.g. `experience.md`. */
+	file: string;
+	docTitle: string;
+	intro: string;
+	entries: TilesEntry[];
+	tags: string[];
+	tagsUnit?: string;
+}
+
+const {
+	title,
+	description,
+	windowId,
+	file,
+	docTitle,
+	intro,
+	entries,
+	tags,
+	tagsUnit = 'tools',
+} = Astro.props;
+
+const windows = [
+	{ id: 'home', index: '1', name: 'home', href: '/' },
+	{ id: 'skills', index: '2', name: 'skills', href: '/skills' },
+	{ id: 'experience', index: '3', name: 'experience', href: '/experience' },
+	{ id: 'projects', index: '4', name: 'projects', href: '/projects' },
+	{ id: 'blog', index: '5', name: 'blog', href: '/blog' },
+	{ id: 'contact', index: '6', name: 'contact', href: '/contact' },
+];
+
+const aboutRows: [string, string][] = [
+	['name', profile.name],
+	['role', profile.role],
+	['loc', profile.location],
+	['mail', profile.email],
+	['gh', 'github.com/maroayman'],
+	['status', availabilityState.label],
+];
+---
+
+<Layout title={title} description={description}>
+	<main id="main" class="tiles-main">
+		<div class="shell tiles-wrap">
+			<div class="tiles-grid">
+				<fieldset class="pane">
+					<legend class="pane__title">~/about</legend>
+					<dl class="kv">
+						{aboutRows.map(([key, value]) => (
+							<div class="kv__row">
+								<dt class="kv__key">{key}</dt>
+								<dd class="kv__val">{value}</dd>
+							</div>
+						))}
+					</dl>
+				</fieldset>
+
+				<fieldset class="pane">
+					<legend class="pane__title">{file}</legend>
+					<p class="md__head">
+						<span aria-hidden="true"># </span>
+						{docTitle}
+					</p>
+					<p class="md__intro">{intro}</p>
+				</fieldset>
+
+				<fieldset class="pane">
+					<legend class="pane__title">
+						entries [{entries.length}/{entries.length}]
+					</legend>
+					<ol class="entries">
+						{entries.map((entry) => (
+							<li class="entries__line">
+								{entry.href ? (
+									<a
+										class="entries__link"
+										href={entry.href}
+										target={entry.external ? '_blank' : undefined}
+										rel={entry.external ? 'noopener noreferrer' : undefined}
+									>
+										{entry.text}
+									</a>
+								) : (
+									<span>{entry.text}</span>
+								)}
+							</li>
+						))}
+					</ol>
+				</fieldset>
+
+				<fieldset class="pane">
+					<legend class="pane__title">tags</legend>
+					<p class="tags__count">
+						{tags.length} {tagsUnit}
+					</p>
+					<ul class="tags__list">
+						{tags.map((tag) => (
+							<li class="tags__item">{tag}</li>
+						))}
+					</ul>
+				</fieldset>
+			</div>
+		</div>
+
+		<slot />
+	</main>
+
+	<footer class="statusbar">
+		<span class="statusbar__session">[portfolio]</span>
+		<nav class="statusbar__windows" aria-label="Windows">
+			{windows.map((window) => (
+				<a
+					class="window"
+					href={window.href}
+					data-win-index={window.index}
+					aria-current={window.id === windowId ? 'page' : undefined}
+				>
+					{window.index}:{window.name}
+				</a>
+			))}
+		</nav>
+		<span class="statusbar__right">
+			<button
+				class="statusbar__btn"
+				type="button"
+				data-theme-toggle
+				aria-pressed="false"
+				aria-label="Dark theme"
+			>
+				<svg
+					class="icon-sun"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				>
+					<circle cx="12" cy="12" r="4.2"></circle>
+					<path d="M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"></path>
+				</svg>
+				<svg
+					class="icon-moon"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M20 14.5A8.2 8.2 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"></path>
+				</svg>
+			</button>
+			<a class="statusbar__top" href="#top">
+				top ↑
+			</a>
+		</span>
+	</footer>
+</Layout>
+
+<script>
+	const root = document.documentElement;
+	const toggle = document.querySelector('[data-theme-toggle]');
+
+	function syncToggle() {
+		if (!(toggle instanceof HTMLButtonElement)) return;
+		const isDark = root.dataset.theme === 'dark';
+		toggle.setAttribute('aria-pressed', String(isDark));
+		toggle.setAttribute('aria-label', isDark ? 'Dark theme (on)' : 'Light theme (on)');
+	}
+
+	syncToggle();
+
+	toggle?.addEventListener('click', () => {
+		const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+		root.dataset.theme = next;
+		try {
+			localStorage.setItem('theme', next);
+		} catch {
+			/* storage blocked — the toggle still works for this page view */
+		}
+		syncToggle();
+	});
+
+	const winLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-win-index]')];
+
+	addEventListener('keydown', (event) => {
+		if (event.metaKey || event.ctrlKey || event.altKey) return;
+		const target = event.target as HTMLElement | null;
+		if (
+			target &&
+			(target.tagName === 'INPUT' ||
+				target.tagName === 'TEXTAREA' ||
+				target.tagName === 'SELECT' ||
+				target.isContentEditable)
+		) {
+			return;
+		}
+		const index = Number(event.key) - 1;
+		const link = winLinks[index];
+		if (link) window.location.assign(link.href);
+	});
+</script>
+
+<style>
+	.tiles-main {
+		font-size: 16px;
+	}
+
+	.tiles-wrap {
+		padding-top: calc(var(--header-h) / 2);
+		padding-bottom: clamp(28px, 4vw, 48px);
+	}
+
+	.tiles-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 12px;
+		align-items: stretch;
+		font-family: 'Red Hat Mono', ui-monospace, monospace;
+		font-size: 13px;
+		line-height: 1.7;
+	}
+
+	.pane {
+		margin: 0;
+		padding: 12px 14px 14px;
+		min-width: 0;
+		border: 1px solid var(--line-strong);
+		border-radius: 3px;
+		background: var(--bg);
+	}
+
+	.pane__title {
+		padding: 0 8px;
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--accent);
+	}
+
+	.kv {
+		display: grid;
+		gap: 6px;
+	}
+
+	.kv__row {
+		display: grid;
+		grid-template-columns: 64px minmax(0, 1fr);
+		gap: 12px;
+	}
+
+	.kv__key {
+		color: var(--text-faint);
+	}
+
+	.kv__val {
+		margin: 0;
+		overflow-wrap: anywhere;
+	}
+
+	.md__head {
+		font-weight: 600;
+	}
+
+	.md__intro {
+		margin-top: 8px;
+		color: var(--text-muted);
+		font-size: 12.5px;
+	}
+
+	.entries {
+		display: grid;
+		gap: 8px;
+		counter-reset: entry;
+		max-height: 264px;
+		overflow: auto;
+	}
+
+	.entries__line {
+		counter-increment: entry;
+		display: grid;
+		grid-template-columns: 28px minmax(0, 1fr);
+		gap: 8px;
+	}
+
+	.entries__line::before {
+		content: counter(entry);
+		color: var(--text-faint);
+	}
+
+	.entries__line > :not(:first-child) {
+		min-width: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.entries__link:hover {
+		color: var(--accent);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.tags__count {
+		font-weight: 600;
+	}
+
+	.tags__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-top: 8px;
+		max-height: 224px;
+		overflow: auto;
+	}
+
+	.tags__item {
+		padding: 1px 8px;
+		border: 1px solid var(--line-strong);
+		border-radius: 3px;
+		font-size: 12px;
+		color: var(--text-muted);
+	}
+
+	.statusbar {
+		position: sticky;
+		bottom: 0;
+		z-index: 50;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+		padding: 8px 12px;
+		background: var(--ink);
+		color: var(--bg);
+		font-family: 'Red Hat Mono', ui-monospace, monospace;
+		font-size: 12px;
+	}
+
+	.statusbar__session {
+		font-weight: 600;
+	}
+
+	.statusbar__windows {
+		display: flex;
+		gap: 4px;
+		flex-wrap: wrap;
+	}
+
+	.window {
+		padding: 2px 8px;
+		border-radius: 2px;
+		color: inherit;
+		opacity: 0.65;
+	}
+
+	.window:hover {
+		opacity: 1;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.window[aria-current='page'] {
+		background: var(--accent);
+		color: var(--accent-ink);
+		opacity: 1;
+		font-weight: 600;
+	}
+
+	.window[aria-current='page']::after {
+		content: '*';
+	}
+
+	.statusbar__right {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.statusbar__btn {
+		display: grid;
+		place-items: center;
+		width: 26px;
+		height: 26px;
+		border: 1px solid currentColor;
+		border-radius: 2px;
+		color: inherit;
+		opacity: 0.85;
+	}
+
+	.statusbar__btn:hover {
+		opacity: 1;
+	}
+
+	.statusbar__btn svg {
+		width: 14px;
+		height: 14px;
+		grid-area: 1 / 1;
+	}
+
+	:root[data-theme='dark'] .icon-moon,
+	:root:not([data-theme='dark']) .icon-sun {
+		display: none;
+	}
+
+	.statusbar__top {
+		opacity: 0.85;
+	}
+
+	.statusbar__top:hover {
+		opacity: 1;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	@media (max-width: 860px) {
+		.tiles-grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.entries,
+		.tags__list {
+			max-height: none;
+		}
+	}
+</style>

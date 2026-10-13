@@ -4,7 +4,7 @@ import '../styles/global.css';
 import { profile } from '../data/portfolio';
 
 /** Faces needed for the first paint — preloaded, everything else loads on demand. */
-const PRELOAD_FONTS = ['/fonts/inter-800.woff2', '/fonts/inter-400.woff2'];
+const PRELOAD_FONTS = ['/fonts/red-hat-mono-600.woff2', '/fonts/red-hat-mono-400.woff2'];
 
 interface Props {
 	title?: string;
@@ -32,8 +32,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).hr
 		<meta name="author" content={profile.name} />
 		{
 			/*
-				Preload only what paints first paint: Inter 800 (giant display
-				headlines) and Inter 400 (body). The remaining faces load lazily.
+				Preload only what paints first paint: Red Hat Mono 600
+				(headings, pane titles) and 400 (body). The site runs on
+				this face alone, so there is nothing else to load lazily.
 			*/
 			PRELOAD_FONTS.map((href) => (
 				<link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
