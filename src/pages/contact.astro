@@ -8,7 +8,7 @@ import Cta from '../components/Cta.astro';
 import Footer from '../components/Footer.astro';
 import { profile, icons, availabilityState } from '../data/portfolio';
 
-const looking = [
+const looking: { title: string; detail: string; link: string | null; linkLabel?: string }[] = [
 	{
 		title: 'Cloud / DevOps Engineer',
 		detail:
@@ -23,16 +23,15 @@ const looking = [
 	},
 	{
 		title: 'Freelance gigs',
-		detail: 'Available for freelance infrastructure work — find me on the usual platforms.',
-		link: 'https://www.upwork.com/freelancers/~0142a1533e4a586cfb',
-		linkLabel: 'Upwork ↗',
+		detail: 'Available for freelance infrastructure work — reach out with scope and timeline.',
+		link: null,
 	},
 ];
 
 const expectations = [
 	'I reply to every serious message within a couple of days.',
 	'Cairo based, remote-friendly — timezone-flexible with Europe and the GCC.',
-	'Prefer talking? Call or message — the number is below the email box.',
+	'Email works best — include context, timeline, and links so I can reply with something useful.',
 ];
 ---
 
@@ -43,7 +42,7 @@ const expectations = [
 	<Header />
 	<main id="main">
 		<PageHeader
-			index="04"
+			index="05"
 			label="Open channel"
 			title="Let's talk infrastructure."
 			sub="Whether it's a platform role, a migration you're dreading, or just a strong opinion about YAML — my inbox is open."
@@ -58,16 +57,10 @@ const expectations = [
 					{availabilityState.label} · {profile.location}
 				</span>
 			</Cta>
-			<p class="direct reveal">
-				<span class="direct__label">Direct line_</span>
-				<a class="direct__number" href={profile.phoneHref}>
-					{profile.phone}
-				</a>
-			</p>
 		</Section>
 
 		<Section
-			index="05"
+			index="06"
 			label="Fit check"
 			title="What I'm looking for"
 			sub="A short list, so you can tell quickly whether this is worth an email."
@@ -107,7 +100,7 @@ const expectations = [
 		</Section>
 
 		<Section
-			index="06"
+			index="07"
 			label="Good to know"
 			title="Before you write"
 			sub="A little expectations-setting, so neither of us wastes a coffee."
@@ -126,35 +119,6 @@ const expectations = [
 </Layout>
 
 <style>
-	.direct {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: 8px 20px;
-		margin-top: 22px;
-		padding: 20px 0;
-		border-top: 2px solid var(--ink);
-		border-bottom: 2px solid var(--ink);
-	}
-
-	.direct__label {
-		font-family: var(--font-mono);
-		font-size: 11px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--text-faint);
-	}
-
-	.direct__number {
-		font-size: clamp(26px, 4vw, 40px);
-		font-weight: 800;
-		letter-spacing: -0.04em;
-	}
-
-	.direct__number:hover {
-		color: var(--accent);
-	}
-
 	.role__link {
 		margin-top: 10px;
 		font-family: var(--font-mono);

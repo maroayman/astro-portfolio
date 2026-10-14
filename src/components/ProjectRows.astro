@@ -26,9 +26,11 @@ const items = typeof limit === 'number' ? projects.slice(0, limit) : projects;
 					<span class="row__main">
 						<h3 class="row__name">
 							{project.name}
-							<span class="row__arrow" aria-hidden="true">
-								↗
-							</span>
+							{project.link && (
+								<span class="row__arrow" aria-hidden="true">
+									↗
+								</span>
+							)}
 						</h3>
 						<p class="row__desc">{project.description}</p>
 						<span class="tag-list row__tags">
