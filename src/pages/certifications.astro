@@ -1,0 +1,31 @@
+---
+import KineticLayout from '../layouts/KineticLayout.astro';
+import { certifications } from '../data/portfolio';
+---
+
+<KineticLayout
+  title="Certifications"
+  description="Certifications earned by Marwan Ayman Shawky — Azure, GCP, AWS, Kubernetes, Linux, and Huawei credentials."
+  active="/certifications"
+>
+  <div class="body">
+    <p class="crumb"><a href="/">Home</a> / Certifications</p>
+    <h1 class="ptitle" id="name">Certifications</h1>
+    <p class="intro">Formal proof I can operate under pressure, on paper at least.</p>
+    <ul class="klist">
+      {
+        certifications.map((cert) => (
+          <li class="krow">
+            <div>
+              <h2>{cert.title}</h2>
+              <p class="kmeta">
+                {cert.issuer} · {cert.date}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p><a class="back" href="/">← Home</a></p>
+  </div>
+</KineticLayout>

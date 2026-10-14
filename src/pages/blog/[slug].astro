@@ -1,11 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import Section from '../../components/Section.astro';
-import Cta from '../../components/Cta.astro';
-import Footer from '../../components/Footer.astro';
-import '../../styles/prose.css';
+import KineticLayout from '../../layouts/KineticLayout.astro';
 import { getPosts, formatDate, readingTime, tagSlug, postSlug, coverDims } from '../../utils/blog';
 import { render } from 'astro:content';
 
@@ -27,197 +21,231 @@ const mins = readingTime(post.body ?? '');
 const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
-	<Header />
-	<main id="main">
-		<article class="shell post">
-			<Breadcrumb
-				trail={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: 'Post' }]}
-			/>
+<KineticLayout title={post.data.title} description={post.data.description} active="/blog">
+	<div class="body">
+		<p class="crumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / Post</p>
+		<h1 class="ptitle post-title">{post.data.title}</h1>
+		<p class="kmeta">{formatDate(post.data.date)} · {mins} min read</p>
+		<p class="intro">{post.data.description}</p>
 
-			<p class="post__meta">
-				{formatDate(post.data.date)} · {mins} min read
-			</p>
-			<h1 class="post__title">{post.data.title}</h1>
-			<p class="post__desc">{post.data.description}</p>
+		{post.data.tags.length > 0 && (
+			<ul class="ktags" aria-label="Tags">
+				{post.data.tags.map((tag) => (
+					<li>
+						<a href={`/blog#tags=${tagSlug(tag)}`}>{tag}</a>
+					</li>
+				))}
+			</ul>
+		)}
 
-			{post.data.tags.length > 0 && (
-				<ul class="tag-list post__tags" aria-label="Tags">
-					{post.data.tags.map((tag) => (
-						<li>
-							<a class="tag tag--link" href={`/blog#tags=${tagSlug(tag)}`}>
-								{tag}
-							</a>
-						</li>
-					))}
-				</ul>
+		{post.data.cover && (
+			<figure class="cover">
+				<img
+					src={post.data.cover}
+					alt=""
+					width={dims?.width}
+					height={dims?.height}
+					loading="eager"
+					fetchpriority="high"
+				/>
+			</figure>
+		)}
+
+		<!-- "prose" is the JS hook for code-copy/table-wrap (they query .prose);
+		     visual styling comes from .prose-k in kinetic.css plus the extras below. -->
+		<div class="prose-k prose">
+			<Content />
+		</div>
+
+		<nav class="pagenav" aria-label="More posts">
+			{older ? (
+				<a href={`/blog/${postSlug(older)}/`}>
+					← Older
+					<strong>{older.data.title}</strong>
+				</a>
+			) : (
+				<span />
 			)}
-
-			{post.data.cover && (
-				<figure class="post__cover">
-					<img
-						src={post.data.cover}
-						alt=""
-						width={dims?.width}
-						height={dims?.height}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</figure>
+			{newer ? (
+				<a href={`/blog/${postSlug(newer)}/`}>
+					Newer →
+					<strong>{newer.data.title}</strong>
+				</a>
+			) : (
+				<span />
 			)}
-
-			<div class="prose">
-				<Content />
-			</div>
-
-			<nav class="post__nav" aria-label="More posts">
-				{older ? (
-					<a class="post__link post__link--older" href={`/blog/${postSlug(older)}/`}>
-						<span>← Older</span>
-						<strong>{older.data.title}</strong>
-					</a>
-				) : (
-					<span />
-				)}
-				{newer ? (
-					<a class="post__link post__link--newer" href={`/blog/${postSlug(newer)}/`}>
-						<span>Newer →</span>
-						<strong>{newer.data.title}</strong>
-					</a>
-				) : (
-					<span />
-				)}
-			</nav>
-		</article>
-
-		<Section>
-			<Cta>
-				<span slot="title">Found this useful?</span>
-				<span slot="sub">I write these so future-me stops re-googling. Questions welcome.</span>
-			</Cta>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
-
-<script>
-	import '../../scripts/code-copy';
-	import '../../scripts/table-wrap';
-	import '../../scripts/tabs';
-</script>
+		</nav>
+		<p><a class="back" href="/blog/">← Blog</a></p>
+	</div>
+	<script>
+		import '../../scripts/code-copy';
+		import '../../scripts/table-wrap';
+		import '../../scripts/lightbox';
+	</script>
+</KineticLayout>
 
 <style>
-	.post {
-		max-width: 860px;
-		padding-top: clamp(40px, 6vw, 72px);
+	.post-title {
+		font-size: clamp(2.2rem, 6vw, 4.5rem);
 	}
-
-	.post__meta {
-		margin-top: 26px;
-		font-family: var(--font-mono);
-		font-size: 12px;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--accent);
+	.ktags a {
+		color: inherit;
+		text-decoration: none;
 	}
-
-	.post__title {
-		margin-top: 16px;
-		font-size: clamp(34px, 5.5vw, 64px);
-		text-transform: none;
-		letter-spacing: -0.035em;
-		line-height: 1.02;
+	.ktags a:hover {
+		color: var(--fg);
+		text-decoration: underline;
+		text-underline-offset: 5px;
 	}
-
-	.post__desc {
-		margin-top: 18px;
-		color: var(--text-muted);
-		font-size: clamp(16px, 2vw, 20px);
-		font-weight: 500;
+	.cover {
+		margin: 28px 0 0;
 	}
-
-	.post__tags {
-		margin-top: 22px;
-	}
-
-	.tag--link {
-		transition:
-			background-color 0.15s ease,
-			color 0.15s ease;
-	}
-
-	.tag--link:hover {
-		background: var(--ink);
-		border-color: var(--ink);
-		color: var(--bg);
-	}
-
-	.post__cover {
-		margin: 32px 0 0;
-	}
-
-	.post__cover img {
+	.cover img {
 		display: block;
 		width: auto;
 		max-width: 100%;
 		height: auto;
-		margin-inline: auto;
-		border: 2px solid var(--ink);
-		box-shadow: var(--shadow-hard);
+		border: 1px solid var(--line);
 	}
-
-	.post__nav {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 14px;
-		margin-top: 48px;
-		padding-top: 28px;
-		border-top: 2px solid var(--ink);
+	.prose-k :global(table) {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		border-collapse: collapse;
 	}
-
-	.post__link {
+	.prose-k :global(th),
+	.prose-k :global(td) {
+		border: 1px solid var(--line);
+		padding: 8px 12px;
+		text-align: left;
+	}
+	.prose-k :global(th) {
+		color: var(--fg);
+	}
+	.prose-k :global(blockquote) {
+		margin-left: 0;
+		padding-left: 16px;
+		border-left: 2px solid var(--acc);
+		color: var(--mute);
+	}
+	.prose-k :global(hr) {
+		border: none;
+		border-top: 1px solid var(--line);
+	}
+	.prose-k :global(pre) {
+		position: relative;
+		margin: 1.6em 0;
+		padding: 20px 20px 22px;
+		padding-top: 52px;
+		border: 1px solid var(--line);
+		background: color-mix(in srgb, var(--fg) 5%, var(--bg));
+		overflow-x: auto;
+		tab-size: 2;
+		font-size: 13.5px;
+		line-height: 1.7;
+	}
+	.prose-k :global(pre code) {
+		padding: 0;
+		border: none;
+		background: none;
+		text-decoration: none;
+		font-size: inherit;
+		line-height: inherit;
+	}
+	.prose-k :global(:not(pre) > code) {
+		padding: 0.15em 0.4em;
+		background: color-mix(in srgb, var(--fg) 7%, var(--bg));
+		text-decoration: underline;
+		text-decoration-color: var(--acc);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 5px;
+		font-size: 0.88em;
+	}
+	/* image enlarge affordance + lightbox overlay (markup built by lightbox.ts) */
+	.prose-k :global(img) {
+		cursor: zoom-in;
+	}
+	.cover img {
+		cursor: zoom-in;
+	}
+	:global(.lightbox) {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
 		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		padding: 18px;
-		border: 2px solid var(--ink);
-		background: var(--bg-elevated);
+		align-items: center;
+		justify-content: center;
+		padding: 24px;
+		background: rgba(0, 0, 0, 0.9);
+		cursor: zoom-out;
 	}
-
-	.post__link:hover {
-		background: var(--ink);
-		color: var(--bg);
+	:global(.lightbox[hidden]) {
+		display: none;
 	}
-
-	.post__link span {
-		font-family: var(--font-mono);
-		font-size: 11px;
-		letter-spacing: 0.12em;
+	:global(.lightbox__img) {
+		display: block;
+		max-width: min(1200px, 94vw);
+		max-height: 90svh;
+		width: auto;
+		height: auto;
+		border: 1px solid var(--line);
+		cursor: default;
+	}
+	:global(.lightbox__close) {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		padding: 10px 16px;
+		border: none;
+		background: var(--acc);
+		color: #0b0b0b;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		cursor: pointer;
+	}
+	:global(.lightbox--anim) {
+		animation: lightbox-in 0.18s ease-out;
+	}
+	@keyframes lightbox-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		:global(.lightbox--anim) {
+			animation: none;
+		}
+	}
+	.prose-k :global(.code-copy) {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		padding: 6px 12px;
+		border: 1px solid var(--acc);
+		background: var(--acc);
+		color: #0b0b0b;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--text-faint);
+		cursor: pointer;
 	}
-
-	.post__link:hover span {
-		color: var(--bg);
-		opacity: 0.7;
+	.prose-k :global(.code-copy:hover) {
+		background: transparent;
+		color: var(--acc);
 	}
-
-	.post__link strong {
-		font-size: 15px;
-		line-height: 1.35;
+	.prose-k :global(.table-wrap) {
+		overflow-x: auto;
+		border: 1px solid var(--line);
 	}
-
-	.post__link--newer {
-		text-align: right;
-	}
-
-	@media (max-width: 640px) {
-		.post__nav {
-			grid-template-columns: 1fr;
-		}
-
-		.post__link--newer {
-			text-align: left;
-		}
+	.prose-k :global(.tni table) {
+		display: table;
+		overflow: visible;
+		border-collapse: collapse;
+		border-style: hidden;
 	}
 </style>

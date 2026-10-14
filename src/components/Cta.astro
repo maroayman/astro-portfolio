@@ -3,8 +3,21 @@ import { profile, icons } from '../data/portfolio';
 
 const channels = [
 	{ href: profile.links.github, label: 'GitHub', handle: 'maroayman', icon: icons.github },
-	{ href: profile.links.linkedin, label: 'LinkedIn', handle: 'in/maroayman', icon: icons.linkedin },
 	{ href: profile.links.gitlab, label: 'GitLab', handle: 'maroayman', icon: icons.gitlab },
+	{ href: profile.links.linkedin, label: 'LinkedIn', handle: 'in/maroayman', icon: icons.linkedin },
+	{
+		href: 'https://www.upwork.com/freelancers/~0142a1533e4a586cfb',
+		label: 'Upwork',
+		handle: 'maroayman',
+		icon: icons.upwork,
+	},
+	{
+		href: 'https://www.freelancer.com/u/maroayman2000',
+		label: 'Freelancer',
+		handle: 'maroayman2000',
+		icon: icons.freelancer,
+	},
+	{ href: profile.links.linktree, label: 'Linktree', handle: 'maroayman', icon: icons.linktree },
 ];
 ---
 
@@ -35,6 +48,20 @@ const channels = [
 			</svg>
 			{profile.email}
 		</a>
+		<a class="btn" href={profile.phoneHref}>
+			<svg
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<path d={icons.phone}></path>
+			</svg>
+			{profile.phone}
+		</a>
 		<button class="btn" type="button" data-copy={profile.email}>
 			<svg
 				viewBox="0 0 24 24"
@@ -48,7 +75,7 @@ const channels = [
 				<path d={icons.copy}></path>
 			</svg>
 			<span data-copy-label aria-live="polite">
-				Copy
+				Copy mail
 			</span>
 		</button>
 	</div>
@@ -219,7 +246,7 @@ const channels = [
 			if (label) label.textContent = ok ? 'Copied' : 'Press ⌘C';
 			clearTimeout(timer);
 			timer = setTimeout(() => {
-				if (label) label.textContent = 'Copy';
+				if (label) label.textContent = 'Copy mail';
 			}, 2000);
 		});
 	});

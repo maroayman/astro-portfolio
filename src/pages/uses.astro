@@ -1,0 +1,34 @@
+---
+import KineticLayout from '../layouts/KineticLayout.astro';
+import { skills } from '../data/portfolio';
+---
+
+<KineticLayout
+  title="Uses"
+  description="Tools and technologies Marwan Ayman Shawky uses as a Cloud & DevOps Engineer: Kubernetes, Terraform, AWS, GCP, CI/CD, and GitOps."
+  active="/uses"
+>
+  <div class="body">
+    <p class="crumb"><a href="/">Home</a> / Uses</p>
+    <h1 class="ptitle" id="name">Uses</h1>
+    <p class="intro">Grouped by what I actually use them for — not by how good they look on a slide. If it's listed here, I've run it in production.</p>
+    <ul class="klist">
+      {
+        skills.map((group) => (
+          <li class="krow">
+            <div>
+              <h2>{group.title}</h2>
+              <p class="kdesc">{group.summary}</p>
+              <ul class="ktags" aria-label="Tools">
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p><a class="back" href="/">← Home</a></p>
+  </div>
+</KineticLayout>

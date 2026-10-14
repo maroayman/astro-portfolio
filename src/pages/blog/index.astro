@@ -1,207 +1,112 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-import Section from '../../components/Section.astro';
-import PostRow from '../../components/PostRow.astro';
-import Footer from '../../components/Footer.astro';
-import { getPosts, getTags } from '../../utils/blog';
+import KineticLayout from '../../layouts/KineticLayout.astro';
+import { getPosts, getTags, formatDate, readingTime, tagSlug, postSlug } from '../../utils/blog';
 
 const posts = await getPosts();
 const tags = await getTags();
 ---
 
-<Layout
+<KineticLayout
 	title="Blog"
 	description="Notes by Marwan Ayman Shawky on Linux, Docker, Kubernetes, AWS, and DevOps — guides from real homelab and production work."
+	active="/blog"
 >
-	<Header />
-	<main id="main">
-		<PageHeader
-			index="05"
-			label="Writing"
-			title="Blog"
-			sub={`${posts.length} guides and notes — mostly written so future-me stops re-googling the same thing.`}
-		>
-			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Blog' }]} />
-		</PageHeader>
+	<div class="body">
+		<p class="crumb"><a href="/">Home</a> / Blog</p>
+		<h1 class="ptitle" id="name">Blog</h1>
+		<p class="intro">{posts.length} guides and notes — mostly written so future-me stops re-googling the same thing.</p>
 
-		<Section divided={false}>
-			<div class="search" role="search">
-				<label class="search__label" for="blog-search">
-					Search_
-				</label>
-				<input
-					id="blog-search"
-					class="search__input"
-					type="search"
-					data-search-input
-					placeholder="Filter by title, tag, or keyword…"
-					autocomplete="off"
-				/>
-			</div>
-			<ul class="tags" aria-label="Filter posts by tag">
+		<div role="search">
+			<input
+				id="blog-search"
+				class="ksearch"
+				type="search"
+				data-search-input
+				placeholder="Filter by title, tag, or keyword…"
+				autocomplete="off"
+				aria-label="Filter posts"
+			/>
+			<label class="kselect-label" for="blog-tag-filter">Filter by topic</label>
+			<select id="blog-tag-filter" class="kselect" data-tag-select>
+				<option value="">All topics</option>
 				{tags.map((t) => (
-					<li>
-						<button
-							class="tag tag--chip"
-							type="button"
-							data-tag-filter={t.slug}
-							aria-pressed="false"
-						>
-							{t.tag} <b>{t.count}</b>
-						</button>
-					</li>
+					<option value={t.slug}>{t.tag} ({t.count})</option>
 				))}
-				<li>
-					<a class="tag tag--link tag--rss" href="/rss.xml">
-						RSS ↗
-					</a>
+			</select>
+		</div>
+		<p class="kcount">
+			<span data-filter-count aria-live="polite">{posts.length} posts</span>
+			{' · '}
+			<button type="button" data-filter-clear hidden>Clear ×</button>
+			{' · '}
+			<a class="krss" href="/rss.xml">RSS ↗</a>
+		</p>
+		<noscript>
+			<p class="kcount">Tag filtering needs JavaScript — showing all posts.</p>
+		</noscript>
+
+		<ul class="klist">
+			{posts.map((post) => (
+				<li
+					class="krow"
+					data-post-tags={post.data.tags.map(tagSlug).join(' ')}
+					data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')}`.toLowerCase()}
+				>
+					<h2><a href={`/blog/${postSlug(post)}/`}>{post.data.title}</a></h2>
+					<p class="kmeta">{formatDate(post.data.date)} · {readingTime(post.body ?? '')} min read</p>
+					<p class="kdesc">{post.data.description}</p>
 				</li>
-			</ul>
-			<p class="filter-meta">
-				<span data-filter-count aria-live="polite">
-					{posts.length} posts
-				</span>
-				<button class="filter-clear" type="button" data-filter-clear hidden>
-					Clear ×
-				</button>
-			</p>
-			<noscript>
-				<p class="filter-note">Tag filtering needs JavaScript — showing all posts.</p>
-			</noscript>
-		</Section>
-
-		<Section divided={false} title="All posts" sub="Newest first.">
-			<ul class="list">
-				{posts.map((post, i) => (
-					<PostRow post={post} index={i} />
-				))}
-			</ul>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
-
-<script>
-	import '../../scripts/tag-filter';
-</script>
+			))}
+		</ul>
+		<p><a class="back" href="/">← Home</a></p>
+	</div>
+	<script>
+		import '../../scripts/tag-filter';
+	</script>
+</KineticLayout>
 
 <style>
-	.search {
-		display: grid;
-		gap: 10px;
-		margin-bottom: 22px;
-	}
-
-	.search__label {
-		font-family: var(--font-mono);
-		font-size: 11px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--text-faint);
-	}
-
-	.search__input {
-		width: 100%;
-		padding: 14px 16px;
-		border: 2px solid var(--ink);
-		background: var(--bg-elevated);
-		color: var(--text);
-		font: inherit;
-		font-size: 16px;
-		font-weight: 600;
-		box-shadow: 4px 4px 0 var(--ink);
-	}
-
-	.search__input::placeholder {
-		color: var(--text-faint);
-		font-weight: 400;
-	}
-
-	/* No halo outline here — focus is signaled the brutalist way:
-	   the hard shadow turns orange and the field lifts. */
-	.search__input:focus {
-		outline: none;
-		transform: translate(-2px, -2px);
-		box-shadow: 6px 6px 0 var(--accent);
-	}
-
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-	}
-
-	.tag--link {
-		transition:
-			background-color 0.15s ease,
-			color 0.15s ease,
-			border-color 0.15s ease;
-	}
-
-	.tag--link b {
-		color: var(--accent);
-	}
-
-	.tag--link:hover {
-		background: var(--ink);
-		border-color: var(--ink);
-		color: var(--bg);
-	}
-
-	.tag--chip b {
-		color: var(--accent);
-	}
-
-	.tag--chip[aria-pressed='true'] {
-		background: var(--ink);
-		border-color: var(--ink);
-		color: var(--bg);
-	}
-
-	.filter-meta {
-		display: flex;
-		align-items: center;
-		gap: 16px;
-		margin-top: 18px;
-		font-family: var(--font-mono);
-		font-size: 12px;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--text-faint);
-	}
-
-	.filter-clear {
-		font: inherit;
-		color: var(--accent);
-		text-decoration: underline;
-		text-decoration-thickness: 1.5px;
-		text-underline-offset: 3px;
-	}
-
-	.filter-note {
-		margin-top: 14px;
-		font-family: var(--font-mono);
-		font-size: 12px;
-		color: var(--text-faint);
-	}
-
-	/* .row sets display:grid, which would override [hidden] — enforce it. */
-	.posts [hidden],
-	.list [hidden] {
+	.klist [hidden] {
 		display: none !important;
 	}
-
-	.tag--rss {
-		background: var(--accent);
-		border-color: var(--accent);
-		color: var(--accent-ink);
-		font-weight: 700;
+	.kselect-label {
+		display: block;
+		margin-top: 12px;
+		color: var(--mute);
+		font-size: 0.875rem;
+		font-weight: 600;
 	}
-
-	.list {
-		border-top: 2px solid var(--ink);
+	.kselect {
+		width: 100%;
+		padding: 14px;
+		border: 1px solid var(--fg);
+		border-radius: 0;
+		background: transparent;
+		color: var(--fg);
+		font: inherit;
+		min-height: 44px;
+		margin-top: 12px;
+	}
+	.kselect:focus {
+		outline: 2px solid var(--acc);
+		outline-offset: 2px;
+	}
+	.kselect option {
+		background: var(--bg);
+		color: var(--fg);
+	}
+	.krss {
+		color: var(--mute);
+	}
+	.kcount button {
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		color: var(--acc);
+		text-decoration: underline;
+		text-decoration-thickness: 1.5px;
+		text-underline-offset: 5px;
+		font: inherit;
 	}
 </style>

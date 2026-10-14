@@ -1,244 +1,79 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import Section from '../components/Section.astro';
-import Cta from '../components/Cta.astro';
-import Footer from '../components/Footer.astro';
-import { profile, icons, availabilityState } from '../data/portfolio';
+import KineticLayout from '../layouts/KineticLayout.astro';
+import { profile, availabilityState } from '../data/portfolio';
 
 const looking = [
-	{
-		title: 'Cloud / DevOps Engineer',
-		detail:
-			'Full-time roles across Kubernetes, Terraform, CI/CD, and GitOps — Cairo, remote, or hybrid.',
-		link: null,
-	},
-	{
-		title: 'Cloud & automation projects',
-		detail:
-			'Short engagements: pipeline builds, IaC rollouts, containerization, cloud provisioning.',
-		link: null,
-	},
-	{
-		title: 'Freelance gigs',
-		detail: 'Available for freelance infrastructure work — find me on the usual platforms.',
-		link: 'https://www.upwork.com/freelancers/~0142a1533e4a586cfb',
-		linkLabel: 'Upwork ↗',
-	},
+  {
+    title: 'Cloud / DevOps Engineer',
+    detail:
+      'Full-time roles across Kubernetes, Terraform, CI/CD, and GitOps — Cairo, remote, or hybrid.',
+  },
+  {
+    title: 'Cloud & automation projects',
+    detail:
+      'Short engagements: pipeline builds, IaC rollouts, containerization, cloud provisioning.',
+  },
+  {
+    title: 'Freelance gigs',
+    detail: 'Available for freelance infrastructure work — find me on the usual platforms.',
+  },
 ];
 
 const expectations = [
-	'I reply to every serious message within a couple of days.',
-	'Cairo based, remote-friendly — timezone-flexible with Europe and the GCC.',
-	'Prefer talking? Call or message — the number is below the email box.',
+  'I reply to every serious message within a couple of days.',
+  'Cairo based, remote-friendly — timezone-flexible with Europe and the GCC.',
+  'Prefer talking? Call or message — the number is below the email box.',
 ];
 ---
 
-<Layout
-	title="Contact"
-	description="Get in touch with Marwan Ayman Shawky, Cloud & DevOps Engineer in Cairo, Egypt. Available for DevOps roles, cloud work, and freelance gigs."
+<KineticLayout
+  title="Contact"
+  description="Get in touch with Marwan Ayman Shawky, Cloud & DevOps Engineer in Cairo, Egypt. Available for DevOps roles, cloud work, and freelance gigs."
 >
-	<Header />
-	<main id="main">
-		<PageHeader
-			index="04"
-			label="Open channel"
-			title="Let's talk infrastructure."
-			sub="Whether it's a platform role, a migration you're dreading, or just a strong opinion about YAML — my inbox is open."
-		>
-			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
-		</PageHeader>
-
-		<Section divided={false}>
-			<Cta>
-				<span slot="title">Get in touch</span>
-				<span slot="sub">
-					{availabilityState.label} · {profile.location}
-				</span>
-			</Cta>
-			<p class="direct reveal">
-				<span class="direct__label">Direct line_</span>
-				<a class="direct__number" href={profile.phoneHref}>
-					{profile.phone}
-				</a>
-			</p>
-		</Section>
-
-		<Section
-			index="05"
-			label="Fit check"
-			title="What I'm looking for"
-			sub="A short list, so you can tell quickly whether this is worth an email."
-		>
-			<ul class="roles">
-				{looking.map((item, i) => (
-					<li class="role reveal" style={`--reveal-delay:${i * 70}ms`}>
-						<span class="role__index" aria-hidden="true">
-							{String(i + 1).padStart(2, '0')}
-						</span>
-						<div>
-							<h2 class="role__title">{item.title}</h2>
-							<p class="role__detail">{item.detail}</p>
-							{item.link && (
-								<p class="role__link">
-									<a href={item.link} target="_blank" rel="noopener noreferrer">
-										{item.linkLabel}
-									</a>
-								</p>
-							)}
-						</div>
-						<svg
-							class="role__icon"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"
-						>
-							<path d={icons.cube} />
-						</svg>
-					</li>
-				))}
-			</ul>
-		</Section>
-
-		<Section
-			index="06"
-			label="Good to know"
-			title="Before you write"
-			sub="A little expectations-setting, so neither of us wastes a coffee."
-		>
-			<ul class="notes">
-				{expectations.map((note, i) => (
-					<li class="note reveal" style={`--reveal-delay:${i * 60}ms`}>
-						<span class="note__dot" aria-hidden="true" />
-						{note}
-					</li>
-				))}
-			</ul>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
-
-<style>
-	.direct {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: 8px 20px;
-		margin-top: 22px;
-		padding: 20px 0;
-		border-top: 2px solid var(--ink);
-		border-bottom: 2px solid var(--ink);
-	}
-
-	.direct__label {
-		font-family: var(--font-mono);
-		font-size: 11px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--text-faint);
-	}
-
-	.direct__number {
-		font-size: clamp(26px, 4vw, 40px);
-		font-weight: 800;
-		letter-spacing: -0.04em;
-	}
-
-	.direct__number:hover {
-		color: var(--accent);
-	}
-
-	.role__link {
-		margin-top: 10px;
-		font-family: var(--font-mono);
-		font-size: 13px;
-	}
-
-	.role__link a {
-		color: var(--accent);
-		text-decoration: underline;
-		text-decoration-thickness: 1.5px;
-		text-underline-offset: 3px;
-	}
-
-	.roles {
-		display: grid;
-		border-top: 2px solid var(--ink);
-	}
-
-	.role {
-		display: grid;
-		grid-template-columns: 60px minmax(0, 1fr) 28px;
-		gap: clamp(14px, 2.5vw, 28px);
-		align-items: start;
-		padding: clamp(22px, 3vw, 32px) 0;
-		border-bottom: 2px solid var(--ink);
-	}
-
-	.role__index {
-		color: var(--accent);
-		font-size: 15px;
-		font-weight: 800;
-	}
-
-	.role__title {
-		font-size: clamp(22px, 3vw, 32px);
-		font-weight: 800;
-		letter-spacing: -0.04em;
-		text-transform: uppercase;
-	}
-
-	.role__detail {
-		margin-top: 8px;
-		max-width: 58ch;
-		color: var(--text-muted);
-		font-weight: 500;
-	}
-
-	.role__icon {
-		width: 26px;
-		height: 26px;
-		color: var(--accent);
-	}
-
-	.notes {
-		display: grid;
-		border-top: 2px solid var(--ink);
-		max-width: 76ch;
-	}
-
-	.note {
-		display: flex;
-		align-items: flex-start;
-		gap: 14px;
-		padding: 16px 0;
-		border-bottom: 2px solid var(--ink);
-		color: var(--text-muted);
-		font-weight: 500;
-	}
-
-	.note__dot {
-		width: 10px;
-		height: 10px;
-		margin-top: 8px;
-		flex-shrink: 0;
-		background: var(--accent);
-	}
-
-	@media (max-width: 560px) {
-		.role {
-			grid-template-columns: 36px minmax(0, 1fr);
-		}
-
-		.role__icon {
-			display: none;
-		}
-	}
-</style>
+  <div class="body">
+    <p class="crumb"><a href="/">Home</a> / Contact</p>
+    <h1 class="ptitle" id="name">Contact</h1>
+    <p class="intro">Whether it's a platform role, a migration you're dreading, or just a strong opinion about YAML — my inbox is open.</p>
+    <p class="kmeta">{availabilityState.label} · {profile.location}</p>
+    <ul class="klist">
+      <li class="krow">
+        <div>
+          <p class="klabel">Email</p>
+          <p class="kdesc"><a href={`mailto:${profile.email}`}>{profile.email}</a></p>
+        </div>
+      </li>
+      <li class="krow">
+        <div>
+          <p class="klabel">Phone</p>
+          <p class="kdesc"><a href={profile.phoneHref}>{profile.phone}</a></p>
+        </div>
+      </li>
+    </ul>
+    <h2>What I'm looking for</h2>
+    <ul class="klist">
+      {
+        looking.map((item) => (
+          <li class="krow">
+            <div>
+              <h3>{item.title}</h3>
+              <p class="kdesc">{item.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <h2>Before you write</h2>
+    <ul class="klist">
+      {
+        expectations.map((note) => (
+          <li class="krow">
+            <div>
+              <p class="kdesc">{note}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p><a class="back" href="/">← Home</a></p>
+  </div>
+</KineticLayout>

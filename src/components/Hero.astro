@@ -4,8 +4,8 @@ import { profile, stats, activity, icons } from '../data/portfolio';
 
 const socials = [
 	{ href: profile.links.github, label: 'GitHub', icon: icons.github },
-	{ href: profile.links.linkedin, label: 'LinkedIn', icon: icons.linkedin },
 	{ href: profile.links.gitlab, label: 'GitLab', icon: icons.gitlab },
+	{ href: profile.links.linkedin, label: 'LinkedIn', icon: icons.linkedin },
 ];
 ---
 
@@ -31,6 +31,20 @@ const socials = [
 				I'm <strong>{profile.name}</strong> — {profile.intro}
 			</p>
 			<div class="hero__actions">
+				<a class="btn btn--resume" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d={icons.download}></path>
+					</svg>
+					View resume
+				</a>
 				<a class="btn btn--primary" href="/projects">
 					Selected work
 					<svg
@@ -142,9 +156,17 @@ const socials = [
 	}
 
 	.hero__actions {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		gap: 14px;
+	}
+
+	.hero__actions .btn {
+		justify-content: center;
+	}
+
+	.btn--resume {
+		grid-column: 1 / -1;
 	}
 
 	.hero__stats {
