@@ -1,0 +1,133 @@
+---
+interface Props {
+	currentPage: number;
+	totalPages: number;
+	/** Prev/next URLs as produced by Astro's paginate() (`page.url.prev` / `page.url.next`). */
+	prevUrl?: string | undefined;
+	nextUrl?: string | undefined;
+	/** Base path without trailing page number, e.g. "/blog" or "/blog/tags/linux". */
+	basePath: string;
+}
+
+const { currentPage, totalPages, prevUrl, nextUrl, basePath } = Astro.props;
+
+function pageHref(n: number): string {
+	return n === 1 ? `${basePath}/` : `${basePath}/${n}/`;
+}
+
+// Compact window: always show first, last, current ±1.
+const nums: number[] = [];
+for (let n = 1; n <= totalPages; n++) {
+	if (n === 1 || n === totalPages || Math.abs(n - currentPage) <= 1) nums.push(n);
+}
+---
+
+{totalPages > 1 && (
+	<nav class="kpag" aria-label="Pagination">
+		{prevUrl ? (
+			<a class="kpag__link" href={prevUrl} rel="prev">
+				← Newer
+			</a>
+		) : (
+			<span class="kpag__link kpag__link--disabled" aria-disabled="true">
+				← Newer
+			</span>
+		)}
+		<ol class="kpag__nums">
+			{nums.map((n, i) => (
+				<>
+					{i > 0 && nums[i - 1] !== n - 1 && (
+						<li aria-hidden="true">
+							<span class="kpag__gap">…</span>
+						</li>
+					)}
+					<li>
+						{n === currentPage ? (
+							<span class="kpag__num kpag__num--current" aria-current="page">
+								{n}
+							</span>
+						) : (
+							<a class="kpag__num" href={pageHref(n)}>
+								{n}
+							</a>
+						)}
+					</li>
+				</>
+			))}
+		</ol>
+		{nextUrl ? (
+			<a class="kpag__link" href={nextUrl} rel="next">
+				Older →
+			</a>
+		) : (
+			<span class="kpag__link kpag__link--disabled" aria-disabled="true">
+				Older →
+			</span>
+		)}
+	</nav>
+)}
+
+<style>
+	.kpag {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px 20px;
+		margin-top: 44px;
+		padding-top: 18px;
+		border-top: 1px solid var(--line);
+	}
+	.kpag__link {
+		font-weight: 700;
+		font-size: 0.9375rem;
+		text-decoration: none;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
+	}
+	.kpag__link:not(.kpag__link--disabled):hover,
+	.kpag__link:not(.kpag__link--disabled):focus-visible {
+		text-decoration: underline;
+		text-decoration-color: var(--acc);
+		text-decoration-thickness: 3px;
+		text-underline-offset: 8px;
+	}
+	.kpag__link--disabled {
+		color: var(--mute);
+		opacity: 0.6;
+	}
+	.kpag__nums {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.kpag__num {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
+		padding: 0 12px;
+		text-decoration: none;
+		font-weight: 600;
+	}
+	.kpag__num:not(.kpag__num--current):hover,
+	.kpag__num:not(.kpag__num--current):focus-visible {
+		text-decoration: underline;
+		text-decoration-color: var(--acc);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 6px;
+	}
+	.kpag__num--current {
+		background: var(--acc);
+		color: var(--on-acc);
+	}
+	.kpag__gap {
+		padding: 0 4px;
+		color: var(--mute);
+	}
+</style>

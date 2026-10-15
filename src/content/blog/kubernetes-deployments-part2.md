@@ -1,19 +1,19 @@
 ---
-cover: /images/covers/kubernetes-deployments-part2.webp
-date: 2026-02-24
+title: 'Kubernetes Deployments Part 2: Update Strategies &
+  Production Practices'
 description: Deep dive into Rolling Updates, Blue/Green, Canary
   deployments, rollback mechanisms, and production-grade Kubernetes
   configuration.
+date: 2026-02-24
+cover: /images/covers/kubernetes-deployments-part2.webp
 tags:
   - Kubernetes
   - Cloud-Native
   - DevOps
   - CI/CD
-title: 'Kubernetes Deployments Part 2: Update Strategies &
-  Production Practices'
 ---
 
-In [Part 1](/blog/kubernetes-deployments-part1), we covered Deployment
+In [Part 1](/blog/kubernetes-deployments-part1/), we covered Deployment
 fundamentals, scaling, and self-healing.
 
 In Part 2, we go deeper into:
@@ -34,7 +34,7 @@ Instead of deleting all old Pods at once, Kubernetes:
 2. Gradually terminates old Pods
 3. Maintains availability during the process
 
-![Rolling Update Visualization](/images/017-kubernetes-deployments-part2/image01.webp)
+![Four-stage rolling update diagram gradually replacing v1 pods with v2 pods](/images/017-kubernetes-deployments-part2/image01.webp)
 
 ## Rolling Update Configuration
 
@@ -117,7 +117,7 @@ Blue/Green means:
 
 Instead of updating Pods gradually, you deploy a separate environment.
 
-![Blue Green Diagram](/images/017-kubernetes-deployments-part2/image02.webp)
+![Blue-green deployment flow switching user traffic from Blue to Green after release](/images/017-kubernetes-deployments-part2/image02.webp)
 
 ### How It Works
 
@@ -137,7 +137,7 @@ Example:
 - 90% traffic → old version
 - 10% traffic → new version
 
-![Canary Deployment Diagram](/images/017-kubernetes-deployments-part2/image03.webp)
+![Canary rollout in three stages shifting load balancer traffic from v1 pods to v2 pods](/images/017-kubernetes-deployments-part2/image03.webp)
 
 Canary requires:
 

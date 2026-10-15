@@ -1,59 +1,76 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import Ticker from '../components/Ticker.astro';
-import Section from '../components/Section.astro';
-import ProjectRows from '../components/ProjectRows.astro';
-import Cta from '../components/Cta.astro';
-import Footer from '../components/Footer.astro';
-
-const marquee = [
-	'Open source',
-	'Internal tooling',
-	'Platform',
-	'Reliability',
-	'Security',
-	'DX',
-	'Observability',
-];
+import KineticLayout from '../layouts/KineticLayout.astro';
+import Crumb from '../components/Crumb.astro';
+import { icons, projects } from '../data/portfolio';
 ---
 
-<Layout
-	title="Builds"
+<KineticLayout
+	title="Projects"
 	description="Selected DevOps and infrastructure projects by Marwan Ayman Shawky — GitOps on EKS, Terraform on AWS, Docker stacks, and automation."
+	active="/projects"
 >
-	<Header />
-	<main id="main">
-		<PageHeader
-			index="03"
-			label="Selected work"
-			title="Projects & open source"
-			sub="GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev projects that got me here."
-		>
-			<Breadcrumb slot="crumbs" trail={[{ label: 'Home', href: '/' }, { label: 'Builds' }]} />
-		</PageHeader>
-
-		<Ticker items={marquee} />
-
-		<Section
-			divided={false}
-			title="Everything shipped"
-			sub="Twelve of them — DevOps builds first, then the earlier dev work that got me here."
-		>
-			<ProjectRows />
-		</Section>
-
-		<Section>
-			<Cta>
-				<span slot="title">Want the code?</span>
-				<span slot="sub">
-					Most of this lives on GitHub. Tell me what you're building and I'll point you at the
-					relevant repo.
-				</span>
-			</Cta>
-		</Section>
-	</main>
-	<Footer />
-</Layout>
+	<div class="body">
+		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Projects' }]} />
+		<h1 class="ptitle" id="name">
+			Projects
+		</h1>
+		<p class="intro">
+			GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev
+			projects that got me here.
+		</p>
+		<ul class="klist">
+			{projects.map((project) => (
+				<li class="krow">
+					<div>
+						<h2>
+							{project.link ? (
+								<a class="gh-link" href={project.link} aria-label={`${project.name} on GitHub`}>
+									{project.name}
+									<svg
+										class="gh-icon"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+									>
+										<path d={icons.github} />
+									</svg>
+								</a>
+							) : (
+								<span>{project.name}</span>
+							)}
+						</h2>
+						<p class="kdesc">{project.description}</p>
+						<ul class="ktags" aria-label="Tags">
+							{project.tags.map((t) => (
+								<li>{t}</li>
+							))}
+						</ul>
+					</div>
+				</li>
+			))}
+		</ul>
+		<p>
+			<a class="back" href="/">
+				← Home
+			</a>
+		</p>
+	</div>
+	<style>
+		.gh-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.4rem;
+		}
+		.gh-icon {
+			vertical-align: -3px;
+			color: var(--mute);
+		}
+		.krow:hover .gh-icon,
+		.gh-link:hover .gh-icon,
+		.gh-link:focus-visible .gh-icon {
+			color: var(--acc);
+		}
+	</style>
+</KineticLayout>

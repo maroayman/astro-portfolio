@@ -67,9 +67,9 @@ sudo apt update            # refresh package list
 sudo apt install nginx     # install Nginx web server
 ```
 
-![](/images/007-linux-package-management/image01.webp)
+![Ubuntu terminal running sudo apt update, fetching package lists from Ubuntu repositories](/images/007-linux-package-management/image01.webp)
 
-![](/images/007-linux-package-management/image02.webp)
+![Terminal showing sudo apt install nginx listing packages to install and asking to continue](/images/007-linux-package-management/image02.webp)
 
 ### Fedora / CentOS 8+ / RHEL 8+
 
@@ -79,7 +79,7 @@ sudo apt install nginx     # install Nginx web server
 sudo dnf install nginx
 ```
 
-![](/images/007-linux-package-management/image03.webp)
+![CentOS terminal running sudo dnf install nginx, showing resolved dependencies table](/images/007-linux-package-management/image03.webp)
 
 ### CentOS 7 / RHEL 7
 
@@ -102,7 +102,7 @@ sudo apt remove nginx
 sudo apt autoremove     # clean up unused dependencies
 ```
 
-![](/images/007-linux-package-management/image04.webp)
+![Terminal showing sudo apt remove nginx listing packages to remove and asking to continue](/images/007-linux-package-management/image04.webp)
 
 ### Fedora / CentOS / RHEL
 
@@ -275,4 +275,4 @@ manager.
 Now that you can manage software, let's learn about **managing running
 programs**:
 
-→ [Linux Process Management](/blog/linux-process-management)
+→ [Linux Process Management](/blog/linux-process-management/)

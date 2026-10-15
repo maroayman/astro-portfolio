@@ -1,14 +1,14 @@
 ---
-cover: /images/covers/cachy-os-experience.webp
-date: 2026-09-04
+title: 'Switching to CachyOS: Learning Linux Beyond WSL2'
 description: My experience switching to CachyOS, exploring Arch package management, Pacman, AUR, and Fish shell while learning Linux beyond WSL2.
+date: 2026-09-04
+cover: /images/covers/cachy-os-experience.webp
 tags:
   - Linux
   - CachyOS
   - Arch Linux
   - DevOps
   - Open Source
-title: 'Switching to CachyOS: Learning Linux Beyond WSL2'
 ---
 
 For a long time, most of my Linux experience came from using **WSL2 on

@@ -1,0 +1,74 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import KineticLayout from '../../../../layouts/KineticLayout.astro';
+import Crumb from '../../../../components/Crumb.astro';
+import BlogRows from '../../../../components/BlogRows.astro';
+import BlogPagination from '../../../../components/BlogPagination.astro';
+import { getPosts, getTags, tagSlug, type BlogPost } from '../../../../utils/blog';
+import { PAGE_SIZE } from '../../../../data/blog';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const tags = await getTags();
+	const posts = await getPosts();
+	// One paginated archive per used tag — no empty archives, no /1/ routes
+	// (Astro's paginate maps page 1 to the bare tag URL).
+	return tags.flatMap(({ tag, slug }) => {
+		const filtered = posts.filter((post) => post.data.tags.map(tagSlug).includes(slug));
+		if (filtered.length === 0) return [];
+		return paginate(filtered, {
+			params: { tag: slug },
+			props: { tagName: tag, tagSlug: slug },
+			pageSize: PAGE_SIZE,
+		});
+	});
+}) satisfies GetStaticPaths;
+
+interface Props {
+	page: Page<BlogPost>;
+	tagName: string;
+	tagSlug: string;
+}
+
+const { page, tagName, tagSlug: slug } = Astro.props as Props;
+const isFirstPage = page.currentPage === 1;
+const total = page.total;
+const basePath = `/blog/tags/${slug}`;
+const title = isFirstPage ? `Blog — ${tagName}` : `Blog — ${tagName} — Page ${page.currentPage}`;
+const description = `${total} article${total === 1 ? '' : 's'} tagged ${tagName} — notes by Marwan Ayman Shawky.`;
+---
+
+<KineticLayout
+	title={title}
+	description={description}
+	active="/blog"
+	prev={page.url.prev}
+	next={page.url.next}
+>
+	<div class="body">
+		<Crumb
+			trail={[{ href: '/', label: 'Home' }, { href: '/blog/', label: 'Blog' }, { label: tagName }]}
+		/>
+		<h1 class="ptitle" id="name">
+			{tagName}
+		</h1>
+		<p class="intro">
+			{total} article{total === 1 ? '' : 's'} tagged “{tagName}”.
+		</p>
+
+		<BlogRows posts={page.data} startIndex={page.start} />
+
+		<BlogPagination
+			currentPage={page.currentPage}
+			totalPages={page.lastPage}
+			prevUrl={page.url.prev}
+			nextUrl={page.url.next}
+			basePath={basePath}
+		/>
+
+		<p>
+			<a class="back" href="/blog/">
+				← All articles
+			</a>
+		</p>
+	</div>
+</KineticLayout>

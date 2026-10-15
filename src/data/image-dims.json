@@ -1,0 +1,434 @@
+{
+ "/images/001-flask-mariadb-ec2-deploy/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/001-flask-mariadb-ec2-deploy/image01.webp": {
+  "width": 393,
+  "height": 515
+ },
+ "/images/003-linux-wsl-beginners/image01.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/003-linux-wsl-beginners/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/003-linux-wsl-beginners/image03.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/003-linux-wsl-beginners/image04.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/003-linux-wsl-beginners/image05.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/004-linux-filesystem-overview/image01.webp": {
+  "width": 720,
+  "height": 405
+ },
+ "/images/005-linux-file-permissions/image01.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/005-linux-file-permissions/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/005-linux-file-permissions/image03.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/005-linux-file-permissions/image04.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/005-linux-file-permissions/image05.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/006-linux-file-management/image01.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image02.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image03.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image04.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image05.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image06.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image07.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image08.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image09.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image10.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image11.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image12.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image13.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image14.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image15.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image16.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image17.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image18.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image19.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image20.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image21.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image22.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image23.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image24.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image25.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image26.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image27.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/006-linux-file-management/image28.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/007-linux-package-management/image01.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/007-linux-package-management/image02.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/007-linux-package-management/image03.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/007-linux-package-management/image04.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/008-linux-process-management/image01.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/008-linux-process-management/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/008-linux-process-management/image03.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/008-linux-process-management/image04.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/008-linux-process-management/image05.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/008-linux-process-management/image06.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image01.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image03.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image05.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image04.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image06.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image08.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/010-linux-disk-management/image07.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image01.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image03.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image04.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image05.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image06.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image07.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image08.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image09.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image10.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image11.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/011-linux-shell-scripting-basics/image12.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image01.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image02.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image03.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image04.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image05.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image06.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image07.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image08.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image09.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image10.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/012-linux-networking-essentials/image11.webp": {
+  "width": 1920,
+  "height": 1128
+ },
+ "/images/013-docker-getting-started/image01.svg": {
+  "width": 280,
+  "height": 32
+ },
+ "/images/013-docker-getting-started/image02.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/013-docker-getting-started/image03.webp": {
+  "width": 1734,
+  "height": 927
+ },
+ "/images/015-kubernetes-starter-guide/image01.svg": {
+  "width": 130,
+  "height": 60
+ },
+ "/images/015-kubernetes-starter-guide/image02.svg": {
+  "width": 130,
+  "height": 60
+ },
+ "/images/015-kubernetes-starter-guide/image04.webp": {
+  "width": 1940,
+  "height": 1420
+ },
+ "/images/015-kubernetes-starter-guide/image03.svg": {
+  "width": 1402,
+  "height": 882
+ },
+ "/images/015-kubernetes-starter-guide/image05.webp": {
+  "width": 1101,
+  "height": 751
+ },
+ "/images/016-kubernetes-deployments-part1/image02.webp": {
+  "width": 1600,
+  "height": 881
+ },
+ "/images/017-kubernetes-deployments-part2/image01.webp": {
+  "width": 1662,
+  "height": 1052
+ },
+ "/images/017-kubernetes-deployments-part2/image02.webp": {
+  "width": 1000,
+  "height": 758
+ },
+ "/images/017-kubernetes-deployments-part2/image03.webp": {
+  "width": 1219,
+  "height": 385
+ },
+ "/images/covers/flask-mariadb-ec2-deploy-thumb.webp": {
+  "width": 320,
+  "height": 213
+ },
+ "/images/covers/flask-mariadb-ec2-deploy.webp": {
+  "width": 1024,
+  "height": 683
+ },
+ "/images/covers/go-web-app-aws-ansible-thumb.webp": {
+  "width": 320,
+  "height": 213
+ },
+ "/images/covers/go-web-app-aws-ansible.webp": {
+  "width": 1024,
+  "height": 683
+ },
+ "/images/covers/kubernetes-deployments-part1-thumb.webp": {
+  "width": 320,
+  "height": 153
+ },
+ "/images/covers/kubernetes-deployments-part1.webp": {
+  "width": 1024,
+  "height": 490
+ },
+ "/images/covers/kubernetes-deployments-part2-thumb.webp": {
+  "width": 320,
+  "height": 153
+ },
+ "/images/covers/kubernetes-deployments-part2.webp": {
+  "width": 1024,
+  "height": 490
+ },
+ "/images/covers/cachy-os-experience.webp": {
+  "width": 256,
+  "height": 256
+ },
+ "/images/brand/apple-touch-icon.png": {
+  "width": 180,
+  "height": 180
+ },
+ "/images/brand/icon-192.png": {
+  "width": 192,
+  "height": 192
+ },
+ "/images/brand/icon-512.png": {
+  "width": 512,
+  "height": 512
+ },
+ "/images/brand/icon-512-maskable.png": {
+  "width": 512,
+  "height": 512
+ },
+ "/images/brand/og-image.png": {
+  "width": 1200,
+  "height": 630
+ }
+}

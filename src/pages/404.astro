@@ -1,90 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { icons } from '../data/portfolio';
-
-const links = [
-	{ href: '/', label: 'Index' },
-	{ href: '/projects', label: 'Builds' },
-	{ href: '/contact', label: 'Contact' },
-];
+import KineticLayout from '../layouts/KineticLayout.astro';
+import Crumb from '../components/Crumb.astro';
 ---
 
-<Layout
-	title="Page not found"
-	description="The page you were looking for does not exist or has moved."
+<KineticLayout
+  title="Page not found"
+  description="The page you were looking for does not exist or has moved."
 >
-	<Header />
-	<main id="main" class="shell notfound">
-		<p class="notfound__code" aria-hidden="true">
-			Error 404
-		</p>
-		<h1 class="notfound__title">This pod isn't scheduled.</h1>
-		<p class="notfound__sub">
-			The page you were looking for doesn't exist, never did, or was garbage collected.
-		</p>
-		<ul class="notfound__links">
-			{links.map((link) => (
-				<li>
-					<a class="btn" href={link.href}>
-						{link.label}
-						<svg
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"
-						>
-							<path d={icons.arrow} />
-						</svg>
-					</a>
-				</li>
-			))}
-		</ul>
-	</main>
-	<Footer />
-</Layout>
-
-<style>
-	.notfound {
-		min-height: 60vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
-		padding-block: clamp(60px, 10vw, 120px);
-	}
-
-	.notfound__code {
-		font-family: var(--font-mono);
-		font-size: clamp(20px, 3vw, 28px);
-		font-weight: 500;
-		letter-spacing: 0.1em;
-		color: var(--bg);
-		background: var(--accent);
-		width: fit-content;
-		padding: 8px 16px;
-	}
-
-	.notfound__title {
-		margin-top: 24px;
-		font-size: clamp(48px, 10vw, 120px);
-		max-width: 9ch;
-	}
-
-	.notfound__sub {
-		margin-top: 10px;
-		max-width: 48ch;
-		color: var(--text-muted);
-	}
-
-	.notfound__links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		margin-top: 28px;
-	}
-</style>
+  <div class="body">
+    <Crumb trail={[{ href: "/", label: "Home" }, { label: "404" }]} />
+    <h1 class="ptitle" id="name">Lost</h1>
+    <p class="intro">That page doesn't exist.</p>
+    <p><a class="back" href="/">← Home</a></p>
+  </div>
+</KineticLayout>

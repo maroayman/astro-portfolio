@@ -1,35 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Ticker from '../components/Ticker.astro';
-import Section from '../components/Section.astro';
-import SkillTable from '../components/SkillTable.astro';
-import Timeline from '../components/Timeline.astro';
-import ProjectRows from '../components/ProjectRows.astro';
-import PostRow from '../components/PostRow.astro';
-import CertList from '../components/CertList.astro';
-import Cta from '../components/Cta.astro';
-import Footer from '../components/Footer.astro';
-import { profile } from '../data/portfolio';
+import KineticLayout from '../layouts/KineticLayout.astro';
+import { profile, experience, projects, certifications, skills } from '../data/portfolio';
 import { getPosts } from '../utils/blog';
 
-const latestPosts = (await getPosts()).slice(0, 3);
+const posts = await getPosts();
+const latest = posts[0];
 
-const stack = [
-	'Kubernetes',
-	'Terraform',
-	'AWS',
-	'GitHub Actions',
-	'Argo CD',
-	'Go',
-	'Prometheus',
-	'Grafana',
-	'Helm',
-	'Vault',
-	'Python',
-	'Observability',
-];
+const peek = {
+	experience: `${experience[0].title} at ${experience[0].company}, ${experience[0].period}`,
+	projects: `${projects[0].name}, and ${projects[1].name}`,
+	certifications: `${certifications.length} credentials — ${certifications[0].title}`,
+	blog: latest ? latest.data.title : `${posts.length} guides and notes`,
+	uses: `${skills[0].items.slice(0, 4).join(', ')} and more`,
+};
 
 const jsonLd = {
 	'@context': 'https://schema.org',
@@ -44,98 +27,51 @@ const jsonLd = {
 };
 ---
 
-<Layout>
-	<Header />
-	<main id="main">
-		<Hero />
-		<Ticker items={stack} />
+<KineticLayout>
+	<h1 class="name" id="name" aria-label={profile.name}>
+		<span aria-hidden="true">Marwan</span>
+		<span class="i2" aria-hidden="true">
+			Ayman
+		</span>
+		<span class="i3" aria-hidden="true">
+			Shawky
+		</span>
+	</h1>
 
-		<Section
-			id="skills"
-			index="01"
-			label="Capabilities"
-			title="The stack I run on"
-			sub="Grouped by what I actually use them for — not by how good they look on a slide."
-		>
-			<SkillTable limit={4} />
-			<p class="more">
-				<a class="btn" href="/skills">
-					Full stack →
-				</a>
-			</p>
-		</Section>
-
-		<Section
-			id="experience"
-			index="02"
-			label="Track record"
-			title="Experience"
-			sub="Three roles so far — on-prem Kubernetes, structured training, and cloud automation."
-		>
-			<Timeline limit={2} />
-			<p class="more">
-				<a class="btn" href="/experience">
-					Full history →
-				</a>
-			</p>
-		</Section>
-
-		<Section
-			id="work"
-			index="03"
-			label="Selected work"
-			title="Projects & open source"
-			sub="Each of these started as a production problem that needed solving by hand, once, and then every week."
-		>
-			<ProjectRows limit={3} />
-			<p class="more">
-				<a class="btn" href="/projects">
-					All builds →
-				</a>
-			</p>
-		</Section>
-
-		<Section
-			index="04"
-			label="Credentials"
-			title="Certifications"
-			sub="Formal proof I can operate under pressure, on paper at least."
-		>
-			<CertList />
-		</Section>
-
-		<Section
-			index="05"
-			label="Writing"
-			title="Latest posts"
-			sub="Guides and notes from the homelab — newest first."
-		>
-			<ul class="posts">
-				{latestPosts.map((post, i) => (
-					<PostRow post={post} index={i} />
-				))}
+	<div class="navwrap">
+		<p class="peek" id="peek" aria-live="polite">
+			Hover a page to preview it.
+		</p>
+		<nav aria-label="Pages">
+			<ul class="nav">
+				<li>
+					<a href="/experience/" data-peek={peek.experience}>
+						Experience
+					</a>
+				</li>
+				<li>
+					<a href="/projects/" data-peek={peek.projects}>
+						Projects
+					</a>
+				</li>
+				<li>
+					<a href="/certifications/" data-peek={peek.certifications}>
+						Certifications
+					</a>
+				</li>
+				<li>
+					<a href="/blog/" data-peek={peek.blog}>
+						Blog
+					</a>
+				</li>
+				<li>
+					<a href="/uses/" data-peek={peek.uses}>
+						Uses
+					</a>
+				</li>
 			</ul>
-			<p class="more">
-				<a class="btn" href="/blog">
-					All posts →
-				</a>
-			</p>
-		</Section>
-
-		<Section>
-			<Cta />
-		</Section>
-	</main>
-	<Footer />
-</Layout>
+		</nav>
+	</div>
+</KineticLayout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
-<style>
-	.more {
-		margin-top: 28px;
-	}
-
-	.posts {
-		border-top: 2px solid var(--ink);
-	}
-</style>

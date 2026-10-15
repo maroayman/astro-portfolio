@@ -34,6 +34,7 @@ export const icons = {
 	cube: 'M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9ZM4 7.5 12 12m0 0 8-4.5M12 12v9',
 	up: 'M12 20V5M6 11l6-6 6 6',
 	copy: 'M9 9h11v11H9V9Zm-4 6V6a2 2 0 0 1 2-2h9',
+	download: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3',
 } as const;
 
 /** Single source of truth for availability.
@@ -293,16 +294,16 @@ export type Certification = {
 };
 
 export const certifications: Certification[] = [
-	{ title: 'Microsoft Certified: Azure Fundamentals', issuer: 'Microsoft', date: 'Sep 2026' },
+	{ title: 'Microsoft Certified: Azure Fundamentals', issuer: 'Microsoft Azure', date: 'Sep 2026' },
 	{ title: 'Google Cloud Associate Cloud Engineer', issuer: 'Google Cloud', date: 'Jun 2026' },
 	{
 		title: 'AWS Certified Cloud Practitioner',
-		issuer: 'AWS Training & Certification',
+		issuer: 'Amazon Web Services',
 		date: 'May 2026',
 	},
 	{
 		title: 'Introduction to AWS Cloud: Builder Labs',
-		issuer: 'AWS Training & Certification',
+		issuer: 'Amazon Web Services',
 		date: 'Aug 2025',
 	},
 	{ title: 'Introduction to Kubernetes', issuer: 'The Linux Foundation', date: 'May 2025' },
@@ -312,8 +313,8 @@ export const certifications: Certification[] = [
 		date: 'May 2025',
 	},
 	{ title: 'Introduction to Linux', issuer: 'The Linux Foundation', date: 'May 2025' },
-	{ title: 'HCCDA - AI', issuer: 'Huawei', date: 'Mar 2025' },
-	{ title: 'HCCDA - Tech Essentials', issuer: 'Huawei', date: 'Jan 2025' },
+	{ title: 'HCCDA - AI', issuer: 'Huawei Cloud', date: 'Mar 2025' },
+	{ title: 'HCCDA - Tech Essentials', issuer: 'Huawei Cloud', date: 'Jan 2025' },
 ];
 
 export const education = {

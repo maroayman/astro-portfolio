@@ -41,7 +41,7 @@ Deployments solve all of these problems.
 
 ## Architecture Overview
 
-![Kubernetes Deployment Architecture](/images/015-kubernetes-starter-guide/image03.svg)
+![Diagram of Kubernetes cluster showing control plane components managing two worker nodes with pods](/images/015-kubernetes-starter-guide/image03.svg)
 
 ### How It Works
 
@@ -55,14 +55,10 @@ matches reality.
 
 ### Basic Deployment YAML Example
 
-<div class="tabs" data-tabs>
-  <div class="tabs__list" role="tablist" aria-label="Deployment example">
-    <button type="button" role="tab" id="k8s-tab-yaml" aria-controls="k8s-panel-yaml" aria-selected="true" class="tabs__tab is-active">YAML</button>
-    <button type="button" role="tab" id="k8s-tab-apply" aria-controls="k8s-panel-apply" aria-selected="false" class="tabs__tab" tabindex="-1">Apply</button>
-    <button type="button" role="tab" id="k8s-tab-verify" aria-controls="k8s-panel-verify" aria-selected="false" class="tabs__tab" tabindex="-1">Verify</button>
-  </div>
-  <div class="tabs__panel" role="tabpanel" id="k8s-panel-yaml" aria-labelledby="k8s-tab-yaml" tabindex="0">
-    <pre><code class="language-yaml">apiVersion: apps/v1
+### Deployment YAML
+
+```yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -81,18 +77,20 @@ spec:
           image: nginx:1.25
           ports:
             - containerPort: 80
-</code></pre>
-  </div>
-  <div class="tabs__panel" role="tabpanel" id="k8s-panel-apply" aria-labelledby="k8s-tab-apply" tabindex="0">
-    <pre><code class="language-bash">kubectl apply -f deployment.yaml
-</code></pre>
-  </div>
-  <div class="tabs__panel" role="tabpanel" id="k8s-panel-verify" aria-labelledby="k8s-tab-verify" tabindex="0">
-    <pre><code class="language-bash">kubectl get deployments
+```
+
+### Apply
+
+```bash
+kubectl apply -f deployment.yaml
+```
+
+### Verify
+
+```bash
+kubectl get deployments
 kubectl get pods
-</code></pre>
-  </div>
-</div>
+```
 
 ## Important Fields Explained
 
@@ -116,7 +114,7 @@ Scale to 5 replicas:
 kubectl scale deployment web-deployment --replicas=5
 ```
 
-![Kubernetes Scaling](/images/016-kubernetes-deployments-part1/image02.webp)
+![HPA scaling diagram showing one pod before scaling and three pods after on Node 1](/images/016-kubernetes-deployments-part1/image02.webp)
 
 Kubernetes immediately creates new Pods.
 

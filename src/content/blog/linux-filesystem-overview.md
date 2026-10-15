@@ -21,7 +21,7 @@ what you need quickly.
 (root). All files, programs, devices, and even drives are located under this
 root.
 
-![Filesystem – Source: FutureLearn](/images/004-linux-filesystem-overview/image01.webp)
+![Tree diagram of Linux filesystem hierarchy branching from root into subdirectories](/images/004-linux-filesystem-overview/image01.webp)
 
 ## Key Directories and Their Purpose
 
@@ -43,7 +43,7 @@ root.
 ## Challenge: Navigate and Explore Your Linux Filesystem
 
 If you haven’t set up Linux in WSL2 yet, start with
-[**Part 1: Installing Linux on WSL2**](/blog/linux-wsl-beginners) so you can
+[**Part 1: Installing Linux on WSL2**](/blog/linux-wsl-beginners/) so you can
 follow along.
 
 Once you’re ready, open your terminal and try these steps:
@@ -103,4 +103,4 @@ pwd
 Ready to learn about **file permissions and ownership**? Head to the next
 article:
 
-→ [Linux File Permissions](/blog/linux-file-permissions)
+→ [Linux File Permissions](/blog/linux-file-permissions/)
