@@ -1,0 +1,82 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import KineticLayout from '../../layouts/KineticLayout.astro';
+import Crumb from '../../components/Crumb.astro';
+import BlogRows from '../../components/BlogRows.astro';
+import BlogPagination from '../../components/BlogPagination.astro';
+import { getPosts, type BlogPost } from '../../utils/blog';
+import { PAGE_SIZE } from '../../data/blog';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = await getPosts();
+	return paginate(posts, { pageSize: PAGE_SIZE });
+}) satisfies GetStaticPaths;
+
+interface Props {
+	page: Page<BlogPost>;
+}
+
+const { page } = Astro.props as Props;
+const total = page.total;
+const isFirstPage = page.currentPage === 1;
+
+const title = isFirstPage ? 'Blog' : `Blog — Page ${page.currentPage}`;
+const description =
+	'Notes by Marwan Ayman Shawky on Linux, Docker, Kubernetes, AWS, and DevOps — guides from real homelab and production work.';
+---
+
+<KineticLayout
+	title={title}
+	description={description}
+	active="/blog"
+	prev={page.url.prev}
+	next={page.url.next}
+>
+	<div class="body">
+		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Blog' }]} />
+		<h1 class="ptitle" id="name">
+			Blog
+		</h1>
+		<p class="intro">
+			Field notes on Linux, Docker, Kubernetes, and cloud infrastructure — {total} guides from real
+			homelab and production work.{' '}
+			<a class="krss" href="/rss.xml">
+				RSS ↗
+			</a>
+		</p>
+
+		<BlogRows posts={page.data} startIndex={page.start} />
+
+		<BlogPagination
+			currentPage={page.currentPage}
+			totalPages={page.lastPage}
+			prevUrl={page.url.prev}
+			nextUrl={page.url.next}
+			basePath="/blog"
+		/>
+
+		<p>
+			<a class="back" href="/">
+				← Home
+			</a>
+		</p>
+	</div>
+	<script is:inline>
+		// Compat: old shareable filter URLs (/blog#tags=<slug>[,...]) redirect
+		// to the matching static tag archive. The old #q= text search has no
+		// static equivalent and is intentionally ignored.
+		try {
+			var params = new URLSearchParams(location.hash.replace(/^#/, ''));
+			var slug = (params.get('tags') || '').split(',').filter(Boolean)[0] || '';
+			if (/^[a-z0-9-]+$/.test(slug)) location.replace('/blog/tags/' + slug + '/');
+		} catch (e) {}
+	</script>
+</KineticLayout>
+
+<style>
+	.krss {
+		color: var(--mute);
+		font-size: 0.875em;
+		white-space: nowrap;
+	}
+</style>

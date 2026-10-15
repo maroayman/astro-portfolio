@@ -39,7 +39,7 @@ ssh -i your-key.pem ec2-user@<your-ec2-public-ip>
 Here is a list of all python packages needed for the deployment. Keep in mind
 the current working Python version is (3.9.23)
 
-![](/images/001-flask-mariadb-ec2-deploy/image01.webp)
+![Terminal listing installed Python packages including Flask 3.1.1 and PyMySQL](/images/001-flask-mariadb-ec2-deploy/image01.webp)
 
 This command is for installing the required packages
 
@@ -57,7 +57,7 @@ sudo systemctl start mariadb
 
 ## Step 3 : Creating the folder structure and writing the required codes for the app.
 
-```bash
+```text
 noteapp/
 ├── app.py               # Main Flask application
 ├── config.py            # App configuration (DB URI, secret key)
@@ -189,7 +189,7 @@ python app.py
 
 To access the application , open in the browser :
 
-```xml
+```text
 http://<your-ec2-public-ip>:5000
 ```
 
@@ -197,7 +197,7 @@ http://<your-ec2-public-ip>:5000
 
 Here is a screenshot of the app while its running.
 
-![](/images/001-flask-mariadb-ec2-deploy/image02.webp)
+![Browser showing the deployed My Notes app with saved notes on EC2 port 5000](/images/001-flask-mariadb-ec2-deploy/image02.webp)
 
 ## Summary for the project requirements
 

@@ -48,9 +48,9 @@ ps aux
 ps -ef
 ```
 
-![](/images/008-linux-process-management/image01.webp)
+![Terminal output of ps aux listing running processes with PID, CPU, memory, and command columns](/images/008-linux-process-management/image01.webp)
 
-![](/images/008-linux-process-management/image02.webp)
+![Terminal output of ps -ef listing processes with UID, PID, parent PID, and full command lines](/images/008-linux-process-management/image02.webp)
 
 ## Jobs vs Processes
 
@@ -112,21 +112,21 @@ kill -KILL <pid>
 
 - `top` / `htop` → CPU & memory usage
 
-![](/images/008-linux-process-management/image03.webp)
+![Terminal running top showing load averages and a live table of processes by CPU and memory use](/images/008-linux-process-management/image03.webp)
 
 - `ps -ejH` → process tree
 
-- ![](/images/008-linux-process-management/image04.webp)
+- ![Terminal output of ps -ejH showing processes in hierarchy with PID, session, and command](/images/008-linux-process-management/image04.webp)
 
 - `pstree -p` → tree view
 
-![](/images/008-linux-process-management/image05.webp)
+![Terminal output of pstree -p showing the process tree rooted at systemd with PIDs](/images/008-linux-process-management/image05.webp)
 
 - `watch -n 2 ps aux | grep python` → auto-refresh
 
 - `lsof -p <pid>` → open files
 
-![](/images/008-linux-process-management/image06.webp)
+![Terminal showing lsof output listing open files, libraries, and terminals for a bash process](/images/008-linux-process-management/image06.webp)
 
 ## Killing & Managing Processes
 
@@ -339,4 +339,4 @@ orchestrating your system like a conductor leading an orchestra.
 
 Ready to automate? Learn how to schedule tasks:
 
-→ [Linux Cron & Automation](/blog/linux-cron-automation)
+→ [Linux Cron & Automation](/blog/linux-cron-automation/)

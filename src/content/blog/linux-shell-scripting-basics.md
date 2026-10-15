@@ -35,7 +35,7 @@ them all at once.
    echo "Hello, World!"
    ```
 
-   ![](/images/011-linux-shell-scripting-basics/image01.webp)
+   ![Nano editor showing hello.sh with shebang and Hello World echo command](/images/011-linux-shell-scripting-basics/image01.webp)
 
 3. Save and exit.
 
@@ -51,7 +51,7 @@ them all at once.
    ./hello.sh
    ```
 
-![](/images/011-linux-shell-scripting-basics/image02.webp)
+![Terminal showing chmod, running hello.sh, and Hello World output](/images/011-linux-shell-scripting-basics/image02.webp)
 
 ## Variables in Shell Scripts
 
@@ -63,7 +63,7 @@ name="Marwan"
 echo "Hello, $name!"
 ```
 
-![](/images/011-linux-shell-scripting-basics/image03.webp)
+![Nano editor showing variable script with name Marwan and echo greeting](/images/011-linux-shell-scripting-basics/image03.webp)
 
 Output:
 
@@ -71,7 +71,7 @@ Output:
 Hello, Marwan!
 ```
 
-![](/images/011-linux-shell-scripting-basics/image04.webp)
+![Terminal running variable script and printing Hello, Marwan!](/images/011-linux-shell-scripting-basics/image04.webp)
 
 ## Conditional Statements
 
@@ -86,9 +86,9 @@ else
 fi
 ```
 
-![](/images/011-linux-shell-scripting-basics/image05.webp)
+![Nano editor showing if statement checking whether /etc/passwd exists](/images/011-linux-shell-scripting-basics/image05.webp)
 
-![](/images/011-linux-shell-scripting-basics/image06.webp)
+![Terminal running file-check script and showing File exists result](/images/011-linux-shell-scripting-basics/image06.webp)
 
 ## Loops
 
@@ -104,9 +104,9 @@ do
 done
 ```
 
-![](/images/011-linux-shell-scripting-basics/image07.webp)
+![Nano editor showing for loop script printing numbers 1 through 5](/images/011-linux-shell-scripting-basics/image07.webp)
 
-![](/images/011-linux-shell-scripting-basics/image08.webp)
+![Terminal running for loop script and showing Number 1 to 5 output](/images/011-linux-shell-scripting-basics/image08.webp)
 
 ### While Loop Example:
 
@@ -120,9 +120,9 @@ do
 done
 ```
 
-![](/images/011-linux-shell-scripting-basics/image09.webp)
+![Nano editor showing while loop script counting from 1 to 5](/images/011-linux-shell-scripting-basics/image09.webp)
 
-![](/images/011-linux-shell-scripting-basics/image10.webp)
+![Terminal running while loop script and showing Count 1 to 5 output](/images/011-linux-shell-scripting-basics/image10.webp)
 
 ## Functions
 
@@ -136,9 +136,9 @@ greet() {
 greet "Linux User"
 ```
 
-![](/images/011-linux-shell-scripting-basics/image11.webp)
+![Nano editor showing greet function script called with Linux User](/images/011-linux-shell-scripting-basics/image11.webp)
 
-![](/images/011-linux-shell-scripting-basics/image12.webp)
+![Terminal running function script and printing Hello, Linux User!](/images/011-linux-shell-scripting-basics/image12.webp)
 
 ## Useful Commands in Scripts
 

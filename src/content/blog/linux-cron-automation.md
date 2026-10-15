@@ -76,7 +76,7 @@ can use **timers**.
 
 1. **Service file** `/etc/systemd/system/myjob.service`
 
-   ```bash
+   ```ini
    [Unit]
    Description=My Custom Job
 
@@ -86,7 +86,7 @@ can use **timers**.
 
 2. **Timer file** `/etc/systemd/system/myjob.timer`
 
-   ```bash
+   ```ini
    [Unit]
    Description=Run backup script daily
 
@@ -141,5 +141,5 @@ can use **timers**.
 
 Now that you can schedule and automate tasks, the next step is understanding
 storage. In the next article, we dive into:
-[**Linux Disk Management**](/blog/linux-disk-management) — exploring
+[**Linux Disk Management**](/blog/linux-disk-management/) — exploring
 partitions, filesystems, mounting, and how to monitor disk health.

@@ -1,5 +1,6 @@
 ---
 import KineticLayout from '../layouts/KineticLayout.astro';
+import Crumb from '../components/Crumb.astro';
 import { experience } from '../data/portfolio';
 ---
 
@@ -9,7 +10,7 @@ import { experience } from '../data/portfolio';
 	active="/experience"
 >
 	<div class="body">
-		<p class="crumb"><a href="/">Home</a> / Experience</p>
+		<Crumb trail={[{ href: "/", label: "Home" }, { label: "Experience" }]} />
 		<h1 class="ptitle" id="name">Experience</h1>
 		<ul class="klist">
 			{

@@ -7,7 +7,7 @@ tags:
   - Security
 ---
 
-In the [previous article](/blog/linux-filesystem-overview) we explored the
+In the [previous article](/blog/linux-filesystem-overview/) we explored the
 **Linux filesystem hierarchy** and got familiar with its structure.\
 Now, let’s unlock a powerful concept: **who can access what** in Linux.
 
@@ -42,7 +42,7 @@ Let’s see ownership in action:
 ls -l
 ```
 
-![](/images/005-linux-file-permissions/image01.webp)
+![Terminal output of ls -l showing file permissions, owners, and groups for files including notes.txt](/images/005-linux-file-permissions/image01.webp)
 
 ## Understanding Permissions
 
@@ -82,7 +82,7 @@ Grant execute permission to the user:
 chmod u+x script.sh
 ```
 
-![](/images/005-linux-file-permissions/image02.webp)
+![Terminal showing chmod u+x making notes.txt executable, confirmed by ls -l with green filename](/images/005-linux-file-permissions/image02.webp)
 
 In the previous example, we used the command on the `notes.txt` file. You can
 see that the file name changed color to green, indicating it is now executable.
@@ -95,7 +95,7 @@ Add write permission for group:
 chmod g-w notes.txt
 ```
 
-![](/images/005-linux-file-permissions/image03.webp)
+![Terminal showing chmod g-w removing group write permission, confirmed by before-and-after ls -l](/images/005-linux-file-permissions/image03.webp)
 
 You can see how the write permission is removed from the group in the second
 photo.
@@ -114,7 +114,7 @@ Example:
 chmod 755 script.sh
 ```
 
-![](/images/005-linux-file-permissions/image04.webp)
+![Terminal showing chmod 755 on script.sh, with ls -l listing rwxr-xr-x permissions in green](/images/005-linux-file-permissions/image04.webp)
 
 Breakdown:
 
@@ -182,7 +182,7 @@ You can view an example of umask in the shell screenshot, which illustrates how
 default permissions are applied to new files and directories based on the umask
 value.
 
-![](/images/005-linux-file-permissions/image05.webp)
+![Terminal showing the umask command outputting 0022](/images/005-linux-file-permissions/image05.webp)
 
 > **Trivia: Why Files Start at** `666` and Directories at `777`
 >
@@ -247,7 +247,7 @@ to work with files and directories.
 
 In the next article, we'll cover:
 
-- [How to copy, move, delete, and organize files](/blog/linux-file-management)
+- [How to copy, move, delete, and organize files](/blog/linux-file-management/)
 
 - Using `yum` (CentOS) and `apt` (Ubuntu)
 

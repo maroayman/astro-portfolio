@@ -1,5 +1,6 @@
 ---
 import KineticLayout from '../../layouts/KineticLayout.astro';
+import Crumb from '../../components/Crumb.astro';
 import { getPosts, formatDate, readingTime, tagSlug, postSlug, coverDims } from '../../utils/blog';
 import { render } from 'astro:content';
 
@@ -23,16 +24,20 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 
 <KineticLayout title={post.data.title} description={post.data.description} active="/blog">
 	<div class="body">
-		<p class="crumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / Post</p>
+		<Crumb
+			trail={[{ href: '/', label: 'Home' }, { href: '/blog/', label: 'Blog' }, { label: 'Post' }]}
+		/>
 		<h1 class="ptitle post-title">{post.data.title}</h1>
-		<p class="kmeta">{formatDate(post.data.date)} · {mins} min read</p>
+		<p class="kmeta">
+			{formatDate(post.data.date)} · {mins} min read
+		</p>
 		<p class="intro">{post.data.description}</p>
 
 		{post.data.tags.length > 0 && (
 			<ul class="ktags" aria-label="Tags">
 				{post.data.tags.map((tag) => (
 					<li>
-						<a href={`/blog#tags=${tagSlug(tag)}`}>{tag}</a>
+						<a href={`/blog/tags/${tagSlug(tag)}/`}>{tag}</a>
 					</li>
 				))}
 			</ul>
@@ -68,19 +73,23 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 			)}
 			{newer ? (
 				<a href={`/blog/${postSlug(newer)}/`}>
-					Newer →
-					<strong>{newer.data.title}</strong>
+					Newer →<strong>{newer.data.title}</strong>
 				</a>
 			) : (
 				<span />
 			)}
 		</nav>
-		<p><a class="back" href="/blog/">← Blog</a></p>
+		<p>
+			<a class="back" href="/blog/">
+				← Blog
+			</a>
+		</p>
 	</div>
 	<script>
 		import '../../scripts/code-copy';
 		import '../../scripts/table-wrap';
 		import '../../scripts/lightbox';
+		import '../../scripts/img-lazy';
 	</script>
 </KineticLayout>
 
@@ -92,10 +101,59 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 		color: inherit;
 		text-decoration: none;
 	}
-	.ktags a:hover {
+	.ktags a:hover,
+	.ktags a:focus-visible {
 		color: var(--fg);
 		text-decoration: underline;
 		text-underline-offset: 5px;
+	}
+	/* Repo links — same convention as the Deno site: authors write
+	   `[View on GitHub: user/repo](url)` and CSS renders the pill + brand
+	   icon. Pure CSS, no JavaScript. */
+	.prose-k :global(a[href*='github.com/']),
+	.prose-k :global(a[href*='gitlab.com/']) {
+		--repo-icon: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 0.75rem 0;
+		padding: 0.5rem 1rem;
+		background-color: color-mix(in srgb, var(--fg) 6%, var(--bg));
+		background-image: none;
+		border: 1px solid var(--line);
+		border-radius: 10px;
+		color: var(--fg);
+		font-size: 0.875rem;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.prose-k :global(a[href*='github.com/']:hover),
+	.prose-k :global(a[href*='gitlab.com/']:hover),
+	.prose-k :global(a[href*='github.com/']:focus-visible),
+	.prose-k :global(a[href*='gitlab.com/']:focus-visible) {
+		border-color: var(--acc);
+		color: var(--fg);
+		text-decoration: none;
+	}
+	.prose-k :global(a[href*='github.com/']::before),
+	.prose-k :global(a[href*='gitlab.com/']::before) {
+		content: '';
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+		background: currentColor;
+		mask-image: var(--repo-icon);
+		mask-size: contain;
+		mask-repeat: no-repeat;
+		-webkit-mask-image: var(--repo-icon);
+		-webkit-mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+	}
+	.prose-k :global(a[href*='github.com/']) {
+		--repo-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.31.465-2.38 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.805 5.625-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z'/%3E%3C/svg%3E");
+	}
+	.prose-k :global(a[href*='gitlab.com/']) {
+		--repo-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m23.6004 9.5927-.0337-.0862L20.3.9814a.851.851 0 0 0-.3362-.405.8748.8748 0 0 0-.9997.0539.8748.8748 0 0 0-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 0 0-.29-.4412.8748.8748 0 0 0-.9997-.0537.8585.8585 0 0 0-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 0 0 2.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 0 0 1.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7489.0125-.01a6.0682 6.0682 0 0 0 2.0094-7.003z'/%3E%3C/svg%3E");
 	}
 	.cover {
 		margin: 28px 0 0;
@@ -195,10 +253,15 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 		position: absolute;
 		top: 16px;
 		right: 16px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
 		padding: 10px 16px;
 		border: none;
 		background: var(--acc);
-		color: #0b0b0b;
+		color: var(--on-acc);
 		font-size: 0.8rem;
 		font-weight: 700;
 		letter-spacing: 0.08em;
@@ -224,17 +287,23 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 		position: absolute;
 		top: 10px;
 		right: 10px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
 		padding: 6px 12px;
 		border: 1px solid var(--acc);
 		background: var(--acc);
-		color: #0b0b0b;
+		color: var(--on-acc);
 		font-size: 0.75rem;
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		cursor: pointer;
 	}
-	.prose-k :global(.code-copy:hover) {
+	.prose-k :global(.code-copy:hover),
+	.prose-k :global(.code-copy:focus-visible) {
 		background: transparent;
 		color: var(--acc);
 	}

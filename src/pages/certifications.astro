@@ -1,31 +1,116 @@
 ---
 import KineticLayout from '../layouts/KineticLayout.astro';
+import Crumb from '../components/Crumb.astro';
 import { certifications } from '../data/portfolio';
+
+/** Issuer → provider logo shown next to the title.
+ *  Brand SVGs live in `public/icons/certs/` (transparent, no chip or
+ *  background). To swap one, replace the file — no code change needed. */
+const providers: Record<string, { label: string; src: string }> = {
+	'Microsoft Azure': { label: 'Microsoft Azure', src: '/icons/certs/microsoft.svg' },
+	'Google Cloud': { label: 'Google', src: '/icons/certs/google.svg' },
+	'Amazon Web Services': { label: 'Amazon Web Services', src: '/icons/certs/aws.svg' },
+	'The Linux Foundation': {
+		label: 'Linux Foundation',
+		src: '/icons/certs/linux-foundation.svg',
+	},
+	'Huawei Cloud': { label: 'Huawei Cloud', src: '/icons/certs/huawei.svg' },
+};
+
+const fallback = { label: 'Credential', src: '' };
+
+const badgeFor = (issuer: string) => providers[issuer] ?? fallback;
 ---
 
 <KineticLayout
-  title="Certifications"
-  description="Certifications earned by Marwan Ayman Shawky — Azure, GCP, AWS, Kubernetes, Linux, and Huawei credentials."
-  active="/certifications"
+	title="Certifications"
+	description="Certifications earned by Marwan Ayman Shawky — Azure, GCP, AWS, Kubernetes, Linux, and Huawei credentials."
+	active="/certifications"
 >
-  <div class="body">
-    <p class="crumb"><a href="/">Home</a> / Certifications</p>
-    <h1 class="ptitle" id="name">Certifications</h1>
-    <p class="intro">Formal proof I can operate under pressure, on paper at least.</p>
-    <ul class="klist">
-      {
-        certifications.map((cert) => (
-          <li class="krow">
-            <div>
-              <h2>{cert.title}</h2>
-              <p class="kmeta">
-                {cert.issuer} · {cert.date}
-              </p>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-    <p><a class="back" href="/">← Home</a></p>
-  </div>
+	<div class="body">
+		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Certifications' }]} />
+		<h1 class="ptitle" id="name">
+			Certifications
+		</h1>
+		<p class="intro">
+			{certifications.length} credentials — formal proof I can operate under pressure, on paper at
+			least.
+		</p>
+		<ul class="klist">
+			{certifications.map((cert) => {
+				const badge = badgeFor(cert.issuer);
+				return (
+					<li class="krow">
+						<div class:list={['cert__row', !badge.src && 'cert__row--bare']}>
+							{badge.src && (
+								<span class="cert__icon" role="img" aria-label={badge.label}>
+									<img
+										class="cert__logo"
+										src={badge.src}
+										alt=""
+										width="72"
+										height="72"
+										loading="lazy"
+									/>
+								</span>
+							)}
+							<h2 class="cert__title">{cert.title}</h2>
+							<p class="kmeta">
+								{cert.issuer} · {cert.date}
+							</p>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+		<p>
+			<a class="back" href="/">
+				← Home
+			</a>
+		</p>
+	</div>
 </KineticLayout>
+
+<style>
+	.cert__row {
+		display: grid;
+		grid-template-columns: 72px minmax(0, 1fr);
+		grid-template-areas:
+			'icon title'
+			'icon meta';
+		gap: 2px 20px;
+		align-items: center;
+	}
+	.cert__icon {
+		grid-area: icon;
+		display: inline-flex;
+	}
+	.cert__title {
+		grid-area: title;
+		margin: 0;
+	}
+	.cert__row .kmeta {
+		grid-area: meta;
+		margin-top: 0;
+	}
+	.cert__logo {
+		width: 72px;
+		height: 72px;
+	}
+	.cert__row--bare {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas:
+			'title'
+			'meta';
+	}
+	@media (max-width: 760px) {
+		.cert__row {
+			grid-template-columns: 48px minmax(0, 1fr);
+			gap: 2px 12px;
+		}
+		.cert__logo {
+			width: 48px;
+			height: 48px;
+		}
+	}
+</style>

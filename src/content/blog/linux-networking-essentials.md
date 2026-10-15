@@ -34,7 +34,7 @@ A network interface is the connection between your Linux machine and the network
 ip link show
 ```
 
-![](/images/012-linux-networking-essentials/image01.webp)
+![Terminal output of ip link show listing loopback and eth0 interfaces](/images/012-linux-networking-essentials/image01.webp)
 
 ## IP Addressing Basics
 
@@ -50,7 +50,7 @@ Every network interface needs an IP address to communicate.
 ip addr show
 ```
 
-![](/images/012-linux-networking-essentials/image02.webp)
+![Terminal output of ip addr show with loopback and eth0 IP addresses](/images/012-linux-networking-essentials/image02.webp)
 
 **Assign an IP manually**:
 
@@ -90,7 +90,7 @@ nameserver 8.8.8.8
 nameserver 1.1.1.1
 ```
 
-![](/images/012-linux-networking-essentials/image03.webp)
+![Terminal showing resolv.conf contents with nameserver and search domain](/images/012-linux-networking-essentials/image03.webp)
 
 **Test DNS resolution**:
 
@@ -99,9 +99,9 @@ dig google.com
 nslookup github.com
 ```
 
-![](/images/012-linux-networking-essentials/image04.webp)
+![Terminal output of dig for google.com showing resolved IP address](/images/012-linux-networking-essentials/image04.webp)
 
-![](/images/012-linux-networking-essentials/image05.webp)
+![Terminal output of nslookup for google.com showing IPv4 and IPv6 addresses](/images/012-linux-networking-essentials/image05.webp)
 
 ## Essential Networking Commands
 
@@ -110,25 +110,25 @@ Linux:
 
 - `ping` → Test connectivity
 
-- ![](/images/012-linux-networking-essentials/image06.webp)
+- ![Terminal output of ping to google.com showing replies and statistics](/images/012-linux-networking-essentials/image06.webp)
 
 - `traceroute` → Trace the path packets take
 
-![](/images/012-linux-networking-essentials/image07.webp)
+![Terminal output of traceroute to google.com showing hops and latencies](/images/012-linux-networking-essentials/image07.webp)
 
 - `curl` / `wget` → Fetch URLs
 
-![](/images/012-linux-networking-essentials/image08.webp)
+![Terminal output of curl showing 301 Moved response from google.com](/images/012-linux-networking-essentials/image08.webp)
 
-![](/images/012-linux-networking-essentials/image09.webp)
+![Terminal output of wget downloading google.com and saving index file](/images/012-linux-networking-essentials/image09.webp)
 
 - `netstat` or `ss` → View open ports and connections
 
-![](/images/012-linux-networking-essentials/image10.webp)
+![Terminal output of ss listing established system sockets and addresses](/images/012-linux-networking-essentials/image10.webp)
 
 - `tcpdump` → Capture network packets
 
-![](/images/012-linux-networking-essentials/image11.webp)
+![Terminal output of tcpdump capturing NTP and ARP packets on eth0](/images/012-linux-networking-essentials/image11.webp)
 
 ## Hands-on Labs
 

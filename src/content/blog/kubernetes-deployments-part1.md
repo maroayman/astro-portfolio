@@ -41,7 +41,7 @@ Deployments solve all of these problems.
 
 ## Architecture Overview
 
-![Kubernetes Deployment Architecture](/images/015-kubernetes-starter-guide/image03.svg)
+![Diagram of Kubernetes cluster showing control plane components managing two worker nodes with pods](/images/015-kubernetes-starter-guide/image03.svg)
 
 ### How It Works
 
@@ -114,7 +114,7 @@ Scale to 5 replicas:
 kubectl scale deployment web-deployment --replicas=5
 ```
 
-![Kubernetes Scaling](/images/016-kubernetes-deployments-part1/image02.webp)
+![HPA scaling diagram showing one pod before scaling and three pods after on Node 1](/images/016-kubernetes-deployments-part1/image02.webp)
 
 Kubernetes immediately creates new Pods.
 

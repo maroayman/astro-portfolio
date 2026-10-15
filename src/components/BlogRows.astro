@@ -1,0 +1,60 @@
+---
+import { formatDate, postSlug, type BlogPost } from '../utils/blog';
+
+interface Props {
+	/** Posts to render (already ordered newest-first). */
+	posts: BlogPost[];
+	/** Global index of posts[0] within the full sorted archive (for stable numbering). */
+	startIndex?: number;
+}
+
+const { posts, startIndex = 0 } = Astro.props;
+---
+
+<ol class="klist klist--numbered">
+	{posts.map((post, i) => {
+		const n = startIndex + i;
+		return (
+			<li class="krow">
+				<span class="krow__index" aria-hidden="true">
+					{String(n + 1).padStart(2, '0')}
+				</span>
+				<div class="krow__body">
+					<h2 class="krow__title">
+						<a href={`/blog/${postSlug(post)}/`}>{post.data.title}</a>
+					</h2>
+					<p class="kmeta">
+						<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+					</p>
+				</div>
+			</li>
+		);
+	})}
+</ol>
+
+<style>
+	.klist--numbered {
+		counter-reset: none;
+	}
+	.klist--numbered > li {
+		display: grid;
+		grid-template-columns: 3.2rem minmax(0, 1fr);
+		gap: 4px 16px;
+		align-items: baseline;
+	}
+	.krow__index {
+		font-size: 0.9375rem;
+		font-weight: 800;
+		color: var(--acc);
+		font-variant-numeric: tabular-nums;
+	}
+	.krow__title {
+		font-size: clamp(1.3rem, 2.4vw, 2rem);
+	}
+	@media (max-width: 760px) {
+		.klist--numbered > li {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 2px;
+		}
+	}
+</style>

@@ -17,13 +17,13 @@ automates deployment, scaling, and management of containerized applications.
 
 ### Cluster Overview
 
-![Kubernetes Architecture](/images/015-kubernetes-starter-guide/image03.svg)
+![Diagram of Kubernetes cluster showing control plane components managing two worker nodes with pods](/images/015-kubernetes-starter-guide/image03.svg)
 
 A Kubernetes cluster consists of a **control plane** and **worker nodes**.
 
 ### Control Plane Components
 
-![Control Plane Components](/images/015-kubernetes-starter-guide/image04.webp)
+![Control plane diagram with API server, etcd, scheduler, and controllers connected to worker nodes](/images/015-kubernetes-starter-guide/image04.webp)
 
 - API Server
 - etcd
@@ -32,7 +32,7 @@ A Kubernetes cluster consists of a **control plane** and **worker nodes**.
 
 ## Worker Nodes & Pods
 
-![Pods and Nodes](/images/015-kubernetes-starter-guide/image05.webp)
+![Overview of kubectl requests flowing from control plane to pods on two worker nodes](/images/015-kubernetes-starter-guide/image05.webp)
 
 - Nodes run workloads
 - Pods are the smallest deployable unit
@@ -52,9 +52,9 @@ Manage replicas, rolling updates, and self‑healing.
 
 Expose applications and provide stable networking.
 
-![NodePort Service](/images/015-kubernetes-starter-guide/image01.svg)
+![NodePort Service routing client traffic on port 30080 to two pods](/images/015-kubernetes-starter-guide/image01.svg)
 
-![LoadBalancer Service](/images/015-kubernetes-starter-guide/image02.svg)
+![LoadBalancer Service routing public traffic through a cloud load balancer to pods](/images/015-kubernetes-starter-guide/image02.svg)
 
 ## Configuration & Secrets
 

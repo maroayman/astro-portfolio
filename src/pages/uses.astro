@@ -1,5 +1,6 @@
 ---
 import KineticLayout from '../layouts/KineticLayout.astro';
+import Crumb from '../components/Crumb.astro';
 import { skills } from '../data/portfolio';
 ---
 
@@ -9,7 +10,7 @@ import { skills } from '../data/portfolio';
   active="/uses"
 >
   <div class="body">
-    <p class="crumb"><a href="/">Home</a> / Uses</p>
+    <Crumb trail={[{ href: "/", label: "Home" }, { label: "Uses" }]} />
     <h1 class="ptitle" id="name">Uses</h1>
     <p class="intro">Grouped by what I actually use them for — not by how good they look on a slide. If it's listed here, I've run it in production.</p>
     <ul class="klist">

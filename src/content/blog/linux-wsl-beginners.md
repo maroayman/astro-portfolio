@@ -101,7 +101,7 @@ Ensure you’re running **Windows 11**:
 2. Search for the distro name (e.g., Ubuntu)
 3. Click **Install**
 
-![](/images/003-linux-wsl-beginners/image01.webp)
+![Microsoft Store listing for Ubuntu by Canonical with an Install button](/images/003-linux-wsl-beginners/image01.webp)
 
 #### Method 2: Command Line
 
@@ -110,7 +110,7 @@ wsl --list --online
 wsl --install -d <DistroName>
 ```
 
-![](/images/003-linux-wsl-beginners/image02.webp)
+![Command Prompt showing wsl --list --online distros and a wsl --install download run](/images/003-linux-wsl-beginners/image02.webp)
 
 ### Step 4 (Optional): Manual Installation — CentOS Stream
 
@@ -161,7 +161,7 @@ wsl --set-default kali-linux
 - Click the dropdown arrow next to `+`
 - Select your distro
 
-![](/images/003-linux-wsl-beginners/image03.webp)
+![Windows Terminal profile menu listing shells and WSL distros like Ubuntu and CentOS](/images/003-linux-wsl-beginners/image03.webp)
 
 ## Part 3: Integrating with VS Code and Windows
 
@@ -181,9 +181,9 @@ VS Code will open connected directly to your Linux filesystem.
 - **Windows → Linux:** `\wsl.localhost`
 - **Linux → Windows:** `/mnt/c`, `/mnt/d`, etc.
 
-![](/images/003-linux-wsl-beginners/image04.webp)
+![WSL terminal running code ., showing VS Code Server install and compatibility check](/images/003-linux-wsl-beginners/image04.webp)
 
-![](/images/003-linux-wsl-beginners/image05.webp)
+![VS Code connected to WSL showing the CentOS home folder and files in the Explorer](/images/003-linux-wsl-beginners/image05.webp)
 
 ## Part 4: What’s Next?
 

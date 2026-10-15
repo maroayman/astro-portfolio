@@ -1,0 +1,41 @@
+---
+interface Props {
+	trail: { href?: string; label: string }[];
+}
+
+const { trail } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb">
+	<ol class="crumbs">
+		{trail.map((c) => (
+			<li>
+				{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+			</li>
+		))}
+	</ol>
+</nav>
+
+<style>
+	.crumbs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 8px;
+		margin: 0 0 8px;
+		padding: 0;
+		list-style: none;
+		font-size: 0.9375rem;
+		color: var(--mute);
+	}
+	.crumbs li + li::before {
+		content: '/';
+		margin-right: 8px;
+	}
+	.crumbs a {
+		color: var(--mute);
+	}
+	.crumbs a:hover,
+	.crumbs a:focus-visible {
+		color: var(--fg);
+	}
+</style>

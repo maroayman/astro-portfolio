@@ -20,26 +20,34 @@ no client framework, one small inline script.
 
 ```text
 src/
-├── components/    # Astro components (Header, Hero, Ticker, Timeline, Cta, …)
+├── components/      # BlogRows, BlogPagination, Crumb (numbered rows, pagination, breadcrumbs)
 ├── content/
-│   └── blog/          # ← 18 Markdown posts (migrated from ~/Projects/deno/src/blog)
-├── content.config.ts  # blog collection schema (Astro Content Collections)
+│   └── blog/            # ← 18 Markdown posts (migrated from ~/Projects/deno/src/blog)
+├── content.config.ts    # blog collection schema (Astro Content Collections)
 ├── data/
-│   └── portfolio.ts   # ← all non-blog content lives here
+│   ├── blog.ts          # PAGE_SIZE for archive pagination
+│   └── portfolio.ts     # ← all non-blog content lives here
 ├── layouts/
-│   └── Layout.astro   # <head>, meta/OG tags, theme script
-├── pages/         # index, skills, experience, projects, contact, blog, 404, rss.xml
+│   └── KineticLayout.astro  # <head>, meta/OG tags, header/footer, site script
+├── pages/           # index, experience, projects, certifications, contact,
+│                    # uses, skills (redirect), blog/[...page], blog/[slug],
+│                    # blog/tags/[tag]/[...page], 404, rss.xml
 ├── scripts/
-│   └── reveal.ts      # scroll-reveal observer (imported once in Layout)
+│   ├── chrome.ts        # mail copy, peek line, kinetic name, Cairo clock
+│   ├── code-copy.ts     # copy buttons on post code blocks
+│   ├── img-lazy.ts      # lazy-load + async decode for post images
+│   ├── lightbox.ts      # click-to-enlarge for post images
+│   └── table-wrap.ts    # scrolling frames for wide tables
 ├── styles/
-│   ├── fonts.css      # self-hosted @font-face declarations
-│   ├── global.css     # design tokens + shared primitives
-│   └── prose.css      # Markdown typography — post pages only
+│   ├── fonts.css        # self-hosted @font-face (Manrope + Roboto Flex)
+│   └── kinetic.css      # design tokens + shared site styles
 └── utils/
-    └── blog.ts        # post sorting, tag slugs, reading time
+    └── blog.ts          # post sorting, tag slugs, reading time, cover dims
 public/
-├── fonts/             # woff2 subsets
-├── images/            # blog covers + inline post images
+├── fonts/               # Manrope + Roboto Flex variable woff2
+├── icons/certs/         # provider logos for the certifications page
+├── images/              # blog covers + inline post images (git-ignored, ORAS)
+├── resume.pdf           # footer Resume link target
 └── robots.txt
 ```
 
@@ -63,14 +71,13 @@ with `title`, `description`, `date`, optional `cover`, and `tags`. Adding a post
 is just adding a file — post routes, prev/next links, RSS, and the sitemap
 generate automatically:
 
-- `/blog` — in-page tag filtering (multi-select, shareable `#tags=` URLs), text search over titles/descriptions/tags, + full list
+- `/blog` — numbered archive, 10 posts per page (`PAGE_SIZE` in `src/data/blog.ts`), no descriptions in rows
 - `/blog/[slug]` — post page with reading time, cover, and older/newer nav
+- `/blog/tags/<tag>/` — static archive per used tag (paginated past 10 posts)
 - `/rss.xml` — feed of all posts
 
-There are deliberately no per-tag pages: 19 near-duplicate archives would bloat
-the sitemap for zero benefit. Filtering happens in place via
-`src/scripts/tag-filter.ts` (also progressive enhancement — no-JS readers see
-all posts).
+Old shareable filter URLs (`/blog#tags=<slug>`) redirect to the matching tag
+archive. Article navigation works without JavaScript.
 
 ## 🖼️ Images (GHCR, not git)
 
@@ -92,28 +99,33 @@ GHCR method as the Deno site, sharing one package so the repo stays lean:
 - Vercel builds pull via `buildCommand` in `vercel.json`, bootstrapping its own
   `oras` binary — no tokens needed since the package is public
 
-Images referenced as `/images/...` live in `public/images/`. Shared helpers
-(sorting, tag slugs, reading time) are in `src/utils/blog.ts`, and Markdown
-typography in `src/styles/prose.css` ships on post pages only. Code blocks get
-copy buttons via `src/scripts/code-copy.ts`, and wide tables get scrolling
-frames via `src/scripts/table-wrap.ts` (both progressive enhancement — no-JS
-readers get plain blocks and tables). Cover images carry their natural dimensions
-(`coverDims` in `src/utils/blog.ts`) so small covers never upscale into blur.
+Images referenced as `/images/...` live in `public/images/`. Cover images carry
+their natural dimensions (`coverDims` in `src/utils/blog.ts`) so the browser
+reserves space, and post images get `loading="lazy"` + `decoding="async"` via
+`src/scripts/img-lazy.ts` (both progressive enhancement — no-JS readers get
+plain images). Markdown typography lives in `kinetic.css` (`.prose-k`) plus
+post extras in `src/pages/blog/[slug].astro`. Code blocks get copy buttons via
+`src/scripts/code-copy.ts`, wide tables get scrolling frames via
+`src/scripts/table-wrap.ts`, and post images get click-to-enlarge via
+`src/scripts/lightbox.ts`.
 
 ## 🧭 Sections & breadcrumbs
 
 Nav labels are short on purpose — every subpage carries a breadcrumb that maps
-the label to the page, so the name always presents in context:
+the label to the page:
 
-| Nav label | Breadcrumb     | Page title                 |
-| :-------- | :------------- | :------------------------- |
-| Stack     | Home / Stack   | Stack & tooling            |
-| Track     | Home / Track   | Experience                 |
-| Builds    | Home / Builds  | Projects & open source     |
-| Blog      | Home / Blog    | Blog                       |
-| Contact   | Home / Contact | Let's talk infrastructure. |
+| Nav label    | Breadcrumb          | Page                 |
+| :----------- | :------------------ | :------------------- |
+| Experience   | Home / Experience   | Experience           |
+| Projects     | Home / Projects     | Projects             |
+| Certifications | Home / Certifications | Certifications     |
+| Blog         | Home / Blog         | Blog                 |
+| Uses         | Home / Uses         | Uses                 |
+| Contact      | Home / Contact      | Contact              |
 
-Blog posts extend it one level: Home / Blog / Post.
+Breadcrumbs render via `src/components/Crumb.astro` (`nav > ol` with
+`aria-current="page"`). Blog posts and tag archives extend it one level:
+Home / Blog / Post.
 
 To change the domain (canonical URLs, sitemap, `robots.txt`), set `site` in
 `astro.config.mjs` and update `public/robots.txt`. Current domain:
@@ -121,48 +133,39 @@ To change the domain (canonical URLs, sitemap, `robots.txt`), set `site` in
 
 ## 🎨 Design system
 
-**Freight** — brutalist-Swiss. No cards, no gradients, no orbs. Ink rules, giant
-800-weight grotesk type (with an outlined-word treatment in the hero), hard offset
-shadows on everything interactive, and one loud orange.
+**Kinetic** — minimal editorial. One giant variable display face for names and
+titles, mono labels, hairline rules, numbered archive rows, and one lime accent.
 
-| Token role     | Light                 | Dark                  |
-| :------------- | :-------------------- | :-------------------- |
-| background     | `#faf6ef`             | `#0f0d0a`             |
-| text / muted   | `#16130d` / `#4d4739` | `#f2ecdf` / `#b3ab97` |
-| accent (blaze) | `#b23a00`             | `#ff6b2c`             |
+| Token role       | Dark                  | Light                 |
+| :--------------- | :-------------------- | :-------------------- |
+| background       | `#0b0b0b`             | `#f2f1ec`             |
+| text / muted     | `#f2f1ec` / `#8e8e87` | `#0b0b0b` / `#63635c` |
+| accent (lime)    | `#d4ff3a`             | `#d4ff3a`             |
+| on-accent text   | `#0b0b0b`             | `#0b0b0b`             |
 
-Type: **Inter** for everything (400/500/600/800, self-hosted), **JetBrains Mono**
-for labels and metadata. Instrument Serif files remain in `public/fonts/` but are
-no longer referenced — safe to delete if you want the repo slimmer.
+Type: **Roboto Flex** (variable width + weight) for display, **Manrope**
+(variable, self-hosted) for body. Theme follows `prefers-color-scheme` via
+`@media` overrides in `src/styles/kinetic.css` — no toggle, no flash, no
+`localStorage`. `prefers-reduced-motion` kills transitions/animations and the
+kinetic-name loop skips reduced-motion and coarse pointers.
 
 ## ⚡ Performance notes
 
-The Google Fonts `<link>` was removed. It was a render-blocking third-party
-request that pulled 17 files across 3 origins behind a 16.6 KB stylesheet.
+No third-party requests on any page: both fonts are self-hosted variable files
+(`public/fonts/`, 85 KB total, preloaded with `font-display: swap`), and
+navigation prefetching uses declarative speculation rules instead of a JS
+runtime.
 
-- Fonts are declared in `src/styles/fonts.css`, same-origin, no extra DNS/TLS.
-- Only the weights actually used are shipped (400/500/600/800 for Inter,
-  400/500 for JetBrains Mono).
-- `inter-500.woff2` and `instrument-serif-400.woff2` are preloaded in
-  `Layout.astro` since they paint the first screen; everything else loads lazily.
-- CSS is inlined into the HTML (`build.inlineStylesheets: 'always'`) — the whole
-  stylesheet is ~5 KB gzipped, so this removes the last render-blocking request
-  at the cost of ~4 KB per page.
-- Font stacks fall back to a close system face, so a blocked font request can't
-  leave text invisible.
-- `body` deliberately does **not** transition `background-color`/`color` — that
-  repaints the whole document, grid and grain overlays included, on every theme
-  flip. Theme is set pre-paint anyway, so there is nothing to animate on load.
+- CSS is inlined into the HTML (`build.inlineStylesheets: 'always'`) — no
+  render-blocking stylesheet request.
+- JS is ~2–5 KB per page, all progressive enhancement (copy buttons, table
+  wraps, lightbox, lazy images, clock/peek). No framework, no hydration.
+- Cover images carry `width`/`height` + eager loading; body images lazy-load.
+- Fonts, icons: immutable 1-year `Cache-Control`; images revalidate daily;
+  HTML revalidates always (see `vercel.json`).
 
-If you add a font weight, add the `@font-face` and the preload entry — nothing
-else needs to change.
-
-Both themes are contrast-verified: body text ≥ 4.5:1 (WCAG AA) and interactive
-borders ≥ 3:1 (WCAG 1.4.11) against every surface they sit on. If you change the
-palette, re-check those two numbers.
-
-`--signal-wash` caps how strongly lime tints a chip per theme — at higher mixes the
-dark theme drops below 4.5:1 for text sitting on top.
+If you add a font, add the file, the `@font-face`, and the preload entry —
+nothing else needs to change.
 
 ## 📱 Tailnet preview
 
@@ -185,11 +188,10 @@ requires one-time tailnet admin approval.
 
 ## 🌗 Theming
 
-Light and dark are driven by CSS custom properties on `[data-theme]` in
-`src/styles/global.css`. The theme is resolved before first paint (see the inline
-script in `Layout.astro`) so there is no flash, and is persisted in `localStorage`
-with a graceful fallback when storage is blocked.
+Light and dark follow the OS `prefers-color-scheme` setting via `@media`
+overrides on the tokens in `src/styles/kinetic.css`. There is no theme toggle
+and nothing persisted — no flash, no `localStorage`.
 
-`prefers-reduced-motion` disables the topology packets, marquee, reveal animations
-and hover transitions. Reveal animations are additionally scoped to `.js` so content
-stays visible when scripting is unavailable.
+`prefers-reduced-motion` disables transitions and animations, and the
+kinetic-name pointer loop in `src/scripts/chrome.ts` stays off for
+reduced-motion and coarse pointers.

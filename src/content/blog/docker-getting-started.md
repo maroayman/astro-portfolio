@@ -23,7 +23,7 @@ Docker brings many benefits to developers and teams:
 
 Here is a diagram showing the difference between Docker and virtual machines.
 
-![Docker vs Virtual Machines](/images/013-docker-getting-started/image01.svg)
+![Comparison of virtual machines with hypervisor versus Docker containers sharing host kernel](/images/013-docker-getting-started/image01.svg)
 
 ## Installing Docker
 
@@ -44,7 +44,7 @@ Let’s go through them:
 docker --version
 ```
 
-![](/images/013-docker-getting-started/image02.webp)
+![PowerShell terminal output confirming Docker version 28.4.0 is installed](/images/013-docker-getting-started/image02.webp)
 
 ### 2\. macOS
 
@@ -153,7 +153,7 @@ What happens here?
 Congratulations 🎉 — you’ve successfully set up Docker and launched your first
 container!
 
-![](/images/013-docker-getting-started/image03.webp)
+![Terminal output of docker run hello-world confirming Docker works correctly](/images/013-docker-getting-started/image03.webp)
 
 ## Key Terms to Remember
 
@@ -168,7 +168,7 @@ container!
 ## What’s Next?
 
 In the next article, we’ll dive deeper into
-[**Docker basics**](/blog/docker-images-guide): exploring images,
+[**Docker basics**](/blog/docker-images-guide/): exploring images,
 containers, and registries in detail.
 
 Stay tuned for **Part 2: Understanding Images, Containers, and Registries in

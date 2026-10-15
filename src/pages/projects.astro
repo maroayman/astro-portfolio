@@ -1,5 +1,6 @@
 ---
 import KineticLayout from '../layouts/KineticLayout.astro';
+import Crumb from '../components/Crumb.astro';
 import { icons, projects } from '../data/portfolio';
 ---
 
@@ -9,33 +10,52 @@ import { icons, projects } from '../data/portfolio';
 	active="/projects"
 >
 	<div class="body">
-		<p class="crumb"><a href="/">Home</a> / Projects</p>
-		<h1 class="ptitle" id="name">Projects</h1>
-		<p class="intro">GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev projects that got me here.</p>
+		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Projects' }]} />
+		<h1 class="ptitle" id="name">
+			Projects
+		</h1>
+		<p class="intro">
+			GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev
+			projects that got me here.
+		</p>
 		<ul class="klist">
-			{
-				projects.map((project) => (
-					<li class="krow">
-						<div>
-							<h2>
-								{project.link ? (
-									<a class="gh-link" href={project.link} aria-label={`${project.name} on GitHub`}>{project.name}<svg class="gh-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={icons.github} /></svg></a>
-								) : (
-									<span>{project.name}</span>
-								)}
-							</h2>
-							<p class="kdesc">{project.description}</p>
-							<ul class="ktags" aria-label="Tags">
-								{project.tags.map((t) => (
-									<li>{t}</li>
-								))}
-							</ul>
-						</div>
-					</li>
-				))
-			}
+			{projects.map((project) => (
+				<li class="krow">
+					<div>
+						<h2>
+							{project.link ? (
+								<a class="gh-link" href={project.link} aria-label={`${project.name} on GitHub`}>
+									{project.name}
+									<svg
+										class="gh-icon"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+									>
+										<path d={icons.github} />
+									</svg>
+								</a>
+							) : (
+								<span>{project.name}</span>
+							)}
+						</h2>
+						<p class="kdesc">{project.description}</p>
+						<ul class="ktags" aria-label="Tags">
+							{project.tags.map((t) => (
+								<li>{t}</li>
+							))}
+						</ul>
+					</div>
+				</li>
+			))}
 		</ul>
-		<p><a class="back" href="/">← Home</a></p>
+		<p>
+			<a class="back" href="/">
+				← Home
+			</a>
+		</p>
 	</div>
 	<style>
 		.gh-link {
@@ -48,7 +68,8 @@ import { icons, projects } from '../data/portfolio';
 			color: var(--mute);
 		}
 		.krow:hover .gh-icon,
-		.gh-link:hover .gh-icon {
+		.gh-link:hover .gh-icon,
+		.gh-link:focus-visible .gh-icon {
 			color: var(--acc);
 		}
 	</style>

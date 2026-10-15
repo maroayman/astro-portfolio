@@ -305,16 +305,16 @@ export type Certification = {
 };
 
 export const certifications: Certification[] = [
-	{ title: 'Microsoft Certified: Azure Fundamentals', issuer: 'Microsoft', date: 'Sep 2026' },
+	{ title: 'Microsoft Certified: Azure Fundamentals', issuer: 'Microsoft Azure', date: 'Sep 2026' },
 	{ title: 'Google Cloud Associate Cloud Engineer', issuer: 'Google Cloud', date: 'Jun 2026' },
 	{
 		title: 'AWS Certified Cloud Practitioner',
-		issuer: 'AWS Training & Certification',
+		issuer: 'Amazon Web Services',
 		date: 'May 2026',
 	},
 	{
 		title: 'Introduction to AWS Cloud: Builder Labs',
-		issuer: 'AWS Training & Certification',
+		issuer: 'Amazon Web Services',
 		date: 'Aug 2025',
 	},
 	{ title: 'Introduction to Kubernetes', issuer: 'The Linux Foundation', date: 'May 2025' },
@@ -324,8 +324,8 @@ export const certifications: Certification[] = [
 		date: 'May 2025',
 	},
 	{ title: 'Introduction to Linux', issuer: 'The Linux Foundation', date: 'May 2025' },
-	{ title: 'HCCDA - AI', issuer: 'Huawei', date: 'Mar 2025' },
-	{ title: 'HCCDA - Tech Essentials', issuer: 'Huawei', date: 'Jan 2025' },
+	{ title: 'HCCDA - AI', issuer: 'Huawei Cloud', date: 'Mar 2025' },
+	{ title: 'HCCDA - Tech Essentials', issuer: 'Huawei Cloud', date: 'Jan 2025' },
 ];
 
 export const education = {

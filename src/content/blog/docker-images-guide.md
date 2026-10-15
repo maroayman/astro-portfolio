@@ -41,7 +41,7 @@ from an app store — but for infrastructure.
 
 **Example:**
 
-```bash
+```dockerfile
 FROM python:3.9
 COPY app/ /app
 WORKDIR /app
@@ -81,7 +81,7 @@ CMD ["python", "main.py"]
 
 Build and runtime environments separated → smaller, cleaner images.
 
-```bash
+```dockerfile
 FROM golang:1.20 AS builder
 WORKDIR /src
 COPY . .
@@ -236,13 +236,13 @@ multi-container apps.
 1. **Build a Custom Python App Image**\
    `app.py`
 
-```bash
+```python
 print("Hello from Dockerized Python!")
 ```
 
 `Dockerfile`
 
-```bash
+```dockerfile
 FROM python:3.9-slim
 COPY app.py /app/app.py
 WORKDIR /app
@@ -266,7 +266,7 @@ docker exec -it <container_id> ls /data
 3. **Run Multi-Container App with Docker Compose**\
    `docker-compose.yml`
 
-```bash
+```yaml
 version: '3'
 services:
   web:
@@ -357,13 +357,13 @@ docker scout cves my-go-app
 
 - **ENV** → set environment variables
 
-```bash
+```dockerfile
 ENV APP_ENV=production
 ```
 
 - **EXPOSE** → define the port the container will use
 
-```bash
+```dockerfile
 EXPOSE 5000
 ```
 

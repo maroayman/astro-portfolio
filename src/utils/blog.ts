@@ -16,10 +16,13 @@ export function postSlug(post: BlogPost): string {
 	return post.id.replace(/\.mdx?$/, '');
 }
 
-/** All posts, newest first. */
+/** All posts, newest first. Ties on date break by slug so ordering
+ *  (numbering, older/newer links, RSS) is deterministic across builds. */
 export async function getPosts() {
 	const posts = await getCollection('blog');
-	return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+	return posts.sort(
+		(a, b) => b.data.date.valueOf() - a.data.date.valueOf() || a.id.localeCompare(b.id),
+	);
 }
 
 /** Every used tag with its post count, most-used first. */

@@ -1,8 +1,6 @@
 // Click-to-enlarge for post + cover images. Dependency-free,
 // progressive enhancement: without JS the images are just static.
-const targets = document.querySelectorAll<HTMLImageElement>(
-	'.prose-k img, figure.cover img',
-);
+const targets = document.querySelectorAll<HTMLImageElement>('.prose-k img, figure.cover img');
 
 if (targets.length) {
 	const overlay = document.createElement('div');
@@ -15,6 +13,7 @@ if (targets.length) {
 	const full = document.createElement('img');
 	full.className = 'lightbox__img';
 	full.alt = '';
+	full.tabIndex = -1;
 
 	const close = document.createElement('button');
 	close.type = 'button';
@@ -46,6 +45,8 @@ if (targets.length) {
 
 	targets.forEach((img) => {
 		img.tabIndex = 0;
+		img.setAttribute('role', 'button');
+		img.setAttribute('aria-label', `Enlarge image${img.alt ? `: ${img.alt}` : ''}`);
 		img.addEventListener('click', () => open(img));
 		img.addEventListener('keydown', (e) => {
 			if (e.key === 'Enter' || e.key === ' ') {
@@ -60,5 +61,18 @@ if (targets.length) {
 	close.addEventListener('click', shut);
 	document.addEventListener('keydown', (e) => {
 		if (e.key === 'Escape' && !overlay.hidden) shut();
+		// Keep Tab inside the dialog while it is open.
+		if (e.key === 'Tab' && !overlay.hidden) {
+			const order = [close, full];
+			const first = order[0];
+			const lastEl = order[order.length - 1];
+			if (e.shiftKey && document.activeElement === first) {
+				e.preventDefault();
+				lastEl.focus?.();
+			} else if (!e.shiftKey && document.activeElement === lastEl) {
+				e.preventDefault();
+				first.focus();
+			}
+		}
 	});
 }

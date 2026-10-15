@@ -10,9 +10,9 @@ tags:
 
 So far in this series, you’ve:
 
-- [Explored the Linux filesystem layout](/blog/linux-filesystem-overview)
+- [Explored the Linux filesystem layout](/blog/linux-filesystem-overview/)
 
-- [Learned about permissions and ownership](/blog/linux-file-permissions)
+- [Learned about permissions and ownership](/blog/linux-file-permissions/)
 
 Now it’s time to roll up your sleeves and actually **work with files and
 directories**. This is where Linux becomes fun — and powerful.
@@ -36,7 +36,7 @@ directories**. This is where Linux becomes fun — and powerful.
 - I created a folder called "practice" in the home directory using
   `mkdir practice` and then entered it to run all the commands for this section.
 
-![](/images/006-linux-file-management/image01.webp)
+![Terminal prompt showing current directory as ~/practice after creating it](/images/006-linux-file-management/image01.webp)
 
 - Create empty file:
 
@@ -44,7 +44,7 @@ directories**. This is where Linux becomes fun — and powerful.
   touch notes.txt
   ```
 
-  ![](/images/006-linux-file-management/image02.webp)
+  ![Terminal showing touch notes.txt creating the file, confirmed by ls output](/images/006-linux-file-management/image02.webp)
 
 - Create a directory: (You'll notice that directories are colored in blue)
 
@@ -52,7 +52,7 @@ directories**. This is where Linux becomes fun — and powerful.
   mkdir projects
   ```
 
-  ![](/images/006-linux-file-management/image03.webp)
+  ![Terminal showing mkdir projects with ls listing notes.txt and blue projects folder](/images/006-linux-file-management/image03.webp)
 
 - Create nested directories:
 
@@ -60,12 +60,12 @@ directories**. This is where Linux becomes fun — and powerful.
   mkdir -p projects/app/src
   ```
 
-![](/images/006-linux-file-management/image03.webp)
+![Terminal creating nested projects/app/src with mkdir -p and verifying with ls](/images/006-linux-file-management/image03.webp)
 
 - You can see how in both lines we check the first nested directory, and then in
   the next line, we check another nested one inside `projects/app`.
 
-![](/images/006-linux-file-management/image04.webp)
+![Terminal showing nested directories created with mkdir -p and verified with ls](/images/006-linux-file-management/image04.webp)
 
 ## Copying and Moving Files
 
@@ -75,7 +75,7 @@ directories**. This is where Linux becomes fun — and powerful.
   cp notes.txt notes2.txt
   ```
 
-  ![](/images/006-linux-file-management/image05.webp)
+  ![Terminal showing cp notes.txt to notes2.txt with ls confirming both files](/images/006-linux-file-management/image05.webp)
 
   - Copy directory
 
@@ -83,7 +83,7 @@ directories**. This is where Linux becomes fun — and powerful.
     cp -r projects projects2/
     ```
 
-  ![](/images/006-linux-file-management/image06.webp)
+  ![Terminal showing recursive copy of projects directory to projects2](/images/006-linux-file-management/image06.webp)
 
   - Move file:
 
@@ -91,7 +91,7 @@ directories**. This is where Linux becomes fun — and powerful.
     mv notes.txt projects/
     ```
 
-    ![](/images/006-linux-file-management/image07.webp)
+    ![Terminal showing mv notes.txt into projects and ls confirming the move](/images/006-linux-file-management/image07.webp)
 
   - Rename file:
 
@@ -99,7 +99,7 @@ directories**. This is where Linux becomes fun — and powerful.
     mv notes2.txt notes3.txt
     ```
 
-    ![](/images/006-linux-file-management/image08.webp)
+    ![Terminal showing rename of notes2.txt to notes3.txt confirmed by ls](/images/006-linux-file-management/image08.webp)
 
 ## Deleting Files and Directories
 
@@ -109,7 +109,7 @@ directories**. This is where Linux becomes fun — and powerful.
       rm notes.txt
       ```
 
-      ![](/images/006-linux-file-management/image09.webp)
+      ![Terminal showing deletion of notes.txt with ls output before and after](/images/006-linux-file-management/image09.webp)
 
     - Delete multiple files:
 
@@ -117,7 +117,7 @@ directories**. This is where Linux becomes fun — and powerful.
       rm notes2.txt notes3.txt
       ```
 
-      ![](/images/006-linux-file-management/image10.webp)
+      ![Terminal showing deletion of two files at once, leaving only directories](/images/006-linux-file-management/image10.webp)
 
     - Delete directory (recursively):
 
@@ -125,7 +125,7 @@ directories**. This is where Linux becomes fun — and powerful.
       rm -r projects2/
       ```
 
-      ![](/images/006-linux-file-management/image11.webp)
+      ![Terminal showing recursive deletion of projects2 directory confirmed by ls](/images/006-linux-file-management/image11.webp)
 
     - Safer delete with confirmation:\
       You can confirm your choice by typing either (Yes/No) or (Y/N).
@@ -134,7 +134,7 @@ directories**. This is where Linux becomes fun — and powerful.
       rm -i notes1.txt
       ```
 
-      ![](/images/006-linux-file-management/image12.webp)
+      ![Terminal showing interactive delete prompt for notes1.txt answered with y](/images/006-linux-file-management/image12.webp)
 
 > ⚠️ Warning: Be careful with rm -rf /. It can wipe your system.
 
@@ -142,20 +142,20 @@ directories**. This is where Linux becomes fun — and powerful.
 
 - Show whole file: `cat notes.txt`
 
-![](/images/006-linux-file-management/image13.webp)
+![Terminal showing cat notes.txt displaying lines 1 through 20](/images/006-linux-file-management/image13.webp)
 
 - Scroll through: `less notes.txt`
 
-![](/images/006-linux-file-management/image14.webp)
+![Terminal showing notes.txt open in less pager with END indicator](/images/006-linux-file-management/image14.webp)
 
 - Show the top lines: `head -n 10 notes.txt` (you can replace 10 with the number
   of lines you want from the top)
 
-![](/images/006-linux-file-management/image15.webp)
+![Terminal showing head command outputting first ten lines of notes.txt](/images/006-linux-file-management/image15.webp)
 
 - Show bottom lines: `tail -n 10 notes.txt`
 
-![](/images/006-linux-file-management/image16.webp)
+![Terminal showing tail command outputting last ten lines of notes.txt](/images/006-linux-file-management/image16.webp)
 
 - Follow logs in real time:
 
@@ -168,7 +168,7 @@ directories**. This is where Linux becomes fun — and powerful.
 I have prepared a directory to apply our new practices on file globbing and
 wildcards. Follow the steps in the next screenshots and instructions.
 
-![](/images/006-linux-file-management/image17.webp)
+![Terminal listing globbing demo files including backups, text, images, reports](/images/006-linux-file-management/image17.webp)
 
 ### Copy all .txt files into a folder
 
@@ -177,7 +177,7 @@ mkdir texts
 cp *.txt texts/
 ```
 
-![](/images/006-linux-file-management/image18.webp)
+![Terminal copying all .txt files into new texts folder and listing contents](/images/006-linux-file-management/image18.webp)
 
 ### Move only report1.pdf and report2.pdf
 
@@ -186,7 +186,7 @@ mkdir reports
 mv report[1-2].pdf reports/
 ```
 
-![](/images/006-linux-file-management/image19.webp)
+![Terminal moving report1 and report2 PDFs into reports folder](/images/006-linux-file-management/image19.webp)
 
 ### Delete only January–June backups
 
@@ -194,7 +194,7 @@ mv report[1-2].pdf reports/
 rm backup_2023-0[1-6]*.tar.gz
 ```
 
-![](/images/006-linux-file-management/image20.webp)
+![Terminal deleting January-June backups, leaving only July backup file](/images/006-linux-file-management/image20.webp)
 
 > 💡 **In this specific command, the** `*` **acts as a wildcard to match any
 > characters that might appear after** `2023-0[1-6]` **and before** `.tar.gz`
@@ -202,7 +202,7 @@ rm backup_2023-0[1-6]*.tar.gz
 
 ### View only image files starting with "image"
 
-![](/images/006-linux-file-management/image21.webp)
+![Terminal listing only image files starting with image using wildcard](/images/006-linux-file-management/image21.webp)
 
 ### Concatenate text files into one
 
@@ -210,7 +210,7 @@ rm backup_2023-0[1-6]*.tar.gz
 cat file?.txt > combined.txt
 ```
 
-![](/images/006-linux-file-management/image22.webp)
+![Terminal concatenating single-character wildcard files into combined.txt](/images/006-linux-file-management/image22.webp)
 
 ### Tar archive all PDF reports
 
@@ -218,7 +218,7 @@ cat file?.txt > combined.txt
 tar -czf reports.tar.gz report*.pdf
 ```
 
-![](/images/006-linux-file-management/image23.webp)
+![Terminal archiving PDF reports into reports.tar.gz confirmed by ls](/images/006-linux-file-management/image23.webp)
 
 Once you're comfortable with the basics, here are some **real-world use cases**
 where globbing saves tons of time:
@@ -304,7 +304,7 @@ Try these on your own:
   cd /home/<your-username>/projects
   ```
 
-  ![](/images/006-linux-file-management/image24.webp)
+  ![Terminal changing to projects folder using absolute path](/images/006-linux-file-management/image24.webp)
 
 - **Relative path** → relative to your current directory
 
@@ -312,7 +312,7 @@ Try these on your own:
   cd ../projects
   ```
 
-  ![](/images/006-linux-file-management/image25.webp)
+  ![Terminal changing to projects folder using relative path](/images/006-linux-file-management/image25.webp)
 
 💡 **Pro Tip:** Use `~` for your home directory:
 
@@ -329,7 +329,7 @@ cd ~/Downloads # Replace Downloads with any folder your have in username home fo
   # Replace file.txt with the original filename / Replace file_hard.txt with the new link name.
   ```
 
-  ![](/images/006-linux-file-management/image26.webp)
+  ![Terminal creating hard link with ls -l showing link count of 2](/images/006-linux-file-management/image26.webp)
 
 - **Identical:** The hard link is indistinguishable from the original file. Both
   have the same size, permissions, and owner, and both point to the same data.
@@ -347,9 +347,9 @@ cd ~/Downloads # Replace Downloads with any folder your have in username home fo
   ln -s /var/log/syslog syslog_link # It can work with files and directories!
   ```
 
-  ![](/images/006-linux-file-management/image27.webp)
+  ![Terminal creating file symlink showing arrow link in ls -l output](/images/006-linux-file-management/image27.webp)
 
-  ![](/images/006-linux-file-management/image28.webp)
+  ![Terminal creating directory symlink with kl pointing to kubelabs](/images/006-linux-file-management/image28.webp)
 
   - 1 - We use soft links with files.
 
@@ -385,7 +385,7 @@ to handle many files at once.
 
 In the next article, we’ll go one step further:
 [**Installing and Managing
-Software (apt, yum, dnf)**](/blog/linux-package-management) — the gateway to
+Software (apt, yum, dnf)**](/blog/linux-package-management/) — the gateway to
 customizing your Linux system.
 
 > _"Mastering files is mastering Linux. Every pro started here — and so have

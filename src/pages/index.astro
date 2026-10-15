@@ -7,71 +7,71 @@ const posts = await getPosts();
 const latest = posts[0];
 
 const peek = {
-  experience: `${experience[0].title} at ${experience[0].company}, ${experience[0].period}`,
-  projects: `${projects[0].name}, and ${projects[1].name}`,
-  certifications: `${certifications.length} credentials — ${certifications[0].title}`,
-  blog: latest ? latest.data.title : `${posts.length} guides and notes`,
-  uses: `${skills[0].items.slice(0, 4).join(', ')} and more`,
+	experience: `${experience[0].title} at ${experience[0].company}, ${experience[0].period}`,
+	projects: `${projects[0].name}, and ${projects[1].name}`,
+	certifications: `${certifications.length} credentials — ${certifications[0].title}`,
+	blog: latest ? latest.data.title : `${posts.length} guides and notes`,
+	uses: `${skills[0].items.slice(0, 4).join(', ')} and more`,
 };
 
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: profile.name,
-  jobTitle: profile.role,
-  description: profile.intro,
-  email: `mailto:${profile.email}`,
-  url: Astro.site?.href,
-  sameAs: Object.values(profile.links),
-  knowsAbout: ['Kubernetes', 'Terraform', 'AWS', 'GCP', 'CI/CD', 'GitOps', 'Ansible', 'Docker'],
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: profile.name,
+	jobTitle: profile.role,
+	description: profile.intro,
+	email: `mailto:${profile.email}`,
+	url: Astro.site?.href,
+	sameAs: Object.values(profile.links),
+	knowsAbout: ['Kubernetes', 'Terraform', 'AWS', 'GCP', 'CI/CD', 'GitOps', 'Ansible', 'Docker'],
 };
 ---
 
 <KineticLayout>
-  <p class="intro">
-    {profile.role} in {profile.location}, focused on infrastructure automation, GitOps, and
-    reliable systems.
-  </p>
+	<h1 class="name" id="name" aria-label={profile.name}>
+		<span aria-hidden="true">Marwan</span>
+		<span class="i2" aria-hidden="true">
+			Ayman
+		</span>
+		<span class="i3" aria-hidden="true">
+			Shawky
+		</span>
+	</h1>
 
-  <h1 class="name" id="name" aria-label={profile.name}>
-    <span aria-hidden="true">Marwan</span>
-    <span class="i2" aria-hidden="true">Ayman</span>
-    <span class="i3" aria-hidden="true">Shawky</span>
-  </h1>
-
-  <div class="navwrap">
-    <p class="peek" id="peek" aria-live="polite">Hover a page to preview it.</p>
-    <nav aria-label="Pages">
-      <ul class="nav">
-        <li>
-          <a href="/experience/" data-key="e" data-peek={peek.experience}>
-            Experience<span class="k">E</span>
-          </a>
-        </li>
-        <li>
-          <a href="/projects/" data-key="p" data-peek={peek.projects}>
-            Projects<span class="k">P</span>
-          </a>
-        </li>
-        <li>
-          <a href="/certifications/" data-key="c" data-peek={peek.certifications}>
-            Certifications<span class="k">C</span>
-          </a>
-        </li>
-        <li>
-          <a href="/blog/" data-key="b" data-peek={peek.blog}>
-            Blog<span class="k">B</span>
-          </a>
-        </li>
-        <li>
-          <a href="/uses/" data-key="u" data-peek={peek.uses}>
-            Uses<span class="k">U</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+	<div class="navwrap">
+		<p class="peek" id="peek" aria-live="polite">
+			Hover a page to preview it.
+		</p>
+		<nav aria-label="Pages">
+			<ul class="nav">
+				<li>
+					<a href="/experience/" data-peek={peek.experience}>
+						Experience
+					</a>
+				</li>
+				<li>
+					<a href="/projects/" data-peek={peek.projects}>
+						Projects
+					</a>
+				</li>
+				<li>
+					<a href="/certifications/" data-peek={peek.certifications}>
+						Certifications
+					</a>
+				</li>
+				<li>
+					<a href="/blog/" data-peek={peek.blog}>
+						Blog
+					</a>
+				</li>
+				<li>
+					<a href="/uses/" data-peek={peek.uses}>
+						Uses
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 </KineticLayout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
-

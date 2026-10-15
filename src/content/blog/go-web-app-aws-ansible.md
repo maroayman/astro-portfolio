@@ -57,7 +57,7 @@ volume.
 
 ## Directory Structure
 
-```bash
+```text
 note-app/
 ├── app/                   # Go source code
 │   ├── main.go
@@ -187,7 +187,7 @@ tail -f app.log
 
 ### View in browser
 
-```bash
+```text
 http://<public-ip>       # or private IP if using a VPC and tunnel
 ```
 
