@@ -1,6 +1,8 @@
 #!/bin/sh
 # Restore blog images from the shared GHCR artifact (digest-pinned, anonymous)
 # into public/images. Same package as the Deno site — one push serves both.
+# Also restores the Astro favicon (src/public/astro-favicon.ico in the
+# artifact) to public/favicon.ico, which is git-ignored by design.
 #
 # Layout remap: artifact titles are `src/public/images/...` (Deno tree),
 # restored here as `public/images/...` (Astro tree).
@@ -58,6 +60,13 @@ rm -rf ./_images-tmp
 oras pull "$REF" -o ./_images-tmp
 mkdir -p public/images
 cp -r ./_images-tmp/src/public/images/. public/images/
+# Site favicon (Astro-namespaced in the artifact to avoid colliding with
+# the Deno site's own favicon). Kept out of git; restored here instead.
+if [ -f ./_images-tmp/src/public/astro-favicon.ico ]; then
+  cp ./_images-tmp/src/public/astro-favicon.ico public/favicon.ico
+else
+  echo "warning: astro-favicon.ico not in artifact — keeping local public/favicon.ico" >&2
+fi
 rm -rf ./_images-tmp
 IMAGE_COUNT=$(find public/images -type f | wc -l)
 if [ "$IMAGE_COUNT" -eq 0 ]; then

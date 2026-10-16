@@ -5,6 +5,8 @@
 # Same package as the Deno site (`ghcr.io/maroayman/images`) — one push
 # serves both. Artifact titles are `src/public/...` (Deno tree); local
 # `public/images/...` files are overlaid onto that tree before pushing.
+# The Astro favicon rides along as `src/public/astro-favicon.ico`
+# (namespaced so the Deno site's own favicon is untouched).
 #
 # Overlay (not mirror): files unknown to this repo (Deno covers, profile
 # photo) are preserved, so pushing from here never wipes the other site's
@@ -60,6 +62,9 @@ if [ "$DRY_RUN" = "1" ]; then
   COUNT=$(find public/images -type f | wc -l)
   echo "Would overlay $COUNT file(s) from public/images onto $REGISTRY:$TAG:"
   (cd public/images && find . -type f | sort)
+  if [ -f public/favicon.ico ]; then
+    echo "Would overlay public/favicon.ico as src/public/astro-favicon.ico"
+  fi
   exit 0
 fi
 
@@ -84,6 +89,11 @@ esac
 # Overlay local art onto the Deno tree (additive — never deletes).
 mkdir -p "$STAGE/src/public/images"
 cp -r public/images/. "$STAGE/src/public/images/"
+# Site favicon rides along under an Astro-namespaced title so it never
+# collides with the Deno site's own src/public/favicon.ico.
+if [ -f public/favicon.ico ]; then
+  cp public/favicon.ico "$STAGE/src/public/astro-favicon.ico"
+fi
 
 # Collect the full merged set as <path>:<media-type>.
 (
@@ -94,6 +104,7 @@ cp -r public/images/. "$STAGE/src/public/images/"
       *.png) printf '%s:%s\n' "$f" "image/png" ;;
       *.webp) printf '%s:%s\n' "$f" "image/webp" ;;
       *.svg) printf '%s:%s\n' "$f" "image/svg+xml" ;;
+      *.ico) printf '%s:%s\n' "$f" "image/x-icon" ;;
       *.avif) printf '%s:%s\n' "$f" "image/avif" ;;
       *.gif) printf '%s:%s\n' "$f" "image/gif" ;;
       *) printf '%s:%s\n' "$f" "application/octet-stream" ;;
