@@ -4,6 +4,10 @@
 # Also restores the Astro favicon (src/public/astro-favicon.ico in the
 # artifact) to public/favicon.ico, which is git-ignored by design.
 #
+# Robustness: pull retries 3×, forced pulls back up local files to
+# /tmp/opencode-images-backup-*, and every file is checksummed against
+# the artifact's manifest.txt before the temp dir is removed.
+#
 # Layout remap: artifact titles are `src/public/images/...` (Deno tree),
 # restored here as `public/images/...` (Astro tree).
 #
@@ -56,8 +60,30 @@ fi
 
 # Extract into a temp dir first: a hostile or corrupt artifact must never be
 # able to write outside public/images via crafted member paths.
+# Retried: transient GHCR/network blips must not fail a deploy.
 rm -rf ./_images-tmp
-oras pull "$REF" -o ./_images-tmp
+PULL_OK=0
+for attempt in 1 2 3; do
+  if oras pull "$REF" -o ./_images-tmp; then
+    PULL_OK=1
+    break
+  fi
+  echo "warning: oras pull attempt $attempt/3 failed, retrying…" >&2
+  sleep 5
+  rm -rf ./_images-tmp
+done
+if [ "$PULL_OK" != "1" ]; then
+  echo "error: oras pull failed 3 times from GHCR" >&2
+  exit 1
+fi
+# Forced pulls overwrite local edits — back them up first (OS temp, not repo).
+if [ "$FORCE" = "1" ] && [ -n "$(find public/images public/favicon.ico -type f 2>/dev/null | head -n 1)" ]; then
+  BACKUP="/tmp/opencode-images-backup-$(date +%s)"
+  mkdir -p "$BACKUP"
+  [ -d public/images ] && cp -r public/images "$BACKUP/" 2>/dev/null || true
+  [ -f public/favicon.ico ] && cp public/favicon.ico "$BACKUP/" 2>/dev/null || true
+  echo "note: pre-pull backup at $BACKUP" >&2
+fi
 mkdir -p public/images
 cp -r ./_images-tmp/src/public/images/. public/images/
 # Site favicon (Astro-namespaced in the artifact to avoid colliding with
@@ -67,7 +93,42 @@ if [ -f ./_images-tmp/src/public/astro-favicon.ico ]; then
 else
   echo "warning: astro-favicon.ico not in artifact — keeping local public/favicon.ico" >&2
 fi
+# Verify every extracted file against the artifact's own manifest
+# (written at push time). A corrupt pull fails loudly instead of shipping.
+if [ -f ./_images-tmp/src/manifest.txt ]; then
+  (
+    cd ./_images-tmp/src
+    MISMATCH=0
+    while IFS= read -r line; do
+      want_sum=$(printf '%s' "$line" | cut -d' ' -f1)
+      want_size=$(printf '%s' "$line" | cut -d' ' -f3)
+      f=$(printf '%s' "$line" | cut -d' ' -f5-)
+      if [ ! -f "$f" ]; then
+        echo "error: manifest lists missing file: $f" >&2
+        MISMATCH=1
+      elif [ "$(sha256sum "$f" | cut -d' ' -f1)" != "$want_sum" ] || [ "$(wc -c <"$f")" != "$want_size" ]; then
+        echo "error: checksum/size mismatch: $f" >&2
+        MISMATCH=1
+      fi
+    done < manifest.txt
+    # Restored paths must stay inside public/ (plus the manifest itself).
+    BADPATHS=$(cut -d' ' -f5- manifest.txt | grep -vE '^(public/|manifest\.txt$)' || true)
+    if [ -n "$BADPATHS" ]; then
+      echo "error: manifest escapes public:" >&2
+      printf '%s\n' "$BADPATHS" >&2
+      MISMATCH=1
+    fi
+    exit $MISMATCH
+  )
+  VERIFY_OK=$?
+else
+  echo "warning: no manifest.txt in artifact (old pin?) — skipping verification" >&2
+  VERIFY_OK=0
+fi
 rm -rf ./_images-tmp
+if [ "$VERIFY_OK" != "0" ]; then
+  exit 1
+fi
 IMAGE_COUNT=$(find public/images -type f | wc -l)
 if [ "$IMAGE_COUNT" -eq 0 ]; then
   echo "error: oras pull restored 0 files from GHCR" >&2

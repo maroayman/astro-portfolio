@@ -95,6 +95,15 @@ if [ -f public/favicon.ico ]; then
   cp public/favicon.ico "$STAGE/src/public/astro-favicon.ico"
 fi
 
+# Self-describing artifact: manifest of every file (sha256 + size) so
+# pulls can verify what they extracted. Lives at the artifact root.
+(
+  cd "$STAGE/src"
+  find public -type f | sort | while IFS= read -r f; do
+    printf '%s  %s  %s\n' "$(sha256sum "$f" | cut -d' ' -f1)" "$(wc -c <"$f")" "$f"
+  done > manifest.txt
+)
+
 # Collect the full merged set as <path>:<media-type>.
 (
   cd "$STAGE"
@@ -105,6 +114,7 @@ fi
       *.webp) printf '%s:%s\n' "$f" "image/webp" ;;
       *.svg) printf '%s:%s\n' "$f" "image/svg+xml" ;;
       *.ico) printf '%s:%s\n' "$f" "image/x-icon" ;;
+      *.txt) printf '%s:%s\n' "$f" "text/plain" ;;
       *.avif) printf '%s:%s\n' "$f" "image/avif" ;;
       *.gif) printf '%s:%s\n' "$f" "image/gif" ;;
       *) printf '%s:%s\n' "$f" "application/octet-stream" ;;
