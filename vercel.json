@@ -1,5 +1,11 @@
 {
 	"buildCommand": "bash scripts/images-pull.sh --force && astro build",
+	"rewrites": [
+		{
+			"source": "/resume",
+			"destination": "/resume.pdf"
+		}
+	],
 	"headers": [
 		{
 			"source": "/_astro/(.*)",
