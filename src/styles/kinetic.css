@@ -11,8 +11,8 @@
   --line: rgba(242, 241, 236, 0.16);
   --wd: 100;
   --wg: 600;
-  --font-body: 'Manrope', system-ui, sans-serif;
-  --font-display: 'Roboto Flex', system-ui, sans-serif;
+  --font-body: 'Manrope', 'Manrope Fallback', system-ui, sans-serif;
+  --font-display: 'Roboto Flex', 'Roboto Flex Fallback', system-ui, sans-serif;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -209,6 +209,11 @@ button { font: inherit; color: inherit; }
   border-top: 1px solid var(--line);
 }
 .klist > li {
+  /* Unlimited-length lists scale: rows scrolled out of view skip
+     layout and paint. `auto` remembers each row's real rendered
+     height after first paint, so the scrollbar stays stable. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 260px;
   padding: clamp(18px, 2.5vw, 28px) 0;
   border-bottom: 1px solid var(--line);
 }

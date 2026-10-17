@@ -1,11 +1,14 @@
 /* Self-hosted fonts (latin subsets, variable weights).
    Replaces the Google Fonts links — same families, zero third-party
-   requests. Files live in public/fonts/ and are cached immutably. */
+   requests. Files live in public/fonts/ and are cached immutably.
+   font-display: optional — the browser either picks the font at first
+   paint or keeps the metric-matched fallback for the whole visit. There
+   is never a post-paint swap, so fonts can cause zero layout shift. */
 @font-face {
 	font-family: 'Manrope';
 	font-style: normal;
 	font-weight: 200 800;
-	font-display: swap;
+	font-display: optional;
 	src: url('/fonts/manrope-var.woff2') format('woff2');
 }
 @font-face {
@@ -13,6 +16,48 @@
 	font-style: normal;
 	font-weight: 100 1000;
 	font-stretch: 25% 151%;
-	font-display: swap;
+	font-display: optional;
 	src: url('/fonts/roboto-flex-var.woff2') format('woff2');
+}
+
+/* Metric-matched fallbacks: system fonts overridden to occupy the same
+   space as the webfonts. With font-display: optional these are what a
+   cold first visit shows when the font misses the block window — the
+   overrides keep the page visually and metrically near-identical to the
+   real font. Values generated with @capsizecss from the actual woff2
+   files: Manrope wght 400 (body text) and wght 700 (bold, vs Arial
+   Bold); Roboto Flex wght 600 (its resting state). Regenerate if fonts
+   change. src order: Arial names (Windows/macOS) then Liberation Sans
+   (Linux, metric-identical to Arial — without it local() fails on Linux
+   and the face is dropped, silently falling back to system-ui). */
+@font-face {
+	font-family: 'Manrope Fallback';
+	font-style: normal;
+	font-weight: 200 550;
+	src: local('Arial'), local('ArialMT'), local('Liberation Sans');
+	ascent-override: 103.3095%;
+	descent-override: 29.074%;
+	line-gap-override: 0%;
+	size-adjust: 103.1851%;
+}
+@font-face {
+	font-family: 'Manrope Fallback';
+	font-style: normal;
+	font-weight: 551 800;
+	src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
+		local('LiberationSans-Bold');
+	ascent-override: 105.3881%;
+	descent-override: 29.6589%;
+	line-gap-override: 0%;
+	size-adjust: 101.1499%;
+}
+@font-face {
+	font-family: 'Roboto Flex Fallback';
+	font-style: normal;
+	font-weight: 100 1000;
+	src: local('Arial'), local('ArialMT'), local('Liberation Sans');
+	ascent-override: 89.6319%;
+	descent-override: 23.5873%;
+	line-gap-override: 0%;
+	size-adjust: 103.5049%;
 }
