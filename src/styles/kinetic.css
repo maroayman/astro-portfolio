@@ -209,13 +209,19 @@ button { font: inherit; color: inherit; }
   border-top: 1px solid var(--line);
 }
 .klist > li {
-  /* Unlimited-length lists scale: rows scrolled out of view skip
-     layout and paint. `auto` remembers each row's real rendered
-     height after first paint, so the scrollbar stays stable. */
-  content-visibility: auto;
-  contain-intrinsic-size: auto 260px;
   padding: clamp(18px, 2.5vw, 28px) 0;
   border-bottom: 1px solid var(--line);
+}
+
+/* Tag lists can grow without bound, so their rows opt into
+   content-visibility: off-screen rows skip layout and paint, and the
+   `auto` intrinsic size remembers each row's real rendered height.
+   Scoped to uses only — on short, fold-adjacent lists the first render
+   can replace a size estimate and shift layout (0.102 CLS on /contact/
+   when this was global). */
+.klist--tags > li {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 260px;
 }
 .krow h2 {
   margin: 0;
