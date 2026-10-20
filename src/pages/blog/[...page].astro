@@ -25,13 +25,7 @@ const description =
 	'Notes by Marwan Ayman Shawky on Linux, Docker, Kubernetes, AWS, and DevOps — guides from real homelab and production work.';
 ---
 
-<KineticLayout
-	title={title}
-	description={description}
-	active="/blog"
-	prev={page.url.prev}
-	next={page.url.next}
->
+<KineticLayout title={title} description={description} prev={page.url.prev} next={page.url.next}>
 	<div class="body">
 		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Blog' }]} />
 		<h1 class="ptitle" id="name">

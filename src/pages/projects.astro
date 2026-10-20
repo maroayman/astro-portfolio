@@ -7,7 +7,6 @@ import { icons, projects } from '../data/portfolio';
 <KineticLayout
 	title="Projects"
 	description="Selected DevOps and infrastructure projects by Marwan Ayman Shawky — GitOps on EKS, Terraform on AWS, Docker stacks, and automation."
-	active="/projects"
 >
 	<div class="body">
 		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Projects' }]} />
@@ -18,13 +17,14 @@ import { icons, projects } from '../data/portfolio';
 			GitOps pipelines, Terraform infrastructure, and containerized apps — plus the earlier dev
 			projects that got me here.
 		</p>
+
 		<ul class="klist">
 			{projects.map((project) => (
 				<li class="krow">
 					<div>
 						<h2>
 							{project.link ? (
-								<a class="gh-link" href={project.link} aria-label={`${project.name} on GitHub`}>
+								<a class="proj-link" href={project.link} target="_blank" rel="noopener noreferrer">
 									{project.name}
 									<svg
 										class="gh-icon"
@@ -34,7 +34,7 @@ import { icons, projects } from '../data/portfolio';
 										fill="currentColor"
 										aria-hidden="true"
 									>
-										<path d={icons.github} />
+										<path d={project.link?.includes('gitlab.com') ? icons.gitlab : icons.github} />
 									</svg>
 								</a>
 							) : (
@@ -51,25 +51,22 @@ import { icons, projects } from '../data/portfolio';
 				</li>
 			))}
 		</ul>
+
 		<p>
 			<a class="back" href="/">
 				← Home
 			</a>
 		</p>
 	</div>
+
 	<style>
-		.gh-link {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.4rem;
-		}
 		.gh-icon {
 			vertical-align: -3px;
 			color: var(--mute);
+			margin-left: 0.4rem;
 		}
-		.krow:hover .gh-icon,
-		.gh-link:hover .gh-icon,
-		.gh-link:focus-visible .gh-icon {
+		.proj-link:hover .gh-icon,
+		.proj-link:focus-visible .gh-icon {
 			color: var(--acc);
 		}
 	</style>

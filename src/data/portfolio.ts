@@ -25,6 +25,8 @@ export const profile = {
 export const icons = {
 	github:
 		'M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z',
+	gitlab:
+		'm23.6004 9.5927-.0337-.0862L20.3.9814a.851.851 0 0 0-.3362-.405.8748.8748 0 0 0-.9997.0539.8748.8748 0 0 0-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 0 0-.29-.4412.8748.8748 0 0 0-.9997-.0537.8585.8585 0 0 0-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 0 0 2.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 0 0 1.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7489.0125-.01a6.0682 6.0682 0 0 0 2.0094-7.003z',
 	linkedin:
 		'M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.1a4.2 4.2 0 0 1 3.8-2.1c4 0 4.8 2.7 4.8 6.2V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21h-4V9Z',
 	linktree:
@@ -36,44 +38,6 @@ export const icons = {
 	copy: 'M9 9h11v11H9V9Zm-4 6V6a2 2 0 0 1 2-2h9',
 	download: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3',
 } as const;
-
-/** Single source of truth for availability.
- *  Change ONLY this value: 'open' | 'selective' | 'unavailable'. */
-export const availabilityStatus = 'open' as const;
-
-export const availabilityStates = {
-	open: { label: 'Open to Work', color: '#22C55E' },
-	selective: { label: 'Selectively Available', color: '#EAB308' },
-	unavailable: { label: 'Unavailable', color: '#EF4444' },
-} as const;
-
-/** Resolved state — components read this, never the map directly. */
-export const availabilityState = availabilityStates[availabilityStatus];
-
-/** Hero stat strip — every number is a count derived from the data below. */
-export const stats = [
-	{ value: '12', label: 'Projects shipped' },
-	{ value: '9', label: 'Certifications earned' },
-	{ value: '3', label: 'DevOps roles' },
-	{ value: '1+', label: 'Years in DevOps' },
-];
-
-export type ActivityItem = {
-	date: string;
-	text: string;
-	status: 'shipped' | 'in-progress';
-};
-
-/**
- * Recent shipping activity, shown in the hero "Latest shipments" log.
- * Seeded from real milestones — newest first, edit when you ship.
- */
-export const activity: ActivityItem[] = [
-	{ date: '2026-09', text: 'Azure Fundamentals certified', status: 'shipped' },
-	{ date: '2026-06', text: 'GCP Associate Cloud Engineer', status: 'shipped' },
-	{ date: '2026-04', text: 'HA Kubernetes on-prem @ IP-Protocol', status: 'shipped' },
-	{ date: '2025', text: 'GitOps 3-tier app on EKS', status: 'shipped' },
-];
 
 export type SkillGroup = {
 	title: string;
@@ -113,13 +77,18 @@ export const skills: SkillGroup[] = [
 	},
 	{
 		title: 'OS & Shell',
-		summary: 'Rocky Linux on servers, WSL2 daily, Starship prompt everywhere.',
-		items: ['Linux', 'Windows + WSL2', 'Bash / Zsh'],
+		summary: 'Windows 11 + WSL2 daily, Linux on servers, Starship prompt everywhere.',
+		items: ['Windows + WSL2', 'Linux', 'Bash / Zsh', 'Fish'],
 	},
 	{
 		title: 'Editor & Terminal',
 		summary: 'VS Code daily with K8s/Terraform/Docker extensions, Vim over SSH.',
-		items: ['VS Code', 'Vim', 'Termora', 'Starship'],
+		items: ['VS Code', 'Vim', 'Termora', 'Starship', 'Fish'],
+	},
+	{
+		title: 'Hardware',
+		summary: 'Daily driver — one machine for everything.',
+		items: ['Lenovo Yoga 6i (i7-13th H)'],
 	},
 ];
 
@@ -291,6 +260,7 @@ export type Certification = {
 	title: string;
 	issuer: string;
 	date: string;
+	url?: string;
 };
 
 export const certifications: Certification[] = [
@@ -316,10 +286,3 @@ export const certifications: Certification[] = [
 	{ title: 'HCCDA - AI', issuer: 'Huawei Cloud', date: 'Mar 2025' },
 	{ title: 'HCCDA - Tech Essentials', issuer: 'Huawei Cloud', date: 'Jan 2025' },
 ];
-
-export const education = {
-	school: 'Helwan University',
-	degree: 'B.Sc in Computer Science',
-	period: '2018 – 2023',
-	location: 'Cairo, Egypt',
-} as const;

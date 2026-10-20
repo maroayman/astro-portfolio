@@ -24,6 +24,7 @@
 # Requires: oras login beforehand (never paste tokens into chat):
 #   echo "$CR_PAT" | oras login ghcr.io -u maroayman --password-stdin
 set -eu
+set -o pipefail
 
 DRY_RUN=0
 PIN=0
@@ -122,10 +123,10 @@ fi
   done >"$LIST_FILE"
 )
 
-# shellcheck disable=SC2046
+mapfile -t PUSH_ARGS < "$LIST_FILE"
 (
   cd "$STAGE"
-  oras push "$REGISTRY:$TAG" $(cat "$LIST_FILE") 2>&1 | tee "$PUSH_LOG"
+  oras push "$REGISTRY:$TAG" "${PUSH_ARGS[@]}" 2>&1 | tee "$PUSH_LOG"
 )
 DIGEST=$(grep -o 'sha256:[0-9a-f]\{64\}' "$PUSH_LOG" | tail -n 1)
 

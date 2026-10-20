@@ -1,35 +1,250 @@
 ---
 import KineticLayout from '../layouts/KineticLayout.astro';
 import Crumb from '../components/Crumb.astro';
-import { skills } from '../data/portfolio';
 ---
 
 <KineticLayout
-  title="Uses"
-  description="Tools and technologies Marwan Ayman Shawky uses as a Cloud & DevOps Engineer: Kubernetes, Terraform, AWS, GCP, CI/CD, and GitOps."
-  active="/uses"
+	title="Uses"
+	description="Hardware and software Marwan Ayman Shawky uses day to day as a Cloud & DevOps Engineer."
 >
-  <div class="body">
-    <Crumb trail={[{ href: "/", label: "Home" }, { label: "Uses" }]} />
-    <h1 class="ptitle" id="name">Uses</h1>
-    <p class="intro">Grouped by what I actually use them for — not by how good they look on a slide. If it's listed here, I've run it in production.</p>
-    <ul class="klist klist--tags">
-      {
-        skills.map((group) => (
-          <li class="krow">
-            <div>
-              <h2>{group.title}</h2>
-              <p class="kdesc">{group.summary}</p>
-              <ul class="ktags" aria-label="Tools">
-                {group.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-    <p><a class="back" href="/">← Home</a></p>
-  </div>
+	<div class="body">
+		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Uses' }]} />
+		<h1 class="ptitle" id="name">
+			Uses
+		</h1>
+		<p class="intro">
+			A concise inventory of the hardware and software I use day to day. Nothing here is
+			aspirational — if it is listed, I use it.
+		</p>
+
+		<section class="uses-section">
+			<h2>Computer</h2>
+			<ul>
+				<li>
+					<a href="https://www.lenovo.com" target="_blank" rel="noopener noreferrer">
+						Lenovo Yoga Slim 6 14IRH8
+					</a>
+					<span class="uses-desc">
+						Daily driver — Intel Core i7-13700H, 16 GB RAM, Intel Iris Xe, 14-inch 1920×1200 display
+					</span>
+				</li>
+			</ul>
+		</section>
+
+		<section class="uses-section">
+			<h2>Operating system</h2>
+			<ul>
+				<li>
+					<a href="https://cachyos.org" target="_blank" rel="noopener noreferrer">
+						CachyOS
+					</a>
+					<span class="uses-desc">Daily driver OS</span>
+				</li>
+				<li>
+					<a href="https://kde.org/plasma-desktop/" target="_blank" rel="noopener noreferrer">
+						KDE Plasma
+					</a>
+					<span class="uses-desc">Desktop environment</span>
+				</li>
+				<li>
+					<a href="https://wayland.freedesktop.org/" target="_blank" rel="noopener noreferrer">
+						Wayland
+					</a>
+					<span class="uses-desc">Display server</span>
+				</li>
+			</ul>
+		</section>
+
+		<section class="uses-section">
+			<h2>Terminal &amp; shell</h2>
+			<ul>
+				<li>
+					<a
+						href="https://docs.xfce.org/apps/terminal/start"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						XFCE Terminal
+					</a>
+					<span class="uses-desc">Default terminal emulator</span>
+				</li>
+				<li>
+					<a href="https://fishshell.com" target="_blank" rel="noopener noreferrer">
+						Fish
+					</a>
+					<span class="uses-desc">Primary shell</span>
+				</li>
+				<li>
+					<a href="https://www.gnu.org/software/bash/" target="_blank" rel="noopener noreferrer">
+						Bash
+					</a>
+					<span class="uses-desc">Fallback / scripting shell</span>
+				</li>
+				<li>
+					<a href="https://www.zsh.org" target="_blank" rel="noopener noreferrer">
+						Zsh
+					</a>
+					<span class="uses-desc">Alternative interactive shell</span>
+				</li>
+				<li>
+					<a href="https://starship.rs" target="_blank" rel="noopener noreferrer">
+						Starship
+					</a>
+					<span class="uses-desc">Cross-shell prompt</span>
+				</li>
+			</ul>
+		</section>
+
+		<section class="uses-section">
+			<h2>Editors</h2>
+			<ul>
+				<li>
+					<a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer">
+						Visual Studio Code
+					</a>
+					<span class="uses-desc">Primary editor</span>
+				</li>
+				<li>
+					<a href="https://www.vim.org" target="_blank" rel="noopener noreferrer">
+						Vim
+					</a>
+					<span class="uses-desc">Terminal / remote editing</span>
+				</li>
+			</ul>
+		</section>
+
+		<section class="uses-section">
+			<h2>Browser</h2>
+			<ul>
+				<li>
+					<a href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">
+						Google Chrome
+					</a>
+					<span class="uses-desc">Primary browser</span>
+				</li>
+				<li>
+					<span class="uses-desc">Occasionally trying other browsers too</span>
+				</li>
+			</ul>
+		</section>
+
+		<section class="uses-section">
+			<h2>Development</h2>
+			<ul>
+				<li>
+					<a href="https://git-scm.com" target="_blank" rel="noopener noreferrer">
+						Git
+					</a>
+					<span class="uses-desc">Version control via the command line</span>
+				</li>
+				<li>
+					<a href="https://github.com" target="_blank" rel="noopener noreferrer">
+						GitHub
+					</a>
+					<span class="uses-desc">Primary code host</span>
+				</li>
+				<li>
+					<a href="https://gitlab.com" target="_blank" rel="noopener noreferrer">
+						GitLab
+					</a>
+					<span class="uses-desc">Secondary code host</span>
+				</li>
+			</ul>
+		</section>
+
+		<section class="uses-section uses-section--secondary">
+			<h2>Infrastructure tools</h2>
+			<p class="uses-note">Secondary to the personal setup — the DevOps stack I reach for.</p>
+			<ul>
+				<li>
+					<a href="https://www.docker.com" target="_blank" rel="noopener noreferrer">
+						Docker
+					</a>
+					<span class="uses-desc">Container runtime</span>
+				</li>
+				<li>
+					<a href="https://kubernetes.io" target="_blank" rel="noopener noreferrer">
+						Kubernetes
+					</a>
+					<span class="uses-desc">Container orchestration</span>
+				</li>
+				<li>
+					<a href="https://www.terraform.io" target="_blank" rel="noopener noreferrer">
+						Terraform
+					</a>
+					<span class="uses-desc">Infrastructure as code</span>
+				</li>
+				<li>
+					<a href="https://www.ansible.com" target="_blank" rel="noopener noreferrer">
+						Ansible
+					</a>
+					<span class="uses-desc">Configuration management</span>
+				</li>
+			</ul>
+		</section>
+
+		<p>
+			<a class="back" href="/">
+				← Home
+			</a>
+		</p>
+	</div>
+
+	<style>
+		.uses-section {
+			margin-top: 40px;
+			padding-top: 24px;
+			border-top: 1px solid var(--line);
+		}
+		.uses-section:first-of-type {
+			margin-top: 32px;
+			padding-top: 0;
+			border-top: none;
+		}
+		.uses-section h2 {
+			margin: 0 0 12px;
+			font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+			letter-spacing: -0.02em;
+			line-height: 1.1;
+		}
+		.uses-section ul {
+			margin: 0;
+			padding-left: 1.2em;
+			list-style: disc;
+		}
+		.uses-section li {
+			margin: 4px 0;
+			line-height: 1.5;
+		}
+		.uses-section li a {
+			color: var(--fg);
+			text-decoration: underline;
+			text-decoration-color: color-mix(in srgb, var(--acc) 55%, transparent);
+			text-underline-offset: 4px;
+		}
+		.uses-section li a:hover,
+		.uses-section li a:focus-visible {
+			color: var(--acc);
+			text-decoration-color: var(--acc);
+		}
+		.uses-desc {
+			color: var(--mute);
+			font-size: 0.9375rem;
+		}
+		.uses-desc::before {
+			content: ' — ';
+			color: var(--mute);
+		}
+		.uses-note {
+			margin: 0 0 8px;
+			color: var(--mute);
+			font-size: 0.9375rem;
+			font-style: italic;
+		}
+		.uses-section--secondary {
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid var(--line);
+		}
+	</style>
 </KineticLayout>

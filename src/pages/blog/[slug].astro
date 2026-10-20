@@ -22,10 +22,14 @@ const mins = readingTime(post.body ?? '');
 const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 ---
 
-<KineticLayout title={post.data.title} description={post.data.description} active="/blog">
+<KineticLayout title={post.data.title} description={post.data.description}>
 	<div class="body">
 		<Crumb
-			trail={[{ href: '/', label: 'Home' }, { href: '/blog/', label: 'Blog' }, { label: 'Post' }]}
+			trail={[
+				{ href: '/', label: 'Home' },
+				{ href: '/blog/', label: 'Blog' },
+				{ label: post.data.title },
+			]}
 		/>
 		<h1 class="ptitle post-title">{post.data.title}</h1>
 		<p class="kmeta">
@@ -52,6 +56,7 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 					height={dims?.height}
 					loading="eager"
 					fetchpriority="high"
+					decoding="async"
 				/>
 			</figure>
 		)}

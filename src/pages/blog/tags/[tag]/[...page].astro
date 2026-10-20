@@ -37,13 +37,7 @@ const title = isFirstPage ? `Blog — ${tagName}` : `Blog — ${tagName} — Pag
 const description = `${total} article${total === 1 ? '' : 's'} tagged ${tagName} — notes by Marwan Ayman Shawky.`;
 ---
 
-<KineticLayout
-	title={title}
-	description={description}
-	active="/blog"
-	prev={page.url.prev}
-	next={page.url.next}
->
+<KineticLayout title={title} description={description} prev={page.url.prev} next={page.url.next}>
 	<div class="body">
 		<Crumb
 			trail={[{ href: '/', label: 'Home' }, { href: '/blog/', label: 'Blog' }, { label: tagName }]}

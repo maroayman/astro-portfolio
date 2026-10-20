@@ -6,8 +6,6 @@ import { profile } from '../data/portfolio';
 interface Props {
 	title?: string;
 	description?: string;
-	/** href of the active nav item, e.g. "/experience" — omit on homepage */
-	active?: string;
 	/** Pagination prev/next paths (e.g. "/blog/2/") — emitted as link tags for SEO. */
 	prev?: string;
 	next?: string;
@@ -17,7 +15,6 @@ const base = 'Marwan Ayman Shawky – Cloud & DevOps Engineer';
 const {
 	title = base,
 	description = 'Marwan Ayman Shawky is a Cloud and DevOps engineer in Cairo, Egypt, focused on infrastructure automation, GitOps, and reliable systems.',
-	active,
 	prev,
 	next,
 } = Astro.props;
@@ -75,9 +72,13 @@ const ogImage = new URL('/images/brand/og-image.png', siteOrigin).href;
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:site_name" content={profile.name} />
+		<meta property="og:locale" content="en_US" />
 		<meta property="og:image" content={ogImage} />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={`${profile.name} — ${title}`} />
 		<link
 			rel="preload"
 			href="/fonts/roboto-flex-var.woff2"
@@ -139,21 +140,16 @@ const ogImage = new URL('/images/brand/og-image.png', siteOrigin).href;
 				</ul>
 			</header>
 
-		<main id="main">
-			<slot />
-		</main>
+			<main id="main">
+				<slot />
+			</main>
 
-		<footer class="foot">
+			<footer class="foot">
 				<div class="mailrow">
 					<a id="mail" href={`mailto:${profile.email}`}>
 						{profile.email}
 					</a>
-					<button
-						class="copy"
-						id="copy"
-						type="button"
-						aria-label="Copy email address"
-					>
+					<button class="copy" id="copy" type="button" aria-label="Copy email address">
 						Copy
 					</button>
 					<span class="visually-hidden" id="copy-status" role="status"></span>

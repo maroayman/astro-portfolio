@@ -15,13 +15,16 @@
 # so local `pnpm dev` stays instant while Vercel/CI always pull fresh.
 #
 # Usage:
-#   bash scripts/images-pull.sh [--force]
+#   bash scripts/images-pull.sh [--force] [--clean]
 set -eu
+set -o pipefail
 
 FORCE=0
+CLEAN=0
 for arg in "$@"; do
   case "$arg" in
     --force) FORCE=1 ;;
+    --clean) CLEAN=1; FORCE=1 ;;
     -h|--help)
       sed -n '2,/^set /p' "$0"
       exit 0
@@ -84,6 +87,9 @@ if [ "$FORCE" = "1" ] && [ -n "$(find public/images public/favicon.ico -type f 2
   [ -f public/favicon.ico ] && cp public/favicon.ico "$BACKUP/" 2>/dev/null || true
   echo "note: pre-pull backup at $BACKUP" >&2
 fi
+if [ "$CLEAN" = "1" ]; then
+  rm -rf public/images
+fi
 mkdir -p public/images
 cp -r ./_images-tmp/src/public/images/. public/images/
 # Site favicon (Astro-namespaced in the artifact to avoid colliding with
@@ -113,6 +119,12 @@ if [ -f ./_images-tmp/src/manifest.txt ]; then
     done < manifest.txt
     # Restored paths must stay inside public/ (plus the manifest itself).
     BADPATHS=$(cut -d' ' -f5- manifest.txt | grep -vE '^(public/|manifest\.txt$)' || true)
+    TRAVERSAL=$(cut -d' ' -f5- manifest.txt | grep -E '(^|/)\.\./|(^|/)\.\.$' || true)
+    if [ -n "$TRAVERSAL" ]; then
+      echo "error: manifest contains path traversal:" >&2
+      printf '%s\n' "$TRAVERSAL" >&2
+      MISMATCH=1
+    fi
     if [ -n "$BADPATHS" ]; then
       echo "error: manifest escapes public:" >&2
       printf '%s\n' "$BADPATHS" >&2

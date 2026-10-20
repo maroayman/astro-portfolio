@@ -7,44 +7,125 @@ import { experience } from '../data/portfolio';
 <KineticLayout
 	title="Experience"
 	description="Career history of Marwan Ayman Shawky, a Cloud & DevOps Engineer working with Kubernetes, Terraform, CI/CD, and GitOps."
-	active="/experience"
 >
 	<div class="body">
-		<Crumb trail={[{ href: "/", label: "Home" }, { label: "Experience" }]} />
-		<h1 class="ptitle" id="name">Experience</h1>
-		<ul class="klist">
-			{
-				experience.map((role) => (
-					<li class="krow">
-						<div>
-							<h2>
-								{role.companyUrl ? (
-									<a href={role.companyUrl}>{role.company}</a>
-								) : (
-									<span>{role.company}</span>
-								)}
-							</h2>
-							<p class="kmeta">
-								{role.title} · {role.period} · {role.location}
-							</p>
-							<div class="kdesc">
-								<p>{role.description}</p>
-								<ul>
-									{role.highlights.map((h) => (
-										<li>{h}</li>
-									))}
-								</ul>
-							</div>
-							<ul class="ktags" aria-label="Stack">
-								{role.stack.map((s) => (
-									<li>{s}</li>
-								))}
-							</ul>
+		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Experience' }]} />
+		<h1 class="ptitle" id="name">
+			Experience
+		</h1>
+
+		<ul class="exp-cards">
+			{experience.map((role) => (
+				<li class="exp-card">
+					<header class="exp-card-head">
+						<div class="exp-card-title">
+							<h2>{role.company}</h2>
+							{role.companyUrl && (
+								<a
+									class="exp-link"
+									href={role.companyUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={`${role.company} website`}
+								>
+									<svg
+										width="14"
+										height="14"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"
+									>
+										<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+									</svg>
+								</a>
+							)}
 						</div>
-					</li>
-				))
-			}
+						<span class="exp-period">{role.period}</span>
+					</header>
+					<p class="exp-role">
+						{role.title} · {role.location}
+					</p>
+					<div class="kdesc">
+						<p>{role.description}</p>
+						<ul>
+							{role.highlights.map((h) => (
+								<li>{h}</li>
+							))}
+						</ul>
+					</div>
+					<ul class="ktags" aria-label="Stack">
+						{role.stack.map((s) => (
+							<li>{s}</li>
+						))}
+					</ul>
+				</li>
+			))}
 		</ul>
-		<p><a class="back" href="/">← Home</a></p>
+
+		<p>
+			<a class="back" href="/">
+				← Home
+			</a>
+		</p>
 	</div>
+
+	<style>
+		.exp-cards {
+			margin: 28px 0 0;
+			padding: 0;
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+		.exp-card {
+			padding: 24px 0;
+			border-bottom: 1px solid var(--line);
+		}
+		.exp-card-head {
+			display: flex;
+			align-items: baseline;
+			justify-content: space-between;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+		.exp-card-title {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.exp-card-title h2 {
+			margin: 0;
+			font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+			letter-spacing: -0.03em;
+			line-height: 1.1;
+		}
+		.exp-link {
+			display: inline-flex;
+			align-items: center;
+			color: var(--mute);
+			text-decoration: none;
+		}
+		.exp-link:hover,
+		.exp-link:focus-visible {
+			color: var(--acc);
+		}
+		.exp-period {
+			font-size: 0.875rem;
+			font-weight: 600;
+			color: var(--mute);
+			letter-spacing: -0.01em;
+			white-space: nowrap;
+		}
+		.exp-role {
+			margin: 6px 0 0;
+			color: var(--mute);
+			font-size: 0.9375rem;
+			font-weight: 600;
+		}
+	</style>
 </KineticLayout>

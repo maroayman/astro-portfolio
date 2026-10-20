@@ -44,7 +44,8 @@
 	font-family: 'Manrope Fallback';
 	font-style: normal;
 	font-weight: 551 800;
-	src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
+	src:
+		local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
 		local('LiberationSans-Bold');
 	ascent-override: 105.3881%;
 	descent-override: 29.6589%;

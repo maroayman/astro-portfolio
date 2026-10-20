@@ -54,11 +54,7 @@ public/
 ## ✏️ Editing content
 
 Everything you are likely to change is in **`src/data/portfolio.ts`** — name, role,
-links, stats, skills, experience, projects, certifications, education. No component edits needed.
-Availability is a single value (`availabilityStatus`: `'open'` | `'selective'` |
-`'unavailable'`) that drives the green/yellow/red indicator in the header, hero,
-and contact page.
-
+links, skills, experience, projects, certifications. No component edits needed.
 The data mirrors the Deno/Lume site at `~/Projects/deno` (`src/_data/*.yml`):
 experience, projects, certifications, and links were migrated from there, and the
 stack section condenses its `uses.yml` (hardware and site-meta groups left out).
@@ -94,6 +90,7 @@ GHCR method as the Deno site, sharing one package so the repo stays lean:
   plain `push` without `--pin` uploads but keeps the old digest; use `--pin`
   after adding/removing images so builds pick up the new digest, then update
   the Deno repo's pin too)
+- `pnpm images:dims` — regenerate `src/data/image-dims.json` from `public/images/` (run after adding images)
 - `pnpm images pull` — force re-pull (plain `pnpm dev` / `pnpm build` pull
   automatically, skipping when images already exist)
 - Vercel builds pull via `buildCommand` in `vercel.json`, bootstrapping its own
@@ -114,14 +111,14 @@ post extras in `src/pages/blog/[slug].astro`. Code blocks get copy buttons via
 Nav labels are short on purpose — every subpage carries a breadcrumb that maps
 the label to the page:
 
-| Nav label    | Breadcrumb          | Page                 |
-| :----------- | :------------------ | :------------------- |
-| Experience   | Home / Experience   | Experience           |
-| Projects     | Home / Projects     | Projects             |
-| Certifications | Home / Certifications | Certifications     |
-| Blog         | Home / Blog         | Blog                 |
-| Uses         | Home / Uses         | Uses                 |
-| Contact      | Home / Contact      | Contact              |
+| Nav label      | Breadcrumb            | Page           |
+| :------------- | :-------------------- | :------------- |
+| Experience     | Home / Experience     | Experience     |
+| Projects       | Home / Projects       | Projects       |
+| Certifications | Home / Certifications | Certifications |
+| Blog           | Home / Blog           | Blog           |
+| Uses           | Home / Uses           | Uses           |
+| Contact        | Home / Contact        | Contact        |
 
 Breadcrumbs render via `src/components/Crumb.astro` (`nav > ol` with
 `aria-current="page"`). Blog posts and tag archives extend it one level:
@@ -136,12 +133,12 @@ To change the domain (canonical URLs, sitemap, `robots.txt`), set `site` in
 **Kinetic** — minimal editorial. One giant variable display face for names and
 titles, mono labels, hairline rules, numbered archive rows, and one lime accent.
 
-| Token role       | Dark                  | Light                 |
-| :--------------- | :-------------------- | :-------------------- |
-| background       | `#0b0b0b`             | `#f2f1ec`             |
-| text / muted     | `#f2f1ec` / `#8e8e87` | `#0b0b0b` / `#63635c` |
-| accent (lime)    | `#d4ff3a`             | `#d4ff3a`             |
-| on-accent text   | `#0b0b0b`             | `#0b0b0b`             |
+| Token role     | Dark                  | Light                 |
+| :------------- | :-------------------- | :-------------------- |
+| background     | `#0b0b0b`             | `#f2f1ec`             |
+| text / muted   | `#f2f1ec` / `#8e8e87` | `#0b0b0b` / `#63635c` |
+| accent (lime)  | `#d4ff3a`             | `#d4ff3a`             |
+| on-accent text | `#0b0b0b`             | `#0b0b0b`             |
 
 Type: **Roboto Flex** (variable width + weight) for display, **Manrope**
 (variable, self-hosted) for body. Theme follows `prefers-color-scheme` via

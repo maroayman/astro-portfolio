@@ -79,7 +79,7 @@ default via 192.168.1.1 dev eth0
 
 ## DNS (Domain Name System)
 
-DNS resolves hostnames (like [`google.com`](http://google.com)) to IP addresses.
+DNS resolves hostnames (like [`google.com`](https://google.com)) to IP addresses.
 
 - Config file: `/etc/resolv.conf`
 

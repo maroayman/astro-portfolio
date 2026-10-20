@@ -5,7 +5,7 @@ import { certifications } from '../data/portfolio';
 
 /** Issuer → provider logo shown next to the title.
  *  Brand SVGs live in `public/icons/certs/` (transparent, no chip or
- *  background). To swap one, replace the file — no code change needed. */
+ *  background). Served as images with intrinsic dimensions. */
 const providers: Record<string, { label: string; src: string }> = {
 	'Microsoft Azure': { label: 'Microsoft Azure', src: '/icons/certs/microsoft.svg' },
 	'Google Cloud': { label: 'Google', src: '/icons/certs/google.svg' },
@@ -25,7 +25,6 @@ const badgeFor = (issuer: string) => providers[issuer] ?? fallback;
 <KineticLayout
 	title="Certifications"
 	description="Certifications earned by Marwan Ayman Shawky — Azure, GCP, AWS, Kubernetes, Linux, and Huawei credentials."
-	active="/certifications"
 >
 	<div class="body">
 		<Crumb trail={[{ href: '/', label: 'Home' }, { label: 'Certifications' }]} />
@@ -51,10 +50,19 @@ const badgeFor = (issuer: string) => providers[issuer] ?? fallback;
 										width="72"
 										height="72"
 										loading="lazy"
+										decoding="async"
 									/>
 								</span>
 							)}
-							<h2 class="cert__title">{cert.title}</h2>
+							<h2 class="cert__title">
+								{cert.url ? (
+									<a href={cert.url} target="_blank" rel="noopener noreferrer">
+										{cert.title}
+									</a>
+								) : (
+									cert.title
+								)}
+							</h2>
 							<p class="kmeta">
 								{cert.issuer} · {cert.date}
 							</p>

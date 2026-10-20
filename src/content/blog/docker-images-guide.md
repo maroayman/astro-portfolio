@@ -272,7 +272,7 @@ services:
   web:
     image: nginx
     ports:
-      - "8080:80"
+      - '8080:80'
   db:
     image: mysql:5.7
     environment:

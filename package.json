@@ -19,7 +19,8 @@
 		"images": "bash scripts/images.sh",
 		"images:pull": "bash scripts/images-pull.sh --force",
 		"images:push": "bash scripts/images-push.sh",
-		"astro": "astro"
+		"astro": "astro",
+		"images:dims": "bash scripts/image-dims.sh"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "^7.3.2",
