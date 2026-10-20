@@ -79,8 +79,8 @@ if (kineticName && !reduce && fine) {
 			running = false;
 			return;
 		}
-		cx += (tx - cx) * 0.07;
-		cy += (ty - cy) * 0.07;
+		cx += (tx - cx) * 0.15;
+		cy += (ty - cy) * 0.15;
 		kineticName.style.setProperty('--wd', (75 + cx * 76).toFixed(1));
 		kineticName.style.setProperty('--wg', String(Math.round(200 + (1 - cy) * 700)));
 		requestAnimationFrame(frame);

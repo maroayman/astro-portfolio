@@ -128,7 +128,7 @@ button {
 		'wght' var(--wg);
 	white-space: nowrap;
 	user-select: none;
-	transition: font-variation-settings 0.05s linear;
+	transition: font-variation-settings 0.02s linear;
 }
 .name span {
 	display: block;
