@@ -9,7 +9,6 @@ export default defineConfig({
 	site: 'https://maroayman.vercel.app',
 	redirects: {
 		'/skills': '/uses',
-		'/skills/': '/uses/',
 	},
 	integrations: [sitemap()],
 	markdown: {
