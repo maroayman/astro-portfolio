@@ -51,18 +51,38 @@ const description = `${total} article${total === 1 ? '' : 's'} tagged ${tagName}
 
 		<BlogRows posts={page.data} startIndex={page.start} />
 
-		<BlogPagination
-			currentPage={page.currentPage}
-			totalPages={page.lastPage}
-			prevUrl={page.url.prev}
-			nextUrl={page.url.next}
-			basePath={basePath}
-		/>
-
-		<p>
+		<div class="footnav">
 			<a class="back" href="/blog/">
 				← All articles
 			</a>
-		</p>
+			<BlogPagination
+				currentPage={page.currentPage}
+				totalPages={page.lastPage}
+				prevUrl={page.url.prev}
+				nextUrl={page.url.next}
+				basePath={basePath}
+			/>
+		</div>
 	</div>
+	<style>
+		.footnav {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			gap: 12px 20px;
+			margin-top: 24px;
+			padding-top: 12px;
+			border-top: none;
+		}
+		.footnav :global(.kpag) {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			justify-content: center;
+		}
+		.footnav .back {
+			margin-top: 0;
+		}
+	</style>
 </KineticLayout>

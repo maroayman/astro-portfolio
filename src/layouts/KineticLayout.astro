@@ -182,5 +182,10 @@ const ogImage = new URL('/images/brand/og-image.png', siteOrigin).href;
 		<script>
 			import '../scripts/chrome';
 		</script>
+		<script is:inline>
+			document.querySelectorAll('a[href^="/"]').forEach(function (a) {
+				a.setAttribute('data-astro-prefetch', '');
+			});
+		</script>
 	</body>
 </html>

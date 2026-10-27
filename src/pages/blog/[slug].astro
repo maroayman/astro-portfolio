@@ -23,6 +23,18 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 ---
 
 <KineticLayout title={post.data.title} description={post.data.description}>
+	<script
+		type="application/ld+json"
+		set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BlogPosting',
+			headline: post.data.title,
+			description: post.data.description,
+			datePublished: post.data.date.toISOString(),
+			author: { '@type': 'Person', name: 'Marwan Ayman Shawky' },
+			url: new URL(`/blog/${postSlug(post)}/`, Astro.site ?? Astro.url.origin).href,
+		})}
+	/>
 	<div class="body">
 		<Crumb
 			trail={[

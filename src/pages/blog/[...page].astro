@@ -17,7 +17,6 @@ interface Props {
 }
 
 const { page } = Astro.props as Props;
-const total = page.total;
 const isFirstPage = page.currentPage === 1;
 
 const title = isFirstPage ? 'Blog' : `Blog — Page ${page.currentPage}`;
@@ -31,29 +30,21 @@ const description =
 		<h1 class="ptitle" id="name">
 			Blog
 		</h1>
-		<p class="intro">
-			Field notes on Linux, Docker, Kubernetes, and cloud infrastructure — {total} guides from real
-			homelab and production work.{' '}
-			<a class="krss" href="/rss.xml">
-				RSS ↗
-			</a>
-		</p>
 
 		<BlogRows posts={page.data} startIndex={page.start} />
 
-		<BlogPagination
-			currentPage={page.currentPage}
-			totalPages={page.lastPage}
-			prevUrl={page.url.prev}
-			nextUrl={page.url.next}
-			basePath="/blog"
-		/>
-
-		<p>
+		<div class="footnav">
 			<a class="back" href="/">
 				← Home
 			</a>
-		</p>
+			<BlogPagination
+				currentPage={page.currentPage}
+				totalPages={page.lastPage}
+				prevUrl={page.url.prev}
+				nextUrl={page.url.next}
+				basePath="/blog"
+			/>
+		</div>
 	</div>
 	<script is:inline>
 		// Compat: old shareable filter URLs (/blog#tags=<slug>[,...]) redirect
@@ -72,5 +63,24 @@ const description =
 		color: var(--mute);
 		font-size: 0.875em;
 		white-space: nowrap;
+	}
+	.footnav {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 12px 20px;
+		margin-top: 24px;
+		padding-top: 12px;
+		border-top: none;
+	}
+	.footnav :global(.kpag) {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		justify-content: center;
+	}
+	.footnav .back {
+		margin-top: 0;
 	}
 </style>

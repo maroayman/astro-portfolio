@@ -1,7 +1,7 @@
 ---
 import KineticLayout from '../layouts/KineticLayout.astro';
 import Crumb from '../components/Crumb.astro';
-import { icons, projects } from '../data/portfolio';
+import { projects } from '../data/portfolio';
 ---
 
 <KineticLayout
@@ -18,39 +18,33 @@ import { icons, projects } from '../data/portfolio';
 			projects that got me here.
 		</p>
 
-		<ul class="klist">
+		<ol class="proj-timeline">
 			{projects.map((project) => (
-				<li class="krow">
-					<div>
-						<h2>
+				<li class="proj-timeline__item">
+					<span class="proj-timeline__dot" aria-hidden="true"></span>
+					<div class="proj-timeline__content">
+						<h2 class="proj-timeline__name">
 							{project.link ? (
 								<a class="proj-link" href={project.link} target="_blank" rel="noopener noreferrer">
 									{project.name}
-									<svg
-										class="gh-icon"
-										width="20"
-										height="20"
-										viewBox="0 0 24 24"
-										fill="currentColor"
-										aria-hidden="true"
-									>
-										<path d={project.link?.includes('gitlab.com') ? icons.gitlab : icons.github} />
-									</svg>
+									<span class="proj-link__arrow" aria-hidden="true">↗</span>
 								</a>
 							) : (
-								<span>{project.name}</span>
+								project.name
 							)}
 						</h2>
-						<p class="kdesc">{project.description}</p>
-						<ul class="ktags" aria-label="Tags">
-							{project.tags.map((t) => (
-								<li>{t}</li>
-							))}
-						</ul>
+						<p class="proj-timeline__desc">{project.description}</p>
+						{project.tags.length > 0 && (
+							<p class="proj-timeline__tags">
+								{project.tags.map((tag) => (
+									<span>{tag}</span>
+								))}
+							</p>
+						)}
 					</div>
 				</li>
 			))}
-		</ul>
+		</ol>
 
 		<p>
 			<a class="back" href="/">
@@ -60,14 +54,68 @@ import { icons, projects } from '../data/portfolio';
 	</div>
 
 	<style>
-		.gh-icon {
-			vertical-align: -3px;
-			color: var(--mute);
-			margin-left: 0.4rem;
+		.proj-timeline {
+			list-style: none;
+			padding: 0 0 0 24px;
+			margin: 1.5rem 0;
+			border-left: 1px solid var(--line);
 		}
-		.proj-link:hover .gh-icon,
-		.proj-link:focus-visible .gh-icon {
+		.proj-timeline__item {
+			position: relative;
+			padding: 12px 0;
+		}
+		.proj-timeline__dot {
+			position: absolute;
+			left: -29px;
+			top: 18px;
+			width: 9px;
+			height: 9px;
+			border-radius: 50%;
+			background: var(--acc);
+			box-shadow: 0 0 0 3px var(--bg);
+		}
+		.proj-timeline__name {
+			font-size: 1.2rem;
+			font-weight: 600;
+			margin: 0;
+		}
+		.proj-link {
+			color: var(--fg);
+			text-decoration: none;
+		}
+		.proj-link:hover,
+		.proj-link:focus-visible {
 			color: var(--acc);
+			text-decoration: none;
+		}
+		.proj-link__arrow {
+			color: var(--mute);
+			margin-left: 0.3rem;
+			font-size: 0.85em;
+		}
+		.proj-timeline__desc {
+			color: var(--fg);
+			font-size: 1rem;
+			margin: 4px 0 0;
+			opacity: 0.85;
+		}
+		.proj-timeline__tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px;
+			margin: 6px 0 0;
+		}
+		.proj-timeline__tags span {
+			color: var(--mute);
+			font-size: 0.75rem;
+			padding: 2px 8px;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			transition: border-color 0.15s ease, color 0.15s ease;
+		}
+		.proj-timeline__tags span:hover {
+			color: var(--acc);
+			border-color: var(--acc);
 		}
 	</style>
 </KineticLayout>

@@ -6,6 +6,7 @@ import imageDims from './src/plugins/image-dims.ts';
 
 // https://astro.build/config
 export default defineConfig({
+	prefetch: true,
 	site: 'https://maroayman.vercel.app',
 	redirects: {
 		'/skills': '/uses',

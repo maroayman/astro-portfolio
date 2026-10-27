@@ -4,57 +4,53 @@ import { formatDate, postSlug, type BlogPost } from '../utils/blog';
 interface Props {
 	/** Posts to render (already ordered newest-first). */
 	posts: BlogPost[];
-	/** Global index of posts[0] within the full sorted archive (for stable numbering). */
+	/** Global index of posts[0] within the full sorted archive (kept for compat). */
 	startIndex?: number;
 }
 
-const { posts, startIndex = 0 } = Astro.props;
+const { posts } = Astro.props;
 ---
 
-<ol class="klist klist--numbered">
-	{posts.map((post, i) => {
-		const n = startIndex + i;
-		return (
-			<li class="krow">
-				<span class="krow__index" aria-hidden="true">
-					{String(n + 1).padStart(2, '0')}
-				</span>
-				<div class="krow__body">
-					<h2 class="krow__title">
-						<a href={`/blog/${postSlug(post)}/`}>{post.data.title}</a>
-					</h2>
-					<p class="kmeta">
-						<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-					</p>
-				</div>
-			</li>
-		);
-	})}
+<ol class="plain-list">
+	{posts.map((post) => (
+		<li class="plain-row">
+			<time class="archive-date" datetime={post.data.date.toISOString()}>
+				{formatDate(post.data.date)}
+			</time>
+			<a class="plain-title" href={`/blog/${postSlug(post)}/`}>
+				{post.data.title}
+			</a>
+		</li>
+	))}
 </ol>
 
 <style>
-	.klist--numbered {
-		counter-reset: none;
+	.plain-list {
+		list-style: none;
+		padding: 0;
+		margin: 32px 0 0;
 	}
-	.klist--numbered > li {
+	.plain-row {
 		display: grid;
-		grid-template-columns: 3.2rem minmax(0, 1fr);
-		gap: 4px 16px;
+		grid-template-columns: 6.5rem minmax(0, 1fr);
+		gap: 8px 16px;
 		align-items: baseline;
+		padding: 6px 0;
 	}
-	.krow__index {
-		font-size: 0.9375rem;
-		font-weight: 800;
-		color: var(--acc);
+	.archive-date {
+		color: var(--mute);
+		font-size: 0.8125rem;
 		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
 	}
-	.krow__title {
-		font-size: clamp(1.3rem, 2.4vw, 2rem);
+	.plain-title {
+		color: var(--fg);
+		text-decoration: none;
+		font-size: 1.4rem;
 	}
-	@media (max-width: 760px) {
-		.klist--numbered > li {
-			grid-template-columns: minmax(0, 1fr);
-			gap: 2px;
-		}
+	.plain-title:hover,
+	.plain-title:focus-visible {
+		color: var(--acc);
+		text-decoration: none !important;
 	}
 </style>
