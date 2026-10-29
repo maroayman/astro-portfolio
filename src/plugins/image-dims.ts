@@ -18,6 +18,8 @@ export default function imageDims() {
 					props.width = known.width;
 					props.height = known.height;
 				}
+				if (props.loading === undefined) props.loading = 'lazy';
+				if (props.decoding === undefined) props.decoding = 'async';
 			}
 			if (Array.isArray(node?.children)) node.children.forEach(walk);
 		};

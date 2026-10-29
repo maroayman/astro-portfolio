@@ -27,7 +27,9 @@ import { projects } from '../data/portfolio';
 							{project.link ? (
 								<a class="proj-link" href={project.link} target="_blank" rel="noopener noreferrer">
 									{project.name}
-									<span class="proj-link__arrow" aria-hidden="true">↗</span>
+									<span class="proj-link__arrow" aria-hidden="true">
+										↗
+									</span>
 								</a>
 							) : (
 								project.name
@@ -111,7 +113,9 @@ import { projects } from '../data/portfolio';
 			padding: 2px 8px;
 			border: 1px solid var(--line);
 			border-radius: 999px;
-			transition: border-color 0.15s ease, color 0.15s ease;
+			transition:
+				border-color 0.15s ease,
+				color 0.15s ease;
 		}
 		.proj-timeline__tags span:hover {
 			color: var(--acc);

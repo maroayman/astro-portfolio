@@ -8,7 +8,7 @@ const latest = posts[0];
 
 const peek = {
 	experience: `${experience[0].title} at ${experience[0].company}, ${experience[0].period}`,
-	projects: `${projects[0].name}, and ${projects[1].name}`,
+	projects: `${projects[0].name}`,
 	certifications: `${certifications.length} credentials — ${certifications[0].title}`,
 	blog: latest ? latest.data.title : `${posts.length} guides and notes`,
 	uses: `${skills[0].items.slice(0, 4).join(', ')} and more`,

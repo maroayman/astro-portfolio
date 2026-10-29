@@ -44,21 +44,25 @@ if (mail) {
 // Peek line (homepage only): instant preview on hover and focus.
 const peek = $('peek');
 const links = [...document.querySelectorAll<HTMLAnchorElement>('.nav a')];
+const finePointer = matchMedia('(pointer: fine)').matches;
 if (peek && links.length) {
-	const def = peek.textContent;
+	const def = finePointer ? peek.textContent : 'Tap a page to open it.';
+	if (!finePointer) peek.textContent = def;
 	const show = (a: HTMLAnchorElement): void => {
 		peek.textContent = a.dataset.peek ?? def;
 	};
-	links.forEach((a) => {
-		a.addEventListener('mouseenter', () => show(a));
-		a.addEventListener('focus', () => show(a));
-	});
-	document.querySelector('.nav')?.addEventListener('mouseleave', () => {
-		peek.textContent = def;
-	});
-	document.querySelector('.nav')?.addEventListener('focusout', () => {
-		peek.textContent = def;
-	});
+	if (finePointer) {
+		links.forEach((a) => {
+			a.addEventListener('mouseenter', () => show(a));
+			a.addEventListener('focus', () => show(a));
+		});
+		document.querySelector('.nav')?.addEventListener('mouseleave', () => {
+			peek.textContent = def;
+		});
+		document.querySelector('.nav')?.addEventListener('focusout', () => {
+			peek.textContent = def;
+		});
+	}
 }
 
 // Kinetic name: width follows pointer x, weight follows pointer y.

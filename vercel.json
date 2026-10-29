@@ -1,5 +1,12 @@
 {
 	"buildCommand": "bash scripts/images-pull.sh --force && astro build",
+	"redirects": [
+		{
+			"source": "/resume.pdf",
+			"destination": "/resume",
+			"permanent": true
+		}
+	],
 	"rewrites": [
 		{
 			"source": "/resume",
@@ -64,6 +71,10 @@
 		{
 			"source": "/(.*)",
 			"headers": [
+				{
+					"key": "Strict-Transport-Security",
+					"value": "max-age=31536000; includeSubDomains"
+				},
 				{
 					"key": "X-Content-Type-Options",
 					"value": "nosniff"

@@ -19,7 +19,9 @@ export async function getStaticPaths() {
 const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
 const mins = readingTime(post.body ?? '');
-const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
+const dims = post.data.cover
+	? (coverDims[post.data.cover] ?? { width: 1024, height: 683 })
+	: undefined;
 ---
 
 <KineticLayout title={post.data.title} description={post.data.description}>
@@ -63,7 +65,7 @@ const dims = post.data.cover ? coverDims[post.data.cover] : undefined;
 			<figure class="cover">
 				<img
 					src={post.data.cover}
-					alt=""
+					alt={post.data.title}
 					width={dims?.width}
 					height={dims?.height}
 					loading="eager"

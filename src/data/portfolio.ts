@@ -175,80 +175,80 @@ export type Project = {
 
 export const projects: Project[] = [
 	{
-		name: '3-Tier GitOps App on EKS',
+		name: 'Kubernetes CI/CD Automation with GitHub Actions & ArgoCD',
 		description:
 			'A complete 3-tier notes application with GitOps CI/CD pipeline using GitHub Actions, Terraform, Ansible, Helm, and ArgoCD on AWS EKS.',
 		tags: ['GitHub Actions', 'Terraform', 'Ansible', 'Helm', 'ArgoCD', 'AWS EKS', 'Kubernetes'],
 		link: 'https://github.com/maroayman/depi-notes-app-gitops',
 	},
 	{
-		name: 'Highly Available AWS Infrastructure',
+		name: 'Terraform-Driven AWS Infrastructure Deployment',
 		description:
 			'A highly available, scalable web application infrastructure on AWS with ALB, Auto Scaling Group, and secure multi-AZ network architecture.',
 		tags: ['AWS', 'Terraform', 'ALB', 'Auto Scaling', 'VPC', 'EC2'],
 		link: 'https://github.com/maroayman/depi-project-5',
 	},
 	{
-		name: 'Terraform EC2 Monitoring Stack',
+		name: 'Terraform-Provisioned AWS EC2 Monitoring Stack',
 		description:
 			'A production-ready Terraform project that automates the deployment of secure EC2 instances on AWS with real-time monitoring.',
 		tags: ['Terraform', 'AWS EC2', 'Monitoring', 'SSH'],
 		link: 'https://github.com/maroayman/depi-project-4',
 	},
 	{
-		name: 'Dockerized Flask Production Stack',
+		name: 'Containerized Flask Production Stack on AWS with Docker, Nginx, and MySQL',
 		description:
 			'A complete end-to-end web application deployed on AWS EC2 with production-ready features and monitoring.',
 		tags: ['Docker', 'Flask', 'Nginx', 'MySQL', 'SQLAlchemy', 'AWS EC2'],
 		link: 'https://github.com/maroayman/depi-project-3',
 	},
 	{
-		name: 'Ansible-Managed Go Web App',
+		name: 'Ansible-Automated Go Web Application with SQLite and Cron',
 		description:
 			'A Go-based web application for note management with Ansible automation and scheduled tasks.',
 		tags: ['Go', 'Ansible', 'SQLite', 'Cron'],
 		link: 'https://github.com/maroayman/depi-project-2/',
 	},
 	{
-		name: 'Flask App with Persistent AWS Storage',
+		name: 'Flask Application on AWS EC2 with Persistent EBS and MariaDB',
 		description:
 			'A full-stack note-taking application on AWS infrastructure with EBS backup and MariaDB.',
 		tags: ['Flask', 'AWS EC2', 'AWS EBS', 'MariaDB', 'SQLAlchemy'],
 		link: 'https://github.com/maroayman/depi-project-1/',
 	},
 	{
-		name: '2D Platformer Game',
+		name: 'Unity 2D Platformer Game in C#',
 		description:
 			'A 2D platformer game built with Unity and C#, featuring collaborative development and asset integration.',
 		tags: ['Unity', 'C#', 'Game Development'],
 		link: 'https://github.com/maroayman/unity-game',
 	},
 	{
-		name: 'E-Commerce Platform',
+		name: 'Full-Stack E-Commerce Platform with Angular, ASP.NET, and SQL Server',
 		description:
 			'Graduation project — a comprehensive e-commerce platform with YouTube integration for product recommendations.',
 		tags: ['Angular', 'ASP.NET', 'Bootstrap', 'SQL Server', 'YouTube API'],
 	},
 	{
-		name: 'File Encryption Tool',
+		name: 'Python File Encryption and Decryption Utility',
 		description:
 			'A Python-based security application implementing encryption and decryption techniques.',
 		tags: ['Python', 'Encryption', 'Security'],
 	},
 	{
-		name: 'Football Analytics Dashboard',
+		name: 'Football Analytics Dashboard with Microsoft Power BI',
 		description:
 			'Interactive data visualization dashboard built with Microsoft Power BI for football analytics.',
 		tags: ['Power BI', 'Data Visualization', 'Kaggle'],
 	},
 	{
-		name: 'Learning Management System',
+		name: 'Java Learning Management System with Role-Based Access Control',
 		description: 'A Java-based LMS with role-based access control for educational institutions.',
 		tags: ['Java', 'Java Swing', 'SQLite', 'Role-Based Access Control'],
 		link: 'https://github.com/maroayman/Learning-System',
 	},
 	{
-		name: 'Linux File Link Utility',
+		name: 'C-Based Linux File Link Management Utility',
 		description:
 			'A C-based terminal utility for creating and managing file links in Linux environments.',
 		tags: ['C', 'Linux', 'Ubuntu'],
